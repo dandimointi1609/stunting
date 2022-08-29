@@ -1,0 +1,10 @@
+
+            layerkita.on('click',(e)=>{                
+                $.getJSON('titik/lokasi/'+feature.properties.kec, function(detail){
+                    $.each(detail, function(index){
+                alert(detail[index].nama_kecamatan);
+
+                L.marker([parseFloat(detail[index].latitude), parseFloat(detail[index].longitude)]).addTo(leafletMap); 
+            });
+                });
+            });
