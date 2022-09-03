@@ -1,0 +1,12 @@
+{
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+
+    "bracket-pair-colorizer-2.scopeLineCSS": [
+		"borderStyle : dotted",
+		"borderWidth : 1px",
+		"borderColor : activityBarBadge.background",
+	]
+
+}
+

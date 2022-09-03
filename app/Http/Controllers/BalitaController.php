@@ -20,7 +20,7 @@ class BalitaController extends Controller
      */
     public function index()
     {
-        //  return view('balita');
+
         $balita = Balita::all();
 
         return view('balita', [ 'balita' =>$balita]);

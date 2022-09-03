@@ -1,3 +1,6 @@
+composer install --ignore-platform-reqs
+
+
 SELECT t_puskes.id_puskes, t_desa.nama_desa, t_puskes.nama_puskes, t_puskes.jumlah_balita, t_puskes.pendek, t_puskes.sangat_pendek,
 SUM(t_puskes.pendek + t_puskes.sangat_pendek) AS total FROM t_puskes INNER JOIN t_desa ON t_desa.id_desa=t_puskes.id_desa
 GROUP BY id_puskes;

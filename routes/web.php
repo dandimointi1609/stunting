@@ -63,7 +63,7 @@ Route::get('/ubahpuskes/{id_puskes}', 'PuskesController@edit')->name('edit-puske
 Route::put('/puskes/update/{id_puskes}', 'PuskesController@update');
 Route::get('/delete-puskes/{id_puskes}', 'PuskesController@destroy')->name('delete-puskes');
 
-// //MAP PUSKESMAS
+// MAP PUSKESMAS
 // Route::get('tambahpuskes', 'PuskesController@create');
 Route::get('/puskes/json', 'PuskesController@puskes');
 Route::get('/puskes/lokasip/{id_puskes}', 'PuskesController@lokasip');

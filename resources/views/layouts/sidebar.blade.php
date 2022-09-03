@@ -9,7 +9,8 @@
             </li>
             @guest
             @else
-            @if (Auth::user()->level=='bptd') 
+            @if (Auth::user()->level=='bptd')
+            @elseif (Auth::user()->level=='admin')
             <li class="mega-menu mega-menu-sm">
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Wilayah</span>
@@ -26,6 +27,7 @@
             @guest
             @else
             @if (Auth::user()->level=='puskes')
+            @elseif (Auth::user()->level=='admin')
             <li class="mega-menu mega-menu-sm">
                 <a  href="/puskes" aria-expanded="false">
                     <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Puskesmas</span>
@@ -37,6 +39,7 @@
             @guest
             @else
             @if (Auth::user()->level=='puskes')
+            @elseif (Auth::user()->level=='admin')
             <li class="mega-menu mega-menu-sm">
                 <a href="/balita" aria-expanded="false">
                     <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Penderita Stunting</span>
@@ -48,7 +51,7 @@
             @guest
             @else
             @if (Auth::user()->level=='dinkes') 
-            {{-- @if (Auth::user()->level=='dinkes') --}}
+            @elseif (Auth::user()->level=='admin')
             <li class="mega-menu mega-menu-sm">
                 <a  href="/dpravelensi" aria-expanded="false">
                     <i class="icon-globe-alt menu-icon"></i><span class="nav-text"> Data Pravelensi</span>
@@ -59,7 +62,7 @@
 
             @guest
             @else 
-            @if (Auth::user()->level=='admin')
+            @if (Auth::user()->level=='admin')            
             <li class="mega-menu mega-menu-sm">
                 <a href="{{ url('user') }}" aria-expanded="false">
                     <i class="icon-user menu-icon"></i><span class="nav-text"> Data Admin</span>
@@ -71,6 +74,7 @@
             @guest
             @else 
             @if (Auth::user()->level=='dinkes')
+            @elseif (Auth::user()->level=='admin')
             <li class="mega-menu mega-menu-sm">
                 <a  href="/laporan" aria-expanded="false">
                     <i class="icon-notebook menu-icon"></i><span class="nav-text"> Laporan Data Penderita</span>

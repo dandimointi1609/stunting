@@ -106,7 +106,7 @@ class KecamatanController extends Controller
     {
         // $kecamatan = Kecamatan::find($id_kecamatan);
         // $kecamatan->nama_kecamatan = $request->nama_kecamatan;
-        // // $kecamatan->id_kecamatan = $request->kecamatan;
+        // $kecamatan->id_kecamatan = $request->kecamatan;
         // $kecamatan->update();
 
         // return redirect('/kecamatan');

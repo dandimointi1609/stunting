@@ -23,9 +23,9 @@
                             <div class="row mt-4 ml-2">
                                 <div class="col">
                                     <form method="POST" action="/laporan" class="form-inline">
-                                        <input type="date" name="tgl_mulai" class="form-control">
+                                        {{-- <input type="date" name="tgl_mulai" class="form-control">
                                         <input type="date" name="tgl_selesai" class="form-control ml-1">
-                                        <button type="submit" name="filter_tanggal" class="btn mb-1 btn-outline-primary ml-1" >Filter</button>
+                                        <button type="submit" name="filter_tanggal" class="btn mb-1 btn-outline-primary ml-1" >Filter</button> --}}
 
                                         <a style="float: right;" class="btn mb-1 btn-outline-success ml-1   " href={{ route ('penderitaexport') }}>Export Excel</a>
                                         <a style="float: right;" class="btn mb-1 btn-outline-danger ml-1" href={{ route ('penderitapdf') }}>Export Pdf</a>
@@ -42,7 +42,6 @@
                                         <th>Kecamatan</th>
                                         <th>Puskesmas</th>
                                         <th>Desa/Kelurahan</th>
-                                        {{-- <th>Jumlah Balita</th> --}}
                                         <th>Pendek</th>
                                         <th>Sangat Pendek</th>
                                         <th>Total Balita sangat Pendek+Pendek</th>
