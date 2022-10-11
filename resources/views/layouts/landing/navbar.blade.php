@@ -4,7 +4,7 @@
       <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Tivo</a> -->
 
       <!-- Image Logo -->
-      <a class="navbar-brand logo-image" href="index.html"><img src="landing/images/logo.png" /></a>
+      <a class="navbar-brand logo-image" href="index.html"><img src="landing/images/Logoweb.png" /></a>
 
       <!-- Mobile Menu Toggle Button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">

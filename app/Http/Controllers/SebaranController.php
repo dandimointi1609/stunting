@@ -9,6 +9,8 @@ use App\models\Puskes;
 use App\models\Balita;
 use App\models\TitikModel;
 use App\models\PuskesModel;
+use App\models\KecamatanModel;
+
 
 
 
@@ -22,6 +24,7 @@ class SebaranController extends Controller
     public function __construct()
     {
         $this->TitikModel= new TitikModel();
+        $this->KecamatanModel= new KecamatanModel();
         $this->PuskesModel= new PuskesModel();
 
     }
@@ -33,23 +36,15 @@ class SebaranController extends Controller
     public function index()
     {
         $results = $this->TitikModel->allLokasi();
-        // return json_encode($results);
-        // $results = $this->PuskesModel->puskesLokasi();
-        return view('sebaran', [ 'lokasi' =>$results]);
+        $pencarian = $this->TitikModel->allPencarian();
+
+        return view('sebaran')->with([
+            'lokasi' => $results,
+            'pencarian' => $pencarian
+
+        ]);
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function indexs()
-    // {
-    //     $results = $this->TitikModel->allLokasi();
-    //     // $results = $this->PuskesModel->allLokasi();
-    //     return view('sebaran', [ 'lokasi' =>$results]);
-    // }
 
      /**
      * Display a listing of the resource.

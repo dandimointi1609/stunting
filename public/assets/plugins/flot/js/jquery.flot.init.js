@@ -536,8 +536,8 @@ $(function() {
             labelMargin: 5
         },
         xaxis: {
-            color: 'transparent',
             font: {
+                color: 'transparent',
                 size: 10,
                 color: '#fff'
             }

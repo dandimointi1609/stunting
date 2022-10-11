@@ -24,8 +24,6 @@ class PuskesController extends Controller
         $kecamatan = Kecamatan::get();
         $desa = Desa::get();
         return view('puskes', [ 'puskes' =>$puskes]);
-        // return view('tambahpuskes', compact('kecamatan','desa','puskes'));
-
     }
 
          /**

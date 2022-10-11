@@ -41,7 +41,6 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-validation">
-                            {{-- <form class="form-valide" action="#" method="post"> --}}
                                     <form class="form-valide" action="/desa" method="post">
                                         {{ csrf_field() }}
                                 <div class="form-group row" {{ $errors->has('kd_kecamatan') ? ' has-error' : '' }}">
@@ -49,7 +48,6 @@
                                     </label>
                                     <div class="col-lg-5">
                                         <div class="input-group">
-                                        {{-- <input type="text" class="form-control" id="val-kabupaten" name="val-kabupaten" > --}}
                                         <input  class="form-control" id="kd_kecamatan" type="hidden" name="kd_kecamatan" value="{{ old('kd_kecamatan') }}" readonly="" required >
                                         <input type="text" class="form-control" id="nama_kecamatan" type="text" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}" required readonly="" >
                                         <span class="input-group-btn">
@@ -85,7 +83,7 @@
             </div>
         </div>
     </div>
-    <!-- #/ container -->
+
 </div>
 
 {{-- modal --}}
@@ -111,12 +109,6 @@
                                 @foreach($kecamatan as $data)
                                 <tr data-dismiss="modal" aria-label="Close" class="pilih_kecamatan"  data-kecamatan="<?php echo $data->nama_kecamatan; ?>" data-kd_kecamatan="<?php echo $data->kd_kecamatan; ?>" >
                                     <td class="py-1">
-                        {{-- @if($data->user->gambar)
-                            <img src="{{url('images/user', $data->user->gambar)}}" alt="image" style="margin-right: 10px;" />
-                        @else
-                            <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px;" />
-                        @endif --}}
-
                                 {{$data->nama_kecamatan}}
                             </td>
                             </tr>

@@ -101,7 +101,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button style="float: right; type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -137,12 +137,6 @@
                                 @foreach($desa as $data)
                                 <tr data-dismiss="modal" aria-label="Close" class="pilih_kecamatan"  data-kecamatan="<?php echo $data->kecamatan->nama_kecamatan; ?>" data-kd_kecamatan="<?php echo $data->kd_kecamatan; ?>" >
                                     <td class="py-1">
-                        {{-- @if($data->user->gambar)
-                            <img src="{{url('images/user', $data->user->gambar)}}" alt="image" style="margin-right: 10px;" />
-                        @else
-                            <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px;" />
-                        @endif --}}
-
                                 {{$data->kecamatan->nama_kecamatan}}
                             </td>
                             </tr>
@@ -177,12 +171,6 @@
                                 @foreach($desa as $data)
                                 <tr data-dismiss="modal" aria-label="Close" class="pilih_desa"  data-desa="<?php echo $data->nama_desa; ?>" data-kd_desa="<?php echo $data->kd_desa; ?>" >
                                     <td class="py-1">
-                        {{-- @if($data->user->gambar)
-                            <img src="{{url('images/user', $data->user->gambar)}}" alt="image" style="margin-right: 10px;" />
-                        @else
-                            <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px;" />
-                        @endif --}}
-
                                 {{$data->nama_desa}}
                             </td>
                             </tr>
@@ -194,87 +182,130 @@
             </div>
         </div>
 </div>
-<?php
-$kecamatan = [
-			"BUNTULIA"=>"#ff0000",
-			 "DENGILO"=>"#041C32",
-			 "DUHIADAA"=>"#A13333",
-			 "LEMITO"=>"#B3541E",
-			 "Marisa"=>"#864879",
-			 "PAGUAT"=>"#1E5128",
-			 "PATILANGGIO"=>"#FEC260",
-			 "POPAYATO"=>"#261C2C",
-			];
-
-?>
-
-
-<script>
-     // you want to get it of the window global
-     const providerOSM = new GeoSearch.OpenStreetMapProvider();
-
-    //leaflet map
-    var leafletMap = L.map('map', {
-    fullscreenControl: true,
-
-    fullscreenControl: {
-        pseudoFullscreen: false 
-    },
-    minZoom: 2
-    }).setView([0.6665875, 121.647892], 10);
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-		maxZoom: 19,
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		id: 'mapbox/streets-v11',
-		tileSize: 512,
-		zoomOffset: -1
-    }).addTo(leafletMap);
-
-    let theMarker = {};
-
-    leafletMap.on('click',function(e) {
-        let latitude  = e.latlng.lat.toString().substring(0,15);
-        let longitude = e.latlng.lng.toString().substring(0,15);
-
-        document.getElementById("latitude").value = latitude;
-        document.getElementById("longitude").value = longitude;
-
-        let popup = L.popup()
-            .setLatLng([latitude,longitude])
-            .setContent("Kordinat : " + latitude +" - "+  longitude)
-            .openOn(leafletMap);
-
-        if (theMarker != undefined) {
-            leafletMap.removeLayer(theMarker);
-        };
-        theMarker = L.marker([latitude,longitude]).addTo(leafletMap);  
-    });
-
-    $.getJSON('assets/popayato1.geojson', function(json) {
-     geoLayer = L.geojson(json, {
-            style: function(feature) {
-                return{
-                    fillOpacity: 0.3,
-                    weight: 5,
-                    opacity: 1,
-                    color: "#008cff"
-                };
-            },
-            onEachFeature: function(features, layer) {
-                layer.addTo(leafletMap);
-            }
-        });
-    })
-
-    const search = new GeoSearch.GeoSearchControl({
-        provider: providerOSM,
-        style: 'bar',
-        searchLabel: 'Sinjai',
-    });
-
-    leafletMap.addControl(search);
-</script>
 
 @endsection
+
+@push('update')
+<script>
+    // you want to get it of the window global
+    const providerOSM = new GeoSearch.OpenStreetMapProvider();
+
+   //leaflet map
+   var leafletMap = L.map('map', {
+   fullscreenControl: true,
+
+   fullscreenControl: {
+       pseudoFullscreen: false 
+   },
+   minZoom: 2
+   }).setView([0.6665875, 121.647892], 10);
+
+   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+       maxZoom: 19,
+       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+       id: 'mapbox/streets-v11',
+       tileSize: 512,
+       zoomOffset: -1
+   }).addTo(leafletMap);
+
+
+    //ICON
+       var puskesIcon = L.icon({
+   iconUrl: 'webmap/icons/puskes.png',
+   iconSize:     [24, 28], // size of the icon
+   shadowSize:   [50, 64], // size of the shadow
+   iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+   shadowAnchor: [4, 62],  // the same for the shadow
+   popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+     
+// MARKER DATABSE
+     var puskesLayer;
+     $( document ).ready(function(){
+         $.getJSON('puskes/json/', function(data){
+             $.each(data, function(index){                
+                 L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)], {icon: puskesIcon}).bindPopup(
+                                                                                                                                 "Puskesmas : " + (data[index].nama_puskes + "<br  />" 
+                                                                                                   
+                                                                                                                               )).addTo(leafletMap);                                                                                                             
+   
+             });
+         });
+     });
+
+        
+     // MARKER DATABSE DESA
+        var desaLayer;
+    $( document ).ready(function(){
+        $.getJSON('desa/json/', function(data){
+            $.each(data, function(index){                
+                L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)]).bindPopup(
+                                                                                                                                "Puskesmas : " + (data[index].nama_desa + "<br  />" 
+                                                                                                  
+                                                                                                                              )).addTo(leafletMap);                                                                                                             
+  
+            });
+        });
+    });
+
+
+   
+     
+    //GEOJSON DATABASE
+     var geoLayer;
+     $.getJSON('assets/popayato1.geojson', function(json){
+           geoLayer =  L.geoJSON(json, {
+             style: function (feature) {
+                 return {
+                     fillOpacity: 0.2,
+                     weight: 1,
+                     opacity: 1,
+                     color: "#008cff"
+                 };
+             },
+ 
+             onEachFeature: function(feature, layer) {
+                 var iconLabel = L.divIcon({
+                 className: 'label-bidang',
+                 html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+                 iconSize: [100, 20]
+             });
+             L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+                        // alert(feature.properties.kd_kecamatan)
+                 layer.addTo(leafletMap);
+             }
+         });
+     })
+
+   //INSERT PUSKES
+   let theMarker = {};
+   leafletMap.on('click',function(e) {
+       let latitude  = e.latlng.lat.toString().substring(0,15);
+       let longitude = e.latlng.lng.toString().substring(0,15);
+
+       document.getElementById("latitude").value = latitude;
+       document.getElementById("longitude").value = longitude;
+
+       let popup = L.popup()
+           .setLatLng([latitude,longitude])
+           .setContent("Kordinat : " + latitude +" - "+  longitude)
+           .openOn(leafletMap);
+
+       if (theMarker != undefined) {
+           leafletMap.removeLayer(theMarker);
+       };
+       theMarker = L.marker([latitude,longitude]).addTo(leafletMap);  
+   });
+
+
+   const search = new GeoSearch.GeoSearchControl({
+       provider: providerOSM,
+       style: 'bar',
+       searchLabel: 'Pohuwato',
+   });
+
+   leafletMap.addControl(search);
+</script>
+@endpush

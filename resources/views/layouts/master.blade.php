@@ -16,14 +16,10 @@
     <!-- Custom Stylesheet -->
     <link href="../assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
-        
-    {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-    crossorigin=""/>
-     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-    crossorigin=""></script> --}}
 
+    <link rel="stylesheet" href="../assets/leaflet-control-window/src/L.Control.Window.css" />
+
+        
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -38,7 +34,9 @@
 
     {{-- <link rel="stylesheet" type="text/css" href="webmap/Chartjs/Chart.min.css">
     <script type="text/javascript" src="webmap/Chartjs/Chart.min.js"> </script> --}}
-
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
 
 
     <link rel="stylesheet" href="webmap/js/leaflet-panel-layers-master/src/leaflet-panel-layers.css" />
@@ -49,7 +47,7 @@
          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
      
         <style>
-            #map { height: 500px; width: 900px; }
+            #map { height: 400px; }
 
             .label-bidang{
                 font-size: 6pt;
@@ -93,6 +91,8 @@
         background: white;
       }
 
+      
+
 
         </style>
 
@@ -134,7 +134,7 @@
                     <b class="logo-abbr"><img src="../assets/images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="./assets/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="../assets/images/logo-text1.png" alt="">
+                        <img src="../assets/images/Logo Dashboard.png" width="90%" alt="">
                     </span>
                 </a>
             </div>
@@ -223,6 +223,16 @@
     <script src="../assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="../assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
+    <script src="../assets/leaflet-control-window/src/L.Control.Window.js"></script> 
+
+    @stack('scripts')
+    @stack('update')
+    @stack('kecamatan')
+    @stack('desa')
+
+
+
+
 
 
 
@@ -231,7 +241,7 @@
 
 
     <script src="../assets/js/dashboard/dashboard-1.js"></script>
-
+    
 
     @section('js')
 

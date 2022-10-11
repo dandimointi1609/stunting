@@ -57,8 +57,6 @@
                                         </div>
                                     </div>
 
-                                   
-                                    
                                     <div class="form-group row" {{ $errors->has('kd_desa') ? ' has-error' : '' }}">
                                         <label class="col-lg-4 col-form-label" for="kd_desa">nama kecamatan
                                         </label>
@@ -180,8 +178,10 @@
             </div>
         </div>
 </div>
+@endsection
 
 
+@push('update')
 
 <script>
      // you want to get it of the window global
@@ -205,6 +205,23 @@
 		tileSize: 512,
 		zoomOffset: -1
     }).addTo(leafletMap);
+
+    
+    $.getJSON('.../assets/pohuwato.geojson', function(json) {
+     geoLayer = L.geojson(json, {
+            style: function(feature) {
+                return{
+                    fillOpacity: 0.3,
+                    weight: 5,
+                    opacity: 1,
+                    color: "#008cff"
+                };
+             },
+            onEachFeature: function(features, layer) {
+                layer.addTo(leafletMap);
+            }
+        });
+    })
 
         //ICON
         var puskesIcon = L.icon({
@@ -249,5 +266,4 @@
 
     leafletMap.addControl(search);
 </script>
-
-@endsection
+@endpush

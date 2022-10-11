@@ -873,7 +873,8 @@ input[type="checkbox"] {
   text-align: center;
 }
 
-.cards-1 .h2-heading {
+.
+s-1 .h2-heading {
   margin-bottom: 3.5rem;
 }
 
@@ -1497,24 +1498,25 @@ a:hover.back-to-top {
 /*     17. Extra Pages     */
 /***************************/
 .ex-header {
-  padding-top: 8rem;
-  padding-bottom: 5rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
   background-color: #5f4dee;
   text-align: center;
 }
+
 
 .ex-header h1 {
   color: #fff;
 }
 
 .ex-basic-1 {
-  padding-top: 2rem;
-  padding-bottom: 0.875rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.50rem;
   background-color: #f3f7fd;
 }
 
 .ex-basic-1 .breadcrumbs {
-  margin-bottom: 1.125rem;
+  margin-bottom: 0.5rem;
 }
 
 .ex-basic-1 .breadcrumbs .fa {

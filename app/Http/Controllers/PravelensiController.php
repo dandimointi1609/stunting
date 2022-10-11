@@ -3,9 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\TitikModel;
+
 
 class PravelensiController extends Controller
 {
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct()
+    {
+        $this->TitikModel= new TitikModel();
+        // $this->PuskesModel= new PuskesModel();
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,9 +27,11 @@ class PravelensiController extends Controller
      */
     public function index()
     {
-        {
-            return view('pravelensi');
-        }
+        $results = $this->TitikModel->allLokasi();
+        return view('pravelensi', [ 'lokasi' =>$results]);
+        // {
+        //     return view('pravelensi');
+        // }
     }
 
     /**

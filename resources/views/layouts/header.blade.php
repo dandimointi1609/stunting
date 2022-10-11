@@ -46,11 +46,12 @@
                                                         document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
-    
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
                                     </div>
+                                        {{-- <a class="dropdown-item" href="{{ url('edit', $pengguna->id) }}"> Ubah Profile </a>
+                                        <a class="dropdown-item" href="{{ route('pengguna.show', $pengguna->id) }}"> Lihat Profile </a> --}}
                                 </li>
                             @endguest
                         </ul>

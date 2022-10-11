@@ -14,25 +14,51 @@
     <!-- row -->
 
     <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card mb-2 mt-1">
+                    <div class="card-body">
+                        <div class="row mt-1 ml-1">
+                            <div class="col">
+                                {{-- <form method="POST" action="/laporan" class="form-inline"> --}}
+                                <form class="form-inline">
+                                    <div class="col-lg-1 col-xl-2">    
+                                            <select class="custom-select mr-sm-2">
+                                                @foreach ($periode as $d)
+                                                    <option value="{{$d->id_periode}}">{{$d->nama_periode}}</option>
+                                                @endforeach
+                                            </select>
+                                    </div>
+                                    <div class="input-group mb-1">
+                                        <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="hidden" name="tglakhir" id="tglakhir" class="form-control" value="{{ $d->tgl_akhir}}">
+                                    </div>
+                                    <div class="input-group">
+                                        <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +
+                                        '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
+    
+                                    </div>
+                                    <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a>
+                                    {{-- <a style="float: right;" class="btn mb-1 btn-outline-danger ml-1" href={{ route ('penderitapdf') }}>Export Pdf</a> --}}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Laporan Data Penderita</h4>
                         <div class="table-responsive">
-                            <div class="row mt-4 ml-2">
-                                <div class="col">
-                                    <form method="POST" action="/laporan" class="form-inline">
-                                        {{-- <input type="date" name="tgl_mulai" class="form-control">
-                                        <input type="date" name="tgl_selesai" class="form-control ml-1">
-                                        <button type="submit" name="filter_tanggal" class="btn mb-1 btn-outline-primary ml-1" >Filter</button> --}}
 
-                                        <a style="float: right;" class="btn mb-1 btn-outline-success ml-1   " href={{ route ('penderitaexport') }}>Export Excel</a>
-                                        <a style="float: right;" class="btn mb-1 btn-outline-danger ml-1" href={{ route ('penderitapdf') }}>Export Pdf</a>
-                                    </form>
-                                </div>
-                               
-                            </div>
                                 
                             {{-- <a style="float: right;" class="btn mb-1 btn-outline-success" href="/laporan/create">Export Excel</a> --}}
                             <table class="table table-striped table-bordered zero-configuration">
@@ -40,11 +66,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kecamatan</th>
+                                        <th>Desa</th>
                                         <th>Puskesmas</th>
-                                        <th>Desa/Kelurahan</th>
+                                        <th>Tanggal</th>
+                                        <th>Jumlah Balita Diukur</th>                                     
                                         <th>Pendek</th>
                                         <th>Sangat Pendek</th>
-                                        <th>Total Balita sangat Pendek+Pendek</th>
+                                        <th>Total</th>
                                         <th>Pravelensi</th>
                                     </tr>
 
@@ -55,8 +83,10 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama_kecamatan}}</td>
-                                        <td>{{ $item->nama_puskes}}</td>
                                         <td>{{ $item->nama_desa}}</td>
+                                        <td>{{ $item->nama_puskes}}</td>
+                                        <td>{{ $item->tgl_pengukuran}}</td>
+                                        <td>{{ $item->total}}</td>
                                         <td>{{ $item->total_pendek}}</td>
                                         <td>{{ $item->sangat_pendek}}</td>
                                         <td>{{ $item->total}}</td>

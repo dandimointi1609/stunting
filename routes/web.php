@@ -19,7 +19,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::resource('/home', 'HomeController');
+Route::get('/edit/{id}', 'HomeController@edit')->name('edit-pengguna');
+Route::put('/home/update/{id}', 'HomeController@update');
+
 
 //DESA
 Route::get('desa', 'DesaController@index');
@@ -36,6 +42,8 @@ Route::post('/kecamatan', 'KecamatanController@store');
 Route::get('/ubahkecamatan/{id_kecamatan}', 'KecamatanController@edit')->name('edit-kecamatan');
 Route::put('/kecamatan/update/{id_kecamatan}', 'KecamatanController@update');
 Route::get('/delete-kecamatan/{id_kecamatan}', 'KecamatanController@destroy')->name('delete-kecamatan');
+Route::get('/kecamatan/json', 'KecamatanController@kecamatan');
+Route::get('/kecamatan/lokasik/{kd_kecamatan}', 'KecamatanController@lokasik');
 
 //Map
 Route::get('map', 'TitikController@index');
@@ -46,6 +54,11 @@ Route::get('/titik/lokasi/{kd_kecamatan}', 'TitikController@lokasi');
 Route::get('sebaran', 'TitikpuskesController@index');
 Route::get('/puskes/json', 'TitikpuskesController@puskes');
 Route::get('/puskes/lokasip/{id_puskes}', 'TitikpuskesController@lokasip');
+
+//DESA MAP
+Route::get('sebaran', 'TitikdesaController@index');
+Route::get('/desa/json', 'TitikdesaController@desa');
+Route::get('/desa/lokasid/{kd_desa}', 'TitikdesaController@lokasid');
 
 //SEBARAN
 Route::get('sebaran', 'SebaranController@index');
@@ -77,6 +90,18 @@ Route::get('/ubahbalita/{id_balita}', 'BalitaController@edit')->name('edit-balit
 Route::put('/balita/update/{id_balita}', 'BalitaController@update');
 Route::get('/delete-balita/{id_balita}', 'BalitaController@destroy')->name('delete-balita');
 
+//BALITA
+Route::get('penderita', 'BalitaController@penderita');
+
+
+//Periode
+Route::get('dataperiode', 'PeriodeController@index');
+Route::get('/dataperiode/create', 'PeriodeController@create');
+Route::post('/dataperiode', 'PeriodeController@store');
+// Route::get('/ubahbalita/{id_balita}', 'BalitaController@edit')->name('edit-balita');
+// Route::put('/balita/update/{id_balita}', 'BalitaController@update');
+// Route::get('/delete-balita/{id_balita}', 'BalitaController@destroy')->name('delete-balita');
+
 //Dpravelensi
 Route::resource('/dpravelensi', 'DpravelensiController');
 Route::get('dpravelensi', 'DpravelensiController@index');
@@ -90,6 +115,18 @@ Route::get('/delete-dpravelensi/{id}', 'DpravelensiController@destroy')->name('d
 Route::get('laporan', 'LaporanController@index');
 Route::get('/penderitaexport', 'LaporanController@penderitaexport')->name('penderitaexport');
 Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapdf');
+Route::get('/data-pertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('data-pertanggal');
+
+
+
+Route::get('laporan', 'LaporanpenderitaController@index');
+Route::get('/penderitaexport', 'LaporanpenderitaController@penderitaexport')->name('penderitaexport');
+Route::get('/penderitapdf', 'LaporanpenderitaController@penderitapdf')->name('penderitapdf');
+Route::get('/data-penderita/{tglawal}/{tglakhir}', 'LaporanpenderitaController@cetakpenderita')->name('data-penderita');
+
+
+
+
 
 
 //sebaran
@@ -100,3 +137,8 @@ Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapd
 // Route::get('/titik/lokasi/{kd_kecamatan}', 'SebaranController@lokasi');
 //pravelensi
 Route::get('pravelensi', 'PravelensiController@index');
+
+Route::resource('/pengguna', 'PenggunaController');
+Route::get('/edit/{id}', 'PenggunaController@edit')->name('edit-pengguna');
+Route::put('/pengguna/update/{id}', 'PenggunaController@update');
+

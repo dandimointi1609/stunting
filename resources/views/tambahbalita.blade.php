@@ -48,62 +48,18 @@
                                 <form class="form-valide" action="/balita" method="post">
                                     {{ csrf_field() }}
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>Nama Balita</label>
                                         <input type="text" class="form-control" id="nama_balita" placeholder="Masukan Nama Balita" name="nama_balita" value="{{ old('nama_balita') }}">
                                     </div>
-        
-                                    <div class="form-group col-md-4">
-                                        <label  for="jenis kelamin"><b>Kelamin</b></label>
-                                                <select class="form-control" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}">
-                                                    <option value="">Pilih Jenis Kelamin</option>
-                                                    <option value="1">Laki - Laki</option>
-                                                    <option value="2">Perempuan</option>
-                                                </select>
-                                    </div>
-                                    <div class="form-group col-md-4" {{ $errors->has('nama_ortu') ? ' has-error' : '' }}">
-                                        <label for="nama_puskes">Nama orang tua</label>
-                                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" placeholder="Masukan Nama Ortu">
-                                    </div>
-        
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4" {{ $errors->has('tgl_lahir') ? ' has-error' : '' }}">
-                                        <label  for="tgl_lahir">Tanggal Lahir</label>
-                                        <input id="tgl_lahir" type="date" class="form-control" name="tgl_lahir" value="{{ date('Y-m-d', strtotime(Carbon\Carbon::today()->toDateString())) }}" >
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('tgl_lahir') }}</strong>
-                                            </span>
-                                    </div>
-                                    <div class="form-group col-md-4" {{ $errors->has('bb_lahir') ? ' has-error' : '' }}">
-                                        <label for="bb_lahir" >Berat Badan Lahir</label>
-                                        <input type="text" class="form-control" id="bb_lahir" name="bb_lahir" placeholder="Masukan BB(Kg)">
-                                    </div>
-                                    <div class="form-group col-md-4" {{ $errors->has('tb_lahir') ? ' has-error' : '' }}">
-                                        <label  for="nama_puskes">Tinggi Badan Lahir</label>
-                                        <input type="text" class="form-control" id="tb_lahir" name="tb_lahir" placeholder="Masukan TB(Cm)">
-                                        
+                                    <div class="form-group col-md-6" {{ $errors->has('nama_ortu') ? ' has-error' : '' }}">
+                                        <label for="nama_puskes">Kecamatan</label>
+                                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" placeholder="Masukan Nama Kecamatan">
                                     </div>
                                 </div>
-        
+
                                 <div class="form-row">
-                                    <div class="form-group col-md-4" {{ $errors->has('alamat') ? ' has-error' : '' }}">
-                                        <label for="nama_puskes">Alamat</label>
-                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat">
-                                    </div>
-        
-                                    <div class="form-group col-md-4" {{ $errors->has('kode_desa') ? ' has-error' : '' }}">
-                                        <label  for="kode_desa">Desa Balita </label>
-                                            <div class="input-group">
-                                            <input  class="form-control" id="kd_desa" type="hidden" name="kode_desa" value="{{ old('kode_desa') }}" readonly="" required >
-                                            <input type="text" class="form-control" id="nama_desa" type="text" name="nama_desa" value="{{ old('nama_desa') }}" required readonly="" >
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><span class="fa fa-search"></span></button>
-                                            </span>
-                                            </div>
-                                    </div>
-        
-                                    <div class="form-group col-md-4" {{ $errors->has('id_puskes') ? ' has-error' : '' }}">
+                                    <div class="form-group col-md-6" {{ $errors->has('id_puskes') ? ' has-error' : '' }}">
                                         <label for="id_puskes">Puskesmas
                                         </label>
                                             <div class="input-group">
@@ -114,12 +70,74 @@
                                             </span>
                                             </div>
                                     </div>
+        
+                                    <div class="form-group col-md-6" {{ $errors->has('kode_desa') ? ' has-error' : '' }}">
+                                        <label  for="kode_desa">Desa Balita </label>
+                                            <div class="input-group">
+                                            <input  class="form-control" id="kd_desa" type="hidden" name="kode_desa" value="{{ old('kode_desa') }}" readonly="" required >
+                                            <input type="text" class="form-control" id="nama_desa" type="text" name="nama_desa" value="{{ old('nama_desa') }}" required readonly="" >
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><span class="fa fa-search"></span></button>
+                                            </span>
+                                            </div>
+                                    </div>
                                 </div>
-        
-        
-        
+
                                 <div class="form-row">
-                                    <div class="form-group col-md-4"{{ $errors->has('tgl_pengukuran') ? ' has-error' : '' }}">
+                                    <div class="form-group col-md-6" {{ $errors->has('tb_lahir') ? ' has-error' : '' }}">
+                                        <label  for="nama_puskes">Pilih Periode</label>
+                                        <input type="text" class="form-control" id="tb_lahir" name="tb_lahir" placeholder="Pilih Periode">
+                                        
+                                    </div>
+
+                                    <div class="form-group col-md-6" {{ $errors->has('tgl_lahir') ? ' has-error' : '' }}">
+                                        <label  for="tgl_lahir">Tanggal Lahir</label>
+                                        <input id="tgl_lahir" type="date" class="form-control" name="tgl_lahir" value="{{ date('Y-m-d', strtotime(Carbon\Carbon::today()->toDateString())) }}" >
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('tgl_lahir') }}</strong>
+                                            </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label  for="jenis kelamin"><b>Kelamin</b></label>
+                                                <select class="form-control" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}">
+                                                    <option value="">Pilih Jenis Kelamin</option>
+                                                    <option value="1">Laki - Laki</option>
+                                                    <option value="2">Perempuan</option>
+                                                </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6" {{ $errors->has('bb_lahir') ? ' has-error' : '' }}">
+                                        <label for="bb_lahir" >Berat Badan Lahir</label>
+                                        <input type="text" class="form-control" id="bb_lahir" name="bb_lahir" placeholder="Masukan BB(Kg)">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6" {{ $errors->has('nama_ortu') ? ' has-error' : '' }}">
+                                        <label for="nama_puskes">Nama orang tua</label>
+                                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" placeholder="Masukan Nama Ortu">
+                                    </div>
+        
+
+                                    <div class="form-group col-md-6" {{ $errors->has('tb_lahir') ? ' has-error' : '' }}">
+                                        <label  for="nama_puskes">Tinggi Badan Lahir</label>
+                                        <input type="text" class="form-control" id="tb_lahir" name="tb_lahir" placeholder="Masukan TB(Cm)">
+                                        
+                                    </div>
+        
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6" {{ $errors->has('alamat') ? ' has-error' : '' }}">
+                                        <label for="nama_puskes">Alamat</label>
+                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat">
+                                    </div>
+        
+
+                                 <div class="form-group col-md-6"{{ $errors->has('tgl_pengukuran') ? ' has-error' : '' }}">
                                         <label  for="tgl_pengukuran">Tanggal Pengukuran</label>
                                         <input id="tgl_pengukuran" type="date" class="form-control" name="tgl_pengukuran" value="{{ date('Y-m-d', strtotime(Carbon\Carbon::today()->toDateString())) }}" >
                                             <span class="help-block">
@@ -127,18 +145,26 @@
                                             </span>
                                     </div>
         
-                                    <div class="form-group col-md-4">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
                                         <label  for="bb"><b>Berat Badan(kg)</b></label>
-                                            <input type="text" class="form-control" id="bb" placeholder="Masukan Berat Badan" name="bb" value="{{ old('bb') }}">
+                                            <input type="text" class="form-control" id="bb" placeholder="Masukan Berat Badan pengukuran" name="bb" value="{{ old('bb') }}">
                                     </div>
-        
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label  for="tb"><b>Tinggi Badan(cm)</b></label>
                                             <input type="text" class="form-control" id="tb" placeholder="Masukan Tinggi Badan" name="tb" value="{{ old('tb') }}">
                                     </div>
         
+                                </div>
         
-                                    <div class="form-group col-md-2">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label  for="bb"><b>Li/La</b></label>
+                                            <input type="text" class="form-control" id="" placeholder="Masukan Li/La" name="" value="{{ old('') }}">
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label  for="Hasil"><b>Hasil</b></label>
                                             <select class="form-control" name="hasil" value="{{ old('hasil') }}">
                                                 <option value="">Pilih Hasil</option>
@@ -152,7 +178,7 @@
                                             <div class="col-lg-8 ml-auto">
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </div>
-                                        </div>
+                                </div>
                             </form>
                         </div>
                     </div>

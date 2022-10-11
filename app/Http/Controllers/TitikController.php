@@ -11,6 +11,7 @@ use App\models\TitikModel;
 
 class TitikController extends Controller
 {
+    
      /**
      * Display a listing of the resource.
      *

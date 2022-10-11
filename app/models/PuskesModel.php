@@ -30,7 +30,6 @@ class PuskesModel extends Model
 
    public function getlokasi($id_puskes=''){
       $result = DB::table('t_puskes')
-     //    ->select('kd_kecamatan','nama_kecamatan','latitude','longitude')
      ->select('id_puskes','nama_puskes','alamat','kd_kecamatan','status','latitude','longitude')
         ->where('id_puskes',$id_puskes)
         ->get();

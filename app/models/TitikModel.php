@@ -17,7 +17,9 @@ class TitikModel extends Model
     $result = DB::table('t_kecamatan')   
     ->select(
              'kd_kecamatan', 
-             'nama_kecamatan'
+             'nama_kecamatan',
+             'longitude',
+             'latitude'
              )
         ->get();
         return $result;
@@ -39,6 +41,22 @@ class TitikModel extends Model
        ->get();
          return $result;
     }
+
+    public function allPencarian(){  
+     $result = DB::table('t_kecamatan as k')     
+    ->select(DB::raw('count(hasil) as total'),
+           DB::raw('sum(b.hasil = "pendek") as total_pendek, k.kd_kecamatan'),
+           DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek, k.kd_kecamatan'),
+            'k.kd_kecamatan', 
+            'k.nama_kecamatan'
+            )
+            ->rightjoin('t_puskes as p', 'k.kd_kecamatan', '=', 'p.kd_kecamatan')
+            ->join('t_balita as b', 'p.id_puskes', '=', 'b.id_puskes')
+            ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+            ->groupBy('k.kd_kecamatan','k.nama_kecamatan')
+       ->get();
+         return $result;
+    }
    
    public function getlokasi($kd_kecamatan=''){
     $result = DB::table('t_kecamatan as k')     
@@ -46,13 +64,15 @@ class TitikModel extends Model
            DB::raw('sum(b.hasil = "pendek") as total_pendek, k.kd_kecamatan'),
            DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek, k.kd_kecamatan'),
             'k.kd_kecamatan', 
-            'k.nama_kecamatan'
+            'k.nama_kecamatan',
+            'k.longitude',
+            'k.latitude'
             )
             ->where('k.kd_kecamatan',$kd_kecamatan)
             ->rightjoin('t_puskes as p', 'k.kd_kecamatan', '=', 'p.kd_kecamatan')
             ->join('t_balita as b', 'p.id_puskes', '=', 'b.id_puskes')
             ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-            ->groupBy('k.kd_kecamatan','k.nama_kecamatan')
+            ->groupBy('k.kd_kecamatan','k.nama_kecamatan','k.longitude','k.latitude')
        ->get();
         return $result;
      }
@@ -63,9 +83,7 @@ class TitikModel extends Model
       ->select(DB::raw('count(hasil) as jumlah'),
              DB::raw('sum(b.hasil = "pendek") as total_pendek, k.kd_kecamatan'),
              DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek, k.kd_kecamatan'),
-
               'kd_desa'
-
               )
               ->where('k.kd_kecamatan',$kd_kecamatan)
               ->join('t_balita as b', 'd.kd_desa', '=', 'b.kode_desa')

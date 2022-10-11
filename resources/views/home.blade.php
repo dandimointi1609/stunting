@@ -22,54 +22,117 @@
 </div>
 @endsection --}}
 
-@extends('layouts.master')
 
-{{-- @section('title', 'SMAMBAT') --}}
+
+@extends('layouts.master')
 
 @section('content')
 <div class="content-body">
-
     <div class="container-fluid mt-3">
+        @guest
+        @else
+        @if (Auth::user()->level=='puskes') 
         <div class="row">
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-1">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Penderita</h3>
+                        <h3 class="card-title text-white">Data Penderita Stunting</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">4565</h2>
-                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                            <h2 class="text-white">{{$balita->where('hasil')->count()}}</h2>
                         </div>
-                        {{-- <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span> --}}
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-2">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Balita Pendek</h3>
+                        <h3 class="card-title text-white">Data Pravelensi</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">8541</h2>
-                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                            <h2 class="text-white">10</h2>
                         </div>
-                        {{-- <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @endguest 
+        
+        @guest
+        @else
+        @if (Auth::user()->level=='bptd') 
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+                <div class="card gradient-1">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Data Kecamatan</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">{{$kecamatan->count()}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card gradient-2">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Bali Desa</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">{{$desa->count()}}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-3">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Balita Sangat Pendek</h3>
+                        <h3 class="card-title text-white">Data Pengguna</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">4565</h2>
-                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                            <h2 class="text-white">5</h2>
                         </div>
-                        {{-- <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>    --}}
+                    </div>
+                </div>
+            </div>
+        </div> 
+        @endif
+        @endguest 
+        
+        @guest
+        @else
+        @if (Auth::user()->level=='dinkes') 
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+                <div class="card gradient-1">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Data Penderita Stunting</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">{{$balita->where('hasil')->count()}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card gradient-2">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Data Pravelensi</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">8</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card gradient-3">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Data Puskesmas</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">{{$puskes->count()}}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-         
-    </div>
-    <!-- #/ container -->
+        @endif
+        @endguest
+
+    </div> 
 </div>
 @endsection

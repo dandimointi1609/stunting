@@ -29,7 +29,7 @@
 <body>
 
 
-  <h1>HASIL ANALISIS PENGUKURAN PREVALENSI STUNTING  KABUPATEN POHUWATO</h1>
+  <h3>HASIL  PENGUKURAN PREVALENSI STUNTING KABUPATEN POHUWATO</h3>
 
 
 
@@ -39,6 +39,7 @@
     <th>Kecamatan</th>
     <th>Puskes</th>
     <th>Desa/Kelurahan</th>
+    <th>Periode</th>
     <th>Pendek</th>
     <th>Sangat Pendek</th>
     <th>Total Balita Sangat pendek+Pendek</th>
@@ -50,6 +51,7 @@
     <td>{{ $item->nama_kecamatan}}</td>
     <td>{{ $item->nama_puskes}}</td>
     <td>{{ $item->nama_desa}}</td>
+    <td>{{ $item->tgl_pengukuran}}</td>
     <td>{{ $item->total_pendek}}</td>
     <td>{{ $item->sangat_pendek}}</td>
     <td>{{ $item->total}}</td>

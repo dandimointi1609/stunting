@@ -17,8 +17,14 @@ class DesaController extends Controller
     {
         //  return view('balita');
         $desa = Desa::all();
+        $kecamatan = Kecamatan::get();
 
-        return view('desa', [ 'desa' =>$desa]);
+        // return view('desa', [ 'desa' =>$desa]);
+        return view('desa')->with([
+            'desa' => $desa,
+            'kecamatan' => $kecamatan,
+
+        ]);
     }
 
     /**
@@ -48,6 +54,9 @@ class DesaController extends Controller
             'kd_desa' => $request->kd_desa,
             'nama_desa' => $request->nama_desa,
             'kd_kecamatan' => $request->kd_kecamatan,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+
 
         ]);
 
@@ -93,6 +102,9 @@ class DesaController extends Controller
         $desa->kd_desa = $request->kd_desa;
         $desa->nama_desa = $request->nama_desa;
         $desa->kd_kecamatan = $request->kd_kecamatan;
+        $desa->latitude = $request->latitude;
+        $desa->longitude = $request->longitude;
+
         $desa->update();
 
         return redirect('/desa');

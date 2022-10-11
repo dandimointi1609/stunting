@@ -26,6 +26,19 @@ class BalitaController extends Controller
         return view('balita', [ 'balita' =>$balita]);
     }
 
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function penderita()
+    {
+
+        $penderita = Balita::all();
+
+        return view('penderita', [ 'penderita' =>$penderita]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

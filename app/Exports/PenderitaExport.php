@@ -83,12 +83,3 @@ class PenderitaExport implements FromCollection, Withheadings
     }
 
 }
-
-// <td>{{ $loop->iteration }}</td>
-// <td>{{ $item->nama_kecamatan}}</td>
-// <td>{{ $item->nama_puskes}}</td>
-// <td>{{ $item->nama_desa}}</td>
-// <td>{{ $item->total_pendek}}</td>
-// <td>{{ $item->sangat_pendek}}</td>
-// <td>{{ $item->total}}</td>
-// <td>{{ $item->total}}</td>

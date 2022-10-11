@@ -133,3 +133,60 @@ FROM t_desa
 INNER JOIN t_balita
 ON t_desa.kd_desa = t_balita.kode_desa
 GROUP BY kd_kecamatan
+
+SELECT SUM(t_balita.hasil="pendek"),SUM(t_balita.hasil="sangatpendek")
+FROM t_balita
+GROUP BY id_jenis_kelamin
+
+
+SELECT  t_desa.kd_kecamatan, COUNT(t_balita.hasil),
+SUM(t_balita.hasil ="pendek") AS status_pendek, SUM(t_balita.hasil = "sangatpendek") AS status_sangat_pendek,
+COUNT(t_balita.hasil = 'pendek'+'sangatpendek') AS pendek_sangat_pendek,
+CAST((t_balita.hasil / t_balita.hasil * 100) AS DECIMAL) AS pravelensi
+FROM t_desa
+
+LEFT JOIN t_balita
+ON t_balita.kode_desa=t_desa.kd_desa
+GROUP BY kd_kecamatan
+
+
+
+
+SELECT t_puskes.nama_puskes, t_desa.nama_desa, t_kecamatan.nama_kecamatan, COUNT(t_balita.hasil) AS total,
+SUM(t_balita.hasil ="pendek") AS status_pendek, SUM(t_balita.hasil = "sangatpendek") AS status_sangat_pendek,
+COUNT(t_balita.hasil = 'pendek'+'sangatpendek') AS pendek_sangat_pendek,
+CAST((t_balita.hasil / t_balita.hasil * 100) AS DECIMAL) AS pravelensi
+FROM t_balita
+
+RIGHT JOIN t_puskes
+ON t_balita.id_puskes=t_puskes.id_puskes
+RIGHT JOIN t_desa
+ON t_balita.kode_desa=t_desa.kd_desa
+RIGHT JOIN t_kecamatan
+ON t_desa.kd_kecamatan=t_kecamatan.kd_kecamatan
+GROUP BY kode_desa
+
+
+
+
+
+
+SELECT t_puskes.nama_puskes, t_desa.nama_desa, t_kecamatan.nama_kecamatan, 
+COUNT(t_balita.hasil) AS total,
+SUM(t_balita.hasil ='normal') AS normal,
+SUM(t_balita.hasil ="pendek") AS status_pendek, 
+SUM(t_balita.hasil = "sangatpendek") AS status_sangat_pendek,
+COUNT(t_balita.hasil = 'pendek'+'sangatpendek') AS pendek_sangat_pendek,
+SUM(((t_balita.hasil='pendek') + (t_balita.hasil='sangatpendek') /  t_balita.hasil) * 100 ) AS pravelensi,
+CAST((t_balita.hasil / t_balita.hasil * 100) AS DECIMAL) AS pravelensi
+CAST((((t_balita.hasil= 'pendek') + (t_balita.hasil ='sangatpendek') / t_balita.hasil) * 100) AS DECIMAL ) AS pravelensi
+
+FROM t_balita
+
+RIGHT JOIN t_puskes
+ON t_balita.id_puskes=t_puskes.id_puskes
+RIGHT JOIN t_desa
+ON t_balita.kode_desa=t_desa.kd_desa
+RIGHT JOIN t_kecamatan
+ON t_desa.kd_kecamatan=t_kecamatan.kd_kecamatan
+GROUP BY kode_desa

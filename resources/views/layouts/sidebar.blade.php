@@ -1,62 +1,107 @@
 <div class="nk-sidebar">           
     <div class="nk-nav-scroll">
         <ul class="metismenu" id="menu">  
-         <li class="nav-label">Dashboard</li>
             <li>
                 <a  href="/home" aria-expanded="false">
                     <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                 </a>
             </li>
+
             @guest
             @else
-            @if (Auth::user()->level=='bptd')
-            @elseif (Auth::user()->level=='admin')
-            <li class="mega-menu mega-menu-sm">
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Wilayah</span>
-                </a>
-                <ul aria-expanded="false">
+            @if (Auth::user()->level == 'bptd')
+            <li class="nav-label">DATA WILAYAH</li>
+                <ul>
                     <li><a href="/kecamatan">Data Kecamatan</a></li>
                     <li><a href="/desa">Data Desa</a></li>
-                    <li><a href="/map">Data Map</a></li>
+                    <li><a href="/map">Sebaran</a></li>
+                </ul>
+            </li>
+            <li class="nav-label">MANAGEMENT DATA</li>
+                <ul>
+                    <li><a href="/dataperiode">Data Periode</a></li>
+                    <li><a href="{{ url('pengguna') }}">Data Pengguna</a></li>
+                    <li><a href="/laporan">Laporan Data Pravelensi</a></li>
+                </ul>
+            </li>
+            @elseif (Auth::user()->level == 'admin')
+            <li class="nav-label">DATA WILAYAH</li>
+                <ul>
+                    <li><a href="/kecamatan">Data Kecamatan</a></li>
+                    <li><a href="/desa">Data Desa</a></li>
+                    <li><a href="/map">Sebaran</a></li>
+                </ul>
+            </li>
+            <li class="nav-label">MANAGEMENT DATA</li>
+                <ul>
+                    <li><a href="/dataperiode">Data Periode</a></li>
+                    <li><a href="{{ url('pengguna') }}">Data Pengguna</a></li>
+                    <li><a href="/laporan">Laporan Data Pravelensi</a></li>
                 </ul>
             </li>
             @endif
             @endguest
 
-            @guest
-            @else
-            @if (Auth::user()->level=='puskes')
-            @elseif (Auth::user()->level=='admin')
-            <li class="mega-menu mega-menu-sm">
-                <a  href="/puskes" aria-expanded="false">
-                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Puskesmas</span>
-                </a>
-            </li>
-            @endif
-            @endguest
 
             @guest
             @else
             @if (Auth::user()->level=='puskes')
-            @elseif (Auth::user()->level=='admin')
-            <li class="mega-menu mega-menu-sm">
-                <a href="/balita" aria-expanded="false">
-                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Penderita Stunting</span>
-                </a>
+            <li class="nav-label">DATA WILAYAH</li>
+                <ul>
+                    <li><a href="/balita">Data Penderita Stunting</a></li>
+                    <li><a href="/cetakpertanggal">cetak Penderita Stunting</a></li>
+
+                    <li><a href="/map">Data Sebaran</a></li>
+                </ul>
             </li>
+            <li class="nav-label">MANAGEMENT DATA</li>
+                <ul>
+                    <li><a href="/laporan">Laporan Data Pravelensi</a></li>
+                </ul>
+            </li>
+            @elseif (Auth::user()->level=='admin')
+            <li class="nav-label">DATA WILAYAH</li>
+                <ul>
+                    <li><a href="/balita">Data Penderita Stunting</a></li>
+                    <li><a href="/map">Data Sebaran</a></li>
+                </ul>
+            </li>
+            <li class="nav-label">MANAGEMENT DATA</li>
+                <ul>
+                    <li><a href="/dpravelensi">Laporan Data Pravelensi</a></li>
+                </ul>
+            </li>  
             @endif
             @endguest
             
             @guest
             @else
             @if (Auth::user()->level=='dinkes') 
-            @elseif (Auth::user()->level=='admin')
-            <li class="mega-menu mega-menu-sm">
-                <a  href="/dpravelensi" aria-expanded="false">
-                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text"> Data Pravelensi</span>
-                </a>
+            <li class="nav-label">DATA WILAYAH</li>
+                <ul>
+                    <li><a href="/puskes">Data Puskesmas</a></li>
+                    <li><a href="/dpravelensi">Data Pravelensi</a></li>
+                    <li><a href="/map">Data Sebaran</a></li>
+                </ul>
             </li>
+            <li class="nav-label">MANAGEMENT DATA</li>
+                <ul>
+                    <li><a href="/penderita">Laporan Penderita Stunting</a></li>
+                </ul>
+            </li> 
+            @elseif (Auth::user()->level=='admin')
+            <li class="nav-label">DATA WILAYAH</li>
+                <ul>
+                    <li><a href="/puskes">Data Puskesmas</a></li>
+                    <li><a href="/dpravelensi">Data Pravelensi</a></li>
+                    <li><a href="/map">Data Sebaran</a></li>
+                </ul>
+            </li>
+            <li class="nav-label">MANAGEMENT DATA</li>
+                <ul>
+                    <li><a href="/balita">Data Penderita Stunting</a></li>
+                </ul>
+            </li> 
             @endif
             @endguest
 
@@ -70,17 +115,18 @@
             </li>
             @endif
             @endguest
+            <br>
+            <br>
 
-            @guest
-            @else 
-            @if (Auth::user()->level=='dinkes')
-            @elseif (Auth::user()->level=='admin')
-            <li class="mega-menu mega-menu-sm">
-                <a  href="/laporan" aria-expanded="false">
-                    <i class="icon-notebook menu-icon"></i><span class="nav-text"> Laporan Data Penderita</span>
-                </a>
-            </li>
-            @endif
-            @endguest
+            <center>
+                <div class="button-icon btn-sm">
+                    <button type="button" class="btn mb-1 btn-rounded btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="btn-icon-center"><i class="fa fa-sign-out color-success"></i> </span>{{ __('Logout') }}</button>     
+                </div>
+            </center>
+
+      
+
+
     </div>
 </div>

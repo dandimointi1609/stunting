@@ -27,45 +27,12 @@
                                         </div>
                                     </div> 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="nama">Kecamatan <span class="text-danger">*</span>
+                                    <label class="col-lg-4 col-form-label" for="nama">Nama Kecamatan <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
                                         <input type="text" class="form-control" id="nama_kecamatan" placeholder="Masukan Kecamatan" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}">
                                     </div>
                                 </div> 
-                                
-                             
-                                {{-- <div class="form-group">
-                                    <label for="cover" class="col-md-4 control-label"><b>Cover</b></label>
-                                    <div class="col-md-6">
-                                    <img width="200" height="200" />
-                                    <input type="file" class="uploads form-control" style="margin-top: 20px;" name="cover">
-                                    </div>
-                                </div> --}}
-                                
-                                {{-- <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="nama">Pilih Lokasi
-                                    </label>
-                                    <div class="col-lg-3">
-                                        <input type="text" class="form-control" id="longitude" placeholder="LONGITUDE" name="longitude" value="{{ old('longitude') }}">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="text" class="form-control" id="latitude" placeholder="LATITUDE" name="latitude" value="{{ old('latitude') }}">
-                                    </div>
-                                </div> --}}
-
-                                {{-- <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="gambar">Geojson <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <input type="file" class="uploads form-control" id="gambar" placeholder="Pilih File" name="gambar" value="{{ old('gambar') }}">
-                                    </div>
-                                </div>   --}}
-
-                                {{-- <div class="card-body">
-                                    <div id="map" style='width' 100%; height='80vh' > </div> 
-                                </div> --}}
-
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
                                         <button type="submit" class="btn btn-primary">Submit</button>

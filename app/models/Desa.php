@@ -8,7 +8,7 @@ class Desa extends Model
 {
     protected $table = 't_desa';
     protected $primaryKey = 'kd_desa';
-protected $fillable = ['kd_desa','nama_desa','kd_kecamatan'];
+protected $fillable = ['kd_desa','nama_desa','kd_kecamatan','latitude','longitude'];
     public $timestamps = false;
 
     public function kecamatan()
