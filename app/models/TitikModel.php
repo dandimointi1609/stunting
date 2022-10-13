@@ -83,12 +83,13 @@ class TitikModel extends Model
       ->select(DB::raw('count(hasil) as jumlah'),
              DB::raw('sum(b.hasil = "pendek") as total_pendek, k.kd_kecamatan'),
              DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek, k.kd_kecamatan'),
-              'kd_desa'
+              'kd_desa',
+              'nama_desa'
               )
               ->where('k.kd_kecamatan',$kd_kecamatan)
               ->join('t_balita as b', 'd.kd_desa', '=', 'b.kode_desa')
               ->join('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-              ->groupBy('kd_desa','kd_kecamatan')
+              ->groupBy('kd_desa','kd_kecamatan','nama_desa')
          ->get();
           return $result;
        }

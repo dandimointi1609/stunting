@@ -7,6 +7,11 @@ use App\models\Balita;
 use App\models\Puskes;
 use App\models\Desa;
 use App\models\Kecamatan;
+use App\Exports\PenderitaExport;
+use PDF;
+use App\models\Periode;
+use Illuminate\Support\Facades\DB;
+
 
 
 use Illuminate\Http\Request;
@@ -22,8 +27,15 @@ class BalitaController extends Controller
     {
 
         $balita = Balita::all();
+        $periode = Periode::all();
 
         return view('balita', [ 'balita' =>$balita]);
+        
+        return view('balita')->with([
+            'balita' => $balita,
+            'periode' => $periode
+
+        ]);
     }
 
         /**
@@ -79,6 +91,8 @@ class BalitaController extends Controller
             'tgl_pengukuran' => $request->tgl_pengukuran,
             'tb' => $request->tb,
             'bb' => $request->bb,
+            'lila' => $request->lila,
+            'kecamatan' => $request->kecamatan,
             'hasil' => $request->hasil,
         ]);
 
@@ -135,6 +149,8 @@ class BalitaController extends Controller
         $balita->tgl_pengukuran = $request->tgl_pengukuran;
         $balita->tb = $request->tb;
         $balita->bb = $request->bb;
+        $balita->lila = $request->lila;
+        $balita->kecamatan = $request->kecamatan;
         $balita->hasil = $request->hasil;
         $balita->update();
 
@@ -152,5 +168,55 @@ class BalitaController extends Controller
         $balita = Balita::find($id_balita);
         $balita->delete();
         return back();
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function penderitaexport()
+    {
+       
+        return Excel::download(new PenderitaExport,'penderita.xlsx');
+    }
+
+
+
+    public function cetakpenderita($tglawal,$tglakhir){
+        $cetakpenderita= DB::table('t_balita AS b')     
+        ->select(          'b.nama_balita',
+                           'b.tgl_pengukuran',
+                           'k.nama_kecamatan',
+                           'd.nama_desa',
+                           'p.nama_puskes'
+                          )
+                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita')
+                          ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+                          ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+                          ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                          ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
+                          ->orderBy('p.nama_puskes', 'desc')
+                   ->get();
+        return view('cetak-penderita-pdf', compact('cetakpenderita'));
+        view()->share('cetakpenderita', $cetakpenderita);
+    }
+
+    public function cetakall(){
+        $cetakpenderita= DB::table('t_balita AS b')     
+        ->select(          'b.nama_balita',
+                           'b.tgl_pengukuran',
+                           'k.nama_kecamatan',
+                           'd.nama_desa',
+                           'p.nama_puskes'
+                          )
+                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita')
+                          ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+                          ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+                          ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                          ->orderBy('p.nama_puskes', 'desc')
+                   ->get();
+        return view('cetak-penderita-pdf', compact('cetakpenderita'));
+        view()->share('cetakpenderita', $cetakpenderita);
     }
 }

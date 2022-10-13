@@ -187,6 +187,8 @@
     <script src="./assets/plugins/flot/js/jquery.flot.spline.js"></script>
     <script src="./assets/plugins/flot/js/jquery.flot.init.js"></script>
 
+    <script src="{{url('wilayah.js')}}"></script>
+
 
   </body>
 </html>

@@ -62,8 +62,25 @@
                                 <div class="modal-body" >
                                     <label class="mr-sm-2">Download Data</label>
                                     <div class="button-icon">
+                                        <form class="form-inline">
+                                            <div class="col-lg-1 col-xl-2">    
+                                                    <select class="custom-select mr-sm-2 mb-3">
+                                                        @foreach ($periode as $d)
+                                                            <option value="{{$d->id_periode}}">{{$d->nama_periode}}</option>
+                                                        @endforeach
+                                                    </select>
+                                            </div>
+                                            <div class="input-group mb-1">
+                                                <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="hidden" name="tglakhir" id="tglakhir" class="form-control" value="{{ $d->tgl_akhir}}">
+                                            </div>
+                                        </form>
+                                        {{-- <a class="btn mb-1 btn-rounded btn-warning" href={{ route ('penderitapdf') }}><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a> --}}
+                                        <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +
+                                        '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-rounded btn-warning"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>
                                         <a class="btn mb-1 btn-rounded btn-success" href={{ route ('penderitaexport') }}><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Excel</a>
-                                        <a class="btn mb-1 btn-rounded btn-warning" href={{ route ('penderitapdf') }}><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -107,12 +124,12 @@
                                             </div>
                                             <div class="modal-body">
                                                     <p>
-                                                    <canvas id="pendekChart" ></canvas>
+                                                    <canvas id="pendekChart" value="{{$d->kd_kecamatan}}"></canvas>
                                                     </p>
                                                     <p>
                                                     </p>
                                                     <p>
-                                                        <canvas id="pendekChart"></canvas>
+                                                        <canvas id="myChart" value="{{$d->kd_kecamatan}}"></canvas>
                                                     </p>
 
                                             </div>
@@ -150,7 +167,8 @@ var leafletMap = L.map('map', {
         zoomOffset: -1
  }).addTo(leafletMap);
 
-//ICON
+
+ //ICON
 var puskesIcon = L.icon({
     iconUrl: 'webmap/icons/puskes.png',
     iconSize:     [24, 28], // size of the icon
@@ -160,11 +178,8 @@ var puskesIcon = L.icon({
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-
-
-  
 // MARKER DATABSE PUSKES
-var puskesLayer;
+    var puskesLayer;
     $( document ).ready(function(){
         $.getJSON('puskes/json/', function(data){
             $.each(data, function(index){                
@@ -175,7 +190,7 @@ var puskesLayer;
     });
 
 // MARKER DATABASE DESA
-var desaLayer;
+    var desaLayer;
     $( document ).ready(function(){
         $.getJSON('desa/json/', function(data){
             $.each(data, function(index){                
@@ -185,9 +200,8 @@ var desaLayer;
         });
     });
 
-
 // MARKER DATABASE KECAMATAN
-var kecamatanLayer;
+    var kecamatanLayer;
     $( document ).ready(function(){
         $.getJSON('kecamatan/json/', function(data){
             $.each(data, function(index){                
@@ -197,11 +211,9 @@ var kecamatanLayer;
         });
     });
 
-
-
 //GEOJSON DATABASE
 var geoLayer;
-    $.getJSON('assets/popayato1.geojson', function(json){
+    $.getJSON('assets/Pohuwato2.geojson', function(json){
         geoLayer =  L.geoJSON(json, {
             style: function (feature) {
                 return {
@@ -212,7 +224,7 @@ var geoLayer;
                 };
             },
 
-            onEachFeature: function(feature, layer) {
+                onEachFeature: function(feature, layer) {
                 var iconLabel = L.divIcon({
                 className: 'label-bidang',
                 html: '<b>'+feature.properties.nama_kecamatan+'</b>',
@@ -243,18 +255,15 @@ var geoLayer;
                 layer.on('click', (e)=>{
                     $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
                         $.each(detail, function(index){
-                        $('#exampleModalLong').modal('show');
-                                    var data = {
-
-                                    // labels: [detail[index].kd_desa++],
-                                    labels: [@foreach ($lokasi as $data)
-                                    '{{$data->nama_desa}}',@endforeach],
+                            $('#exampleModalLong').modal('show');
+                            var data = {
+                                    // labels: [detail[index].kd_desa],
+                                    labels: [@foreach ($lokasi as $data) '{{$data->nama_desa}}',@endforeach],
 
                                     datasets: [{
                                         label: 'Balita Pendek',
                                         // data: [detail[index].jumlah], 
-                                    data: [@foreach ($lokasi as $data)
-                                    '{{$data->total_pendek  }}',@endforeach],
+                                    data: [@foreach ($lokasi as $data)'{{$data->total_pendek  }}',@endforeach],
 
                                         backgroundColor: [
                                         'rgba(255, 26, 104, 0.2)',
@@ -298,10 +307,47 @@ var geoLayer;
                                     config
                                     );
 
+                                    var ctx = document.getElementById("myChart").getContext('2d');
+                                    var myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: [@foreach ($lokasi as $d) '{{$d->nama_desa}}',@endforeach],
+                                        datasets: [{
+                                            label: 'Balita Sangat Pendek',
+                                            data: [@foreach ($lokasi as $d) '{{$d->sangat_pendek}}',@endforeach],
+                                            backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                            ],
+                                            borderColor: [
+                                            'rgba(255,99,132,1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        indexAxis: 'y', 
+                                        scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                        }
+                                    }
+                                  });
+
                             L.popup()
 
                                     .setLatLng(layer.getBounds().getCenter())
-                                    .setContent(pendekChart)
+                                    .setContent(pendekChart,myChart)
                                     .openOn(leafletMap);
                         });
                     });
@@ -311,7 +357,6 @@ var geoLayer;
             }
         });
     })
-
 
     function cari(kd_kecamatan){
         geoLayer.eachLayer(function(layer){

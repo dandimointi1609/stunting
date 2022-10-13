@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\TitikModel;
+use App\models\Periode;
+use App\Models\Kecamatan;
+use App\Models\Desa;
+
 
 
 class PravelensiController extends Controller
@@ -27,12 +31,23 @@ class PravelensiController extends Controller
      */
     public function index()
     {
+        $periode = Periode::all();
+        $kecamatan = Kecamatan::all();
         $results = $this->TitikModel->allLokasi();
-        return view('pravelensi', [ 'lokasi' =>$results]);
-        // {
-        //     return view('pravelensi');
-        // }
+        return view('pravelensi')->with([
+            'lokasi' => $results,
+            'periode' => $periode,
+            'kecID' => $kecamatan
+
+        ]);
     }
+
+    public function getDesa(Request $request){
+        $desa = Desa::where("kd_kecamatan",$request->kecID)->pluck('kd_desa','nama_desa');
+        return response()->json($desa);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -98,5 +113,13 @@ class PravelensiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function laporan(Request $request){
+        if($request->kd):
+            return view('buntulia');
+        else:
+            return view('buntulia1');
+        endif;
     }
 }

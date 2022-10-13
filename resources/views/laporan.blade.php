@@ -38,7 +38,6 @@
                                     <div class="input-group">
                                         <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +
                                         '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
-    
                                     </div>
                                     <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a>
                                     {{-- <a style="float: right;" class="btn mb-1 btn-outline-danger ml-1" href={{ route ('penderitapdf') }}>Export Pdf</a> --}}

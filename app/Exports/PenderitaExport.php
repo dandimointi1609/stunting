@@ -7,7 +7,6 @@ use App\models\Desa;
 use App\models\Puskes;
 use App\models\Balita;
 use Maatwebsite\Excel\Concerns\FromCollection;
-// use Maatwebsite\Excel\Concerns\Withheading;
 use Maatwebsite\Excel\Concerns\Withheadings;
 use Illuminate\Support\Facades\DB;
 
@@ -44,9 +43,7 @@ class PenderitaExport implements FromCollection, Withheadings
                             'k.nama_kecamatan',
                             'p.nama_puskes'
                            )
-                        //    ->where('p.id_puskes')
                            ->groupBy('k.nama_kecamatan','d.nama_desa','p.nama_puskes','kode_desa')
-
                            ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                            ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                            ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')

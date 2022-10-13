@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Agu 2022 pada 13.31
+-- Waktu pembuatan: 13 Okt 2022 pada 10.16
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.0.19
 
@@ -81,8 +81,8 @@ CREATE TABLE `t_balita` (
   `nama_balita` varchar(110) NOT NULL,
   `id_jenis_kelamin` int(11) NOT NULL,
   `tgl_lahir` date NOT NULL,
-  `tb_lahir` float NOT NULL,
-  `bb_lahir` float NOT NULL,
+  `tb_lahir` varchar(100) NOT NULL,
+  `bb_lahir` varchar(100) NOT NULL,
   `nama_ortu` varchar(110) NOT NULL,
   `id_puskes` int(11) NOT NULL,
   `kode_desa` varchar(110) NOT NULL,
@@ -90,6 +90,8 @@ CREATE TABLE `t_balita` (
   `tgl_pengukuran` date NOT NULL,
   `tb` float NOT NULL,
   `bb` float NOT NULL,
+  `lila` varchar(100) NOT NULL,
+  `kecamatan` varchar(255) NOT NULL,
   `hasil` enum('pendek','sangatpendek','normal') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -97,13 +99,13 @@ CREATE TABLE `t_balita` (
 -- Dumping data untuk tabel `t_balita`
 --
 
-INSERT INTO `t_balita` (`id_balita`, `nama_balita`, `id_jenis_kelamin`, `tgl_lahir`, `tb_lahir`, `bb_lahir`, `nama_ortu`, `id_puskes`, `kode_desa`, `alamat`, `tgl_pengukuran`, `tb`, `bb`, `hasil`) VALUES
-(8, 'dandi', 1, '2022-08-10', 30, 14, 'hilen', 4, '322', 'jln ', '2022-08-10', 92, 13, 'sangatpendek'),
-(11, 'bagus', 1, '2022-08-10', 30, 14, 'hilen kelo', 5, '132', 'jln ', '2022-08-10', 92, 13, 'pendek'),
-(12, 'dandimointti', 1, '2022-08-10', 30, 14, 'hilen', 4, '322', 'jln ', '2022-08-10', 92, 13, 'normal'),
-(13, 'dandi rivaldi mointti', 1, '2022-08-10', 30, 14, 'hilen', 4, '322', 'jln ', '2022-08-10', 92, 13, 'pendek'),
-(16, 'dandi rivaldi mointti', 1, '2022-08-10', 30, 14, 'hilen', 4, '323', 'jln ', '2022-08-10', 92, 13, 'pendek'),
-(17, 'meri yunus saputri', 2, '2022-08-23', 100, 8, 'abas', 8, '501', 'pulubala', '2022-08-23', 150, 90, 'pendek');
+INSERT INTO `t_balita` (`id_balita`, `nama_balita`, `id_jenis_kelamin`, `tgl_lahir`, `tb_lahir`, `bb_lahir`, `nama_ortu`, `id_puskes`, `kode_desa`, `alamat`, `tgl_pengukuran`, `tb`, `bb`, `lila`, `kecamatan`, `hasil`) VALUES
+(11, 'bagus', 1, '2022-08-10', '30', '14', 'hilen kelo', 5, '132', 'jln', '2022-08-10', 92, 13, '1', 'dengilo', 'pendek'),
+(12, 'dandimointti', 1, '2022-08-10', '30', '14', 'hilen', 4, '322', 'jln ', '2022-08-10', 92, 13, '1', 'popayato', 'normal'),
+(13, 'dandi rivaldi mointti', 1, '2022-08-10', '30', '14', 'hilen', 4, '322', 'jln ', '2022-08-10', 92, 13, '1', 'popayato', 'sangatpendek'),
+(16, 'dandi rivaldi mointti', 1, '2022-08-10', '30', '14', 'hilen', 4, '323', 'jln ', '2022-08-10', 92, 13, '1', 'popayato', 'sangatpendek'),
+(17, 'meri yunus saputri', 2, '2022-08-23', '100', '8', 'abas', 4, '323', 'pulubala', '2022-08-23', 150, 90, '1', 'popayato', 'pendek'),
+(19, 'tya', 2, '2022-10-02', '80', '8', 'hilenn', 4, '323', 'jln semangka', '2022-10-03', 200, 100, '1', 'popayato', 'sangatpendek');
 
 -- --------------------------------------------------------
 
@@ -114,18 +116,20 @@ INSERT INTO `t_balita` (`id_balita`, `nama_balita`, `id_jenis_kelamin`, `tgl_lah
 CREATE TABLE `t_desa` (
   `kd_desa` varchar(100) NOT NULL,
   `nama_desa` varchar(100) NOT NULL,
-  `kd_kecamatan` varchar(110) NOT NULL
+  `kd_kecamatan` varchar(110) NOT NULL,
+  `latitude` varchar(255) NOT NULL,
+  `longitude` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_desa`
 --
 
-INSERT INTO `t_desa` (`kd_desa`, `nama_desa`, `kd_kecamatan`) VALUES
-('132', 'Dengilo utara', '13'),
-('322', 'buntulia utara', '32'),
-('323', 'buntulia barat', '32'),
-('501', 'popayato utara', '50');
+INSERT INTO `t_desa` (`kd_desa`, `nama_desa`, `kd_kecamatan`, `latitude`, `longitude`) VALUES
+('132', 'Dengilo utara1', '51', '0.6046659759422', '121.55687251799'),
+('322', 'buntulia utara', '32', '0.6840972480444', '121.47311865190'),
+('323', 'buntulia barat', '32', '0.7612099818717', '121.93202018737'),
+('501', 'popayato utara', '10', '0.7612099818717', '121.93202018737');
 
 -- --------------------------------------------------------
 
@@ -154,17 +158,44 @@ INSERT INTO `t_jenkel` (`id_jk`, `jenis_kelamin`) VALUES
 
 CREATE TABLE `t_kecamatan` (
   `kd_kecamatan` varchar(100) NOT NULL,
-  `nama_kecamatan` varchar(110) NOT NULL
+  `nama_kecamatan` varchar(110) NOT NULL,
+  `latitude` varchar(255) NOT NULL,
+  `longitude` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_kecamatan`
 --
 
-INSERT INTO `t_kecamatan` (`kd_kecamatan`, `nama_kecamatan`) VALUES
-('13', 'Dengilo'),
-('32', 'Buntulia'),
-('50', 'popayato');
+INSERT INTO `t_kecamatan` (`kd_kecamatan`, `nama_kecamatan`, `latitude`, `longitude`) VALUES
+('10', 'Popayato', '0.5149771969804', '122.05055236816'),
+('20', 'Lemito', '0.6046659759422', '121.55687251799'),
+('30', 'Marisa', '0.6046659759422', '121.55687251799'),
+('32', 'Buntulia', '0.6046659759422', '121.55687251799'),
+('33', 'Duhiadaa', '0.6046659759422', '121.55687251799'),
+('50', 'Paguat', '0.6046659759422', '121.55687251799'),
+('51', 'Dengilo', '0.6046659759422', '121.55687251799');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_periode`
+--
+
+CREATE TABLE `t_periode` (
+  `id_periode` int(11) NOT NULL,
+  `nama_periode` varchar(255) NOT NULL,
+  `tgl_awal` date NOT NULL,
+  `tgl_akhir` date NOT NULL,
+  `jenis_periode` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `t_periode`
+--
+
+INSERT INTO `t_periode` (`id_periode`, `nama_periode`, `tgl_awal`, `tgl_akhir`, `jenis_periode`) VALUES
+(1, 'maret 2022', '2022-08-03', '2022-09-03', 'sebaran');
 
 -- --------------------------------------------------------
 
@@ -188,8 +219,8 @@ CREATE TABLE `t_puskes` (
 
 INSERT INTO `t_puskes` (`id_puskes`, `nama_puskes`, `alamat`, `kd_kecamatan`, `status`, `latitude`, `longitude`) VALUES
 (4, 'buntulia', 'jln semangka', '32', '0', '0.7612099818717', '121.93202018737'),
-(5, 'dengilo', 'jln', '13', '0', '0.6923363997240', '122.18045711517'),
-(8, 'popayato', 'jln trans', '50', '0', '0.6870581948166', '122.22041130065');
+(5, 'dengilo', 'jln', '51', '0', '0.6923363997240', '122.18045711517'),
+(8, 'popayato', 'jln trans', '10', '0', '0.6870581948166', '122.22041130065');
 
 -- --------------------------------------------------------
 
@@ -214,10 +245,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `level`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'puskes', 'puskes@gmail.com', 'puskes', NULL, '$2y$10$G.gB/CX0aJndtUQyFAopkuBjwosM7OozAmIniKQoAKvt.TXfDboSu', NULL, '2022-08-01 22:01:38', '2022-08-01 22:01:38'),
-(2, 'admin', 'admin@gmail.com', 'admin', NULL, '$2y$10$G.gB/CX0aJndtUQyFAopkuBjwosM7OozAmIniKQoAKvt.TXfDboSu', NULL, '2022-08-02 09:15:35', '2022-08-02 09:15:35'),
-(3, 'bptd', 'bptd@gmail.com', 'bptd', NULL, '$2y$10$G.gB/CX0aJndtUQyFAopkuBjwosM7OozAmIniKQoAKvt.TXfDboSu', '7zwXxZG8cdVGRf8DkPgZfReQ6dvzI5qox16fG3TWOGCmUWPsGpmMMiIb8gNW', '2022-08-02 09:16:57', '2022-08-02 09:16:57'),
-(4, 'dinkes', 'dinkes@gmail.com', 'dinkes', NULL, '$2y$10$G.gB/CX0aJndtUQyFAopkuBjwosM7OozAmIniKQoAKvt.TXfDboSu', NULL, '2022-08-02 09:17:57', '2022-08-02 09:17:57');
+(1, 'puskes', 'puskes@gmail.com', 'puskes', NULL, '$2y$10$G.gB/CX0aJndtUQyFAopkuBjwosM7OozAmIniKQoAKvt.TXfDboSu', NULL, '2022-08-01 22:01:38', '2022-10-04 19:32:05'),
+(4, 'dinkes', 'dinkes@gmail.com', 'dinkes', NULL, '$2y$10$G.gB/CX0aJndtUQyFAopkuBjwosM7OozAmIniKQoAKvt.TXfDboSu', NULL, '2022-08-02 09:17:57', '2022-08-02 09:17:57'),
+(6, 'bptd', 'bptd@gmail.com', 'bptd', NULL, '$2y$10$G.gB/CX0aJndtUQyFAopkuBjwosM7OozAmIniKQoAKvt.TXfDboSu', NULL, '2022-08-02 09:17:57', '2022-08-02 09:17:57');
 
 --
 -- Indexes for dumped tables
@@ -270,6 +300,12 @@ ALTER TABLE `t_kecamatan`
   ADD PRIMARY KEY (`kd_kecamatan`);
 
 --
+-- Indeks untuk tabel `t_periode`
+--
+ALTER TABLE `t_periode`
+  ADD PRIMARY KEY (`id_periode`);
+
+--
 -- Indeks untuk tabel `t_puskes`
 --
 ALTER TABLE `t_puskes`
@@ -303,13 +339,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `t_balita`
 --
 ALTER TABLE `t_balita`
-  MODIFY `id_balita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_balita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_jenkel`
 --
 ALTER TABLE `t_jenkel`
   MODIFY `id_jk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_periode`
+--
+ALTER TABLE `t_periode`
+  MODIFY `id_periode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_puskes`
@@ -321,7 +363,7 @@ ALTER TABLE `t_puskes`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

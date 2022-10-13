@@ -10,6 +10,8 @@ use App\models\Balita;
 use App\models\TitikModel;
 use App\models\PuskesModel;
 use App\models\KecamatanModel;
+use App\models\Periode;
+
 
 
 
@@ -35,12 +37,14 @@ class SebaranController extends Controller
      */
     public function index()
     {
+        $periode = Periode::all();
         $results = $this->TitikModel->allLokasi();
         $pencarian = $this->TitikModel->allPencarian();
 
         return view('sebaran')->with([
             'lokasi' => $results,
-            'pencarian' => $pencarian
+            'pencarian' => $pencarian,
+            'periode' => $periode
 
         ]);
     }

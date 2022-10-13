@@ -44,7 +44,6 @@ class LaporanpenderitaController extends Controller
                            ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                            ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                            ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-                        //   ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
                            ->orderBy('p.nama_puskes', 'desc')
                     ->get();
         //   return $laporan;

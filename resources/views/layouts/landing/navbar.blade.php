@@ -26,7 +26,7 @@
           </li>
         </ul>
         <span class="nav-item">
-          <a class="btn-outline-sm" href="/login">LOG IN</a>
+          <a class="btn-outline-sm" href="/login">Masuk</a>
         </span>
       </div>
     </div>

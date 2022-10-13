@@ -53,8 +53,8 @@
                                         <input type="text" class="form-control" id="nama_balita" placeholder="Masukan Nama Balita" name="nama_balita" value="{{ old('nama_balita') }}">
                                     </div>
                                     <div class="form-group col-md-6" {{ $errors->has('nama_ortu') ? ' has-error' : '' }}">
-                                        <label for="nama_puskes">Kecamatan</label>
-                                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" placeholder="Masukan Nama Kecamatan">
+                                        <label for="kecamatan">Kecamatan</label>
+                                        <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Masukan Nama Kecamatan">
                                     </div>
                                 </div>
 
@@ -161,22 +161,23 @@
         
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label  for="bb"><b>Li/La</b></label>
-                                            <input type="text" class="form-control" id="" placeholder="Masukan Li/La" name="" value="{{ old('') }}">
+                                        <label  for="lila"><b>Li/La</b></label>
+                                            <input type="text" class="form-control" id="lila" placeholder="Masukan Li/La" name="lila" value="{{ old('lila') }}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label  for="Hasil"><b>Hasil</b></label>
+                                        <label  for="Hasil"><b>TB/U</b></label>
                                             <select class="form-control" name="hasil" value="{{ old('hasil') }}">
                                                 <option value="">Pilih Hasil</option>
                                                 <option value="pendek">Pendek</option>
                                                 <option value="sangatpendek">Sangat Pendek</option>
+                                                <option value="normal">normal</option>
                                             </select>
                                     </div>
         
                                 </div>
                                <div class="form-group row">
                                             <div class="col-lg-8 ml-auto">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button style="float: right;" type="submit" class="btn btn-primary">Submit</button>
                                             </div>
                                 </div>
                             </form>

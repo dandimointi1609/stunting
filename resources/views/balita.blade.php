@@ -33,7 +33,7 @@
                                         <input type="date" name="tglakhir" id="tglakhir" class="form-control"/>
                                     </div>
                                     <div class="form-inline">
-                                        <a href="#" onclick="this.href='/cetak-penderita-pdf/'+document.getElementById('tglawal').value +
+                                        <a href="#" onclick="this.href='/data-penderita/'+document.getElementById('tglawal').value +
                                         '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-danger ml-1">Export Pdf</a>
                                         <a href={{ route ('penderitaexport') }} class="btn mb-1 btn-outline-success ml-1">Export Excel</a>
                                     </div>

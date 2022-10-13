@@ -49,8 +49,6 @@
             <li class="nav-label">DATA WILAYAH</li>
                 <ul>
                     <li><a href="/balita">Data Penderita Stunting</a></li>
-                    <li><a href="/cetakpertanggal">cetak Penderita Stunting</a></li>
-
                     <li><a href="/map">Data Sebaran</a></li>
                 </ul>
             </li>
@@ -104,6 +102,14 @@
             </li> 
             @endif
             @endguest
+
+            <li class="nav-label">Belajar</li>
+                <ul>
+                    <li><a href="/belajar">KECAMATAN</a></li>
+                </ul>
+            </li>
+
+
 
             @guest
             @else 

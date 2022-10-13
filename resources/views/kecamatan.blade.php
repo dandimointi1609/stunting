@@ -50,7 +50,6 @@
                                 </div>
 
                                 <div class="bootstrap-modal">
-                                    <!-- Large modal -->
                                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
@@ -205,7 +204,7 @@ var desaLayer;
     
     //GEOJSON DATABASE
     var geoLayer;
-    $.getJSON('assets/popayato1.geojson', function(json){
+    $.getJSON('assets/Pohuwato2.geojson', function(json){
           geoLayer =  L.geoJSON(json, {
             style: function (feature) {
                 return {

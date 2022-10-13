@@ -3,29 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Kecamatan;
-use App\models\Desa;
-use App\models\Puskes;
-use App\models\Balita;
-use App\models\TitikModel;
-use App\models\PuskesModel;
-use App\models\KecamatanModel;
+use App\Models\Kecamatan;
+use App\Models\Desa;
 
-class TitikController extends Controller
+class BelajarController extends Controller
 {
-    
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
-    {
-        // $this->TitikModel= new TitikModel();
-        $this->TitikModel= new TitikModel();
-        $this->KecamatanModel= new KecamatanModel();
-        $this->PuskesModel= new PuskesModel();
-    }
     /**
      * Display a listing of the resource.
      *
@@ -33,37 +15,14 @@ class TitikController extends Controller
      */
     public function index()
     {
-        $results = $this->TitikModel->allLokasi();
-        $pencarian = $this->TitikModel->allPencarian();
-
-        //  return view('map', ['lokasi' =>$results]);
-         return view('map')->with([
-            'lokasi' => $results,
-            'pencarian' => $pencarian
-
-        ]);
+        $kecamatan = Kecamatan::all();
+        return view('belajar',['kecID'=>$kecamatan]);
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function titik()
-    {
-        $results = $this->TitikModel->allData();
-        return json_encode($results);
-    }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function lokasi($kd_kecamatan='')
-    {
-        $results = $this->TitikModel->getlokasi($kd_kecamatan);
-        return json_encode($results);
+    public function getDesa(Request $request){
+        $desa = Desa::where("kd_kecamatan",$request->kecID)->pluck('kd_desa','nama_desa');
+        return response()->json($desa);
     }
 
     /**

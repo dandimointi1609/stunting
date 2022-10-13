@@ -18,14 +18,13 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="col-lg-2 col-xl-4">
-                                        <label class="mr-sm-2">Cari Kecamatan</label>
-                                   <select class="custom-select mr-sm-2" onchange="cari(this.value)">
-                                               @foreach ($lokasi as $d)
-                                                          <option value="{{$d->kd_kecamatan}}">{{$d->nama_kecamatan}}</option>
+                                    <div class="col-lg-2 col-xl-12"> 
+                                            <select class="custom-select mr-sm-2" onchange="cari(this.value)">
+                                                @foreach ($pencarian as $d)
+                                                    <option value="{{$d->kd_kecamatan}}">{{$d->nama_kecamatan}}</option>
                                                 @endforeach
-                                    </select>
-                                </div>
+                                            </select>
+                                    </div>
                             </div>
                       </div>
                  </div>
@@ -124,7 +123,7 @@
  
      //GEOJSON DATABASE
      var geoLayer;
-     $.getJSON('assets/popayato1.geojson', function(json){
+     $.getJSON('assets/Pohuwato2.geojson', function(json){
            geoLayer =  L.geoJSON(json, {
              style: function (feature) {
                  return {

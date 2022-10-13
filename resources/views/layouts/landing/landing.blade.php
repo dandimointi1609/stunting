@@ -73,7 +73,7 @@
               <div class="text-container">
                 <h1>Ayo Cegah Stunting !</h1>
                 <p class="p-large">Lihat sekelilingmu di wilayah kabupaten Pohuwato lokasi Lokus Stunting</p>
-                <a class="btn-solid-lg page-scroll" href="/login">Login</a>
+                <a class="btn-solid-lg page-scroll" href="/login">Masuk</a>
               </div>
               <!-- end of text-container -->
             </div>
