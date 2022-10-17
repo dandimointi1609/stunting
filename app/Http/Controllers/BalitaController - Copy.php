@@ -6,6 +6,8 @@ use App\models\Jenis_Kelamin;
 use App\models\Balita;
 use App\models\Puskes;
 use App\models\Desa;
+use App\User;
+
 use App\models\Kecamatan;
 use App\Exports\PenderitaExport;
 use PDF;
@@ -16,7 +18,8 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+// use Illuminate\Support\Facades\Models;
+// use App\Http\Controllers\Models;
 
 class BalitaController extends Controller
 {
@@ -26,31 +29,59 @@ class BalitaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
 
-        $balita = Balita::all();
+        // $balita = DB::table('t_balita AS b')     
+        // ->select(           'b.nama_balita', 
+        //                     'b.tgl_pengukuran',
+        //                     'b.id_balita',
+        //                     'k.nama_kecamatan',
+        //                     'd.nama_desa',
+        //                     'u.id',
+        //                     'p.nama_puskes'
+        //                   )
+        //                   ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+        //                   ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+        //                   ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+        //                   ->rightjoin('users as u', 'p.user_id', '=', 'u.id')
+        //                   ->where('p.user_id')
+        //            ->get();
+
+        // $balita = Puskes::all();
+        // $user = User::all();
+        // echo Auth::user()->id;
+        // die;
+        $puskes = Puskes::with('user')->where('user_id',Auth::user()->id)->get(); 
+        // dd($puskes); 
+        $balita = Balita::with('puskes','desa','user')->get();
+        // dd($balita);
+        // dd($balita);
+
+        // $balita = Balita::with('user','desa')->get();
+
+
+        // $balita = Balita::all();
+        // $kecamatan = Kecamatan::all();
+        // $balita = Puskes::with('user')->where('user_id', Auth::user()->id)->firstOrFail();
+        // $balita = Puskes::with(['user','balita'])->where('nama_puskes')->firstOrFail();
+        
+        // dd($balita);
+
         $periode = Periode::all();
+        // $balita = Balita::all();
 
-        return view('balita', [ 'balita' =>$balita]);
+        // $user = User::all();
+        // $periode = Periode::all();
+
+        // return view('balita', [ 'balita' =>$balita]);
         
         return view('balita')->with([
             'balita' => $balita,
+            'puskes' => $puskes,
             'periode' => $periode
 
+
         ]);
-    }
-
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function penderita()
-    {
-
-        $penderita = Balita::all();
-
-        return view('penderita', [ 'penderita' =>$penderita]);
     }
 
     /**
@@ -63,10 +94,12 @@ class BalitaController extends Controller
         // return view('tambahbalita');
           // return view('tambahpuskes');
         // return view('tambahdesa');
-        $puskes = Puskes::with('user')->where('user_id', Auth::user()->id)->get();
-        $balita = Balita::get();
-
+        // $puskes = Puskes::get();
+        $puskes = Puskes::with('user')->where('user_id',Auth::user()->id)->get(); 
+        // print_r($puskes[0]->id_puskes);
+        // die;
         $desa = Desa::get();
+        $balita = Balita::get();
 
         // $status = Status::get();
 
@@ -82,25 +115,52 @@ class BalitaController extends Controller
      */
     public function store(Request $request)
     {
-        Balita::create([
-            'nama_balita' => $request->nama_balita,
-            'id_jenis_kelamin' => $request->jenis_kelamin,
-            'tgl_lahir' => $request->tgl_lahir,
-            'tb_lahir' => $request->tb_lahir,
-            'bb_lahir' => $request->bb_lahir,
-            'nama_ortu' => $request->nama_ortu,
-            'id_puskes' => $request->id_puskes,
-            'kode_desa' => $request->kode_desa,
-            'alamat' => $request->alamat,
-            'tgl_pengukuran' => $request->tgl_pengukuran,
-            'tb' => $request->tb,
-            'bb' => $request->bb,
-            'lila' => $request->lila,
-            'tambah_kecamatan' => $request->tambah_kecamatan,
-            'hasil' => $request->hasil,
+
+        // $validatedData = new Balita;
+
+        // $validatedData = $request->validate([
+        //     'nama_balita' => 'required',
+        //     'id_jenis_kelamin' => 'required',
+        //     'tgl_lahir' => 'required',
+        //     'tb_lahir' => 'required',
+        //     'bb_lahir' => 'required',
+        //     'nama_ortu' => 'required',
+        //     'id_puskes' => 'required',
+        //     'kode_desa' => 'required',
+        //     'alamat' => 'required',
+        //     'tgl_pengukuran' => 'required',
+        //     'tb' => 'required',
+        //     'bb' => 'required',
+        //     'lila' => 'required',
+        //     'tambah_kecamatan' => 'required',
+        //     'hasil' => 'required'
+
+        // ]);
+
+        // $validatedData->save();
+        // return back();
+
+        $validatedData = $request->validate([
+            'nama_balita' => 'required',
+            'id_jenis_kelamin' => 'required',
+            'tgl_lahir' => 'required',
+            'tb_lahir' => 'required',
+            'bb_lahir' => 'required',
+            'nama_ortu' => 'required',
+            'id_puskes' => 'required',
+            'kode_desa' => 'required',
+            'alamat' => 'required',
+            'tgl_pengukuran' => 'required',
+            'tb' => 'required',
+            'bb' => 'required',
+            'lila' => 'required',
+            'tambah_kecamatan' => 'required',
+            'hasil' => 'required'
         ]);
 
-        return redirect('/balita');
+        Balita::create($validatedData);
+        return redirect('/balita')->with('success', 'data berhasil tertambah');
+
     }
 
     /**
@@ -154,7 +214,7 @@ class BalitaController extends Controller
         $balita->tb = $request->tb;
         $balita->bb = $request->bb;
         $balita->lila = $request->lila;
-        $balita->kecamatan = $request->kecamatan;
+        $balita->tambah_kecamatan = $request->tambah_kecamatan;
         $balita->hasil = $request->hasil;
         $balita->update();
 

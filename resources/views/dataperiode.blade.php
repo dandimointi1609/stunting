@@ -22,30 +22,47 @@
                              {{ csrf_field() }}
                                 <div class="form-row">
                                     <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama">Tahun/Bulan Periode <span class="text-danger">*</span></label>
-                                        
-                                            <input type="text" class="form-control col-lg-6" id="nama_periode" placeholder="Masukan Bulan Dan Tahun Periode" name="nama_periode" value="{{ old('nama_periode') }}">
+                                        <label class="col-lg-4 col-form-label" for="nama_periode">Tahun/Bulan Periode <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control col-lg-6 @error('nama_periode') is-invalid @enderror" id="nama_periode" placeholder="Masukan Bulan Dan Tahun Periode" name="nama_periode" value="{{ old('nama_periode') }}">
+                                            @error('nama_periode')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                     </div> 
                                     <div class="form-group row col-md-6 ">
                                         <label class="col-lg-4 col-form-label" for="jenis_periode">Jenis Periode <span class="text-danger">*</span>
                                         </label>
-                                            <input type="text" class="form-control col-lg-6" id="jenis_periode" placeholder="Masukan Jenis Periode" name="jenis_periode" value="{{ old('jenis_periode') }}">
+                                            <input type="text" class="form-control col-lg-6 @error('jenis_periode') is-invalid @enderror" id="jenis_periode" placeholder="Masukan Jenis Periode" name="jenis_periode" value="{{ old('jenis_periode') }}">
+                                            @error('jenis_periode')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                     </div>
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group row col-md-6" {{ $errors->has('tgl_awal') ? ' has-error' : '' }}>
+                                    <div class="form-group row col-md-6">
                                         <label class="col-lg-4 col-form-label" for="tgl_awal">Dari Hari <span class="text-danger">*</span>
                                         </label>
-                                        {{-- <input type="text" class="form-control col-lg-6" id="longitude" placeholder="Masukan Longitude" name="longitude" value="{{ old('longitude') }}"> --}}
-                                        <input type="date" name="tgl_awal" id="tgl_awal" class="form-control col-lg-6">
+                                        <input type="date" name="tgl_awal" id="tgl_awal" class="form-control col-lg-6 @error('tgl_awal') is-invalid @enderror">
+                                        @error('tgl_awal')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                         
                                     </div>
-                                    <div class="form-group row col-md-6" {{ $errors->has('tgl_akhir') ? ' has-error' : '' }}>
+                                    <div class="form-group row col-md-6">
                                         <label class="col-lg-4 col-form-label" for="tgl_akhir">Sampai Hari <span class="text-danger">*</span>
                                         </label>
-                                            {{-- <input type="text" class="form-control col-lg-6" id="kd_desa" placeholder="Masukan Kode Desa" name="kd_desa" value="{{ old('kd_desa') }}"> --}}
-                                            <input type="date" name="tgl_akhir" id="tgl_akhir" class="form-control col-lg-6">
+                                            <input type="date" name="tgl_akhir" id="tgl_akhir" class="form-control col-lg-6 @error('tgl_akhir') is-invalid @enderror">
+                                            @error('tgl_akhir')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                     </div>
 
                                 </div>                               

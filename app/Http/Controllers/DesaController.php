@@ -50,17 +50,29 @@ class DesaController extends Controller
      */
     public function store(Request $request)
     {
-        Desa::create([
-            'kd_desa' => $request->kd_desa,
-            'nama_desa' => $request->nama_desa,
-            'kd_kecamatan' => $request->kd_kecamatan,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
 
+        $validatedData = $request->validate([
 
+            'kd_desa' => 'required',
+            'nama_desa' => 'required',
+            'kd_kecamatan' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
-        return redirect('/desa');
+        Desa::create($validatedData);
+        return redirect('/desa')->with('success', 'data berhasil tertambah');
+
+
+
+        // Desa::create([
+        //     'kd_desa' => $request->kd_desa,
+        //     'nama_desa' => $request->nama_desa,
+        //     'kd_kecamatan' => $request->kd_kecamatan,
+        //     'latitude' => $request->latitude,
+        //     'longitude' => $request->longitude,
+        // ]);
+
     }
 
     /**

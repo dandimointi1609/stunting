@@ -56,7 +56,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row" {{ $errors->has('kd_desa') ? ' has-error' : '' }}">
+                                <div class="form-group row" {{ $errors->has('kd_desa') ? ' has-error' : '' }}>
                                     <label class="col-lg-4 col-form-label" for="kd_desa">Kode Desa <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">

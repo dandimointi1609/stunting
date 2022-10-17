@@ -45,48 +45,71 @@
                              {{ csrf_field() }}
 
                                 <div class="form-row">
-                                    <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama">Nama Desa <span class="text-danger">*</span></label>
-                                        
-                                            <input type="text" class="form-control col-lg-6" id="nama_desa" placeholder="Masukan Nama Desa" name="nama_desa" value="{{ old('nama_desa') }}">
+                                    <div class="form-group row col-md-6">
+                                        <label class="col-lg-4 col-form-label" for="nam_desa">Nama Desa <span class="text-danger">*</span></label>  
+                                            <input type="text" class="form-control col-lg-6 @error('nama_desa') is-invalid @enderror" id="nama_desa" placeholder="Masukan Nama Desa" name="nama_desa" value="{{ old('nama_desa') }}">
+                                            @error('nama_desa')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                     </div> 
-                                    <div class="form-group row col-md-6 ">
+                                    <div class="form-group row col-md-6">
                                         <label class="col-lg-4 col-form-label" for="latitude">Latitude <span class="text-danger">*</span>
                                         </label>
-                                            <input type="text" class="form-control col-lg-6" id="latitude" placeholder="Masukan Latitude" name="latitude" value="{{ old('latitude') }}">
+                                            <input type="text" class="form-control col-lg-6 @error('latitude') is-invalid @enderror" id="latitude" placeholder="Masukan Latitude" name="latitude" value="{{ old('latitude') }}">
+                                            @error('latitude')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                     </div>
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group row col-md-6"  {{ $errors->has('kd_kecamatan') ? ' has-error' : '' }}>
-                                        <label class="col-lg-4 col-form-label" for="nama">Nama Kecamatan <span class="text-danger">*</span></label>
+                                    <div class="form-group row col-md-6">
+                                        <label class="col-lg-4 col-form-label" for="nama_kecamatan">Nama Kecamatan <span class="text-danger">*</span></label>
                                             <div class="input-group col-md-6">
                                                 <input  class="form-control" id="kd_kecamatan" type="hidden" name="kd_kecamatan" value="{{ old('kd_kecamatan') }}" readonly="" required >
-                                                <input type="text" class="form-control" id="nama_kecamatan" type="text" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}" required readonly="" >
+                                                <input type="text" class="form-control @error('nama_kecamatan') is-invalid @enderror" id="nama_kecamatan" type="text" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}" required readonly="" >
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal2"><span class="fa fa-search"></span></button>
                                                 </span>
+                                                @error('nama_kecamatan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
                                     </div> 
 
-                                    <div class="form-group row col-md-6 ">
+                                    <div class="form-group row col-md-6">
                                         <label class="col-lg-4 col-form-label" for="longitude">Longitude <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" class="form-control col-lg-6" id="longitude" placeholder="Masukan Longitude" name="longitude" value="{{ old('longitude') }}">
+                                        <input type="text" class="form-control col-lg-6 @error('longitude') is-invalid @enderror" id="longitude" placeholder="Masukan Longitude" name="longitude" value="{{ old('longitude') }}">
+                                        @error('longitude')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
 
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group row col-md-6" {{ $errors->has('kd_desa') ? ' has-error' : '' }}>
+                                    <div class="form-group row col-md-6">
                                         <label class="col-lg-4 col-form-label" for="kd_desa">Kode Desa <span class="text-danger">*</span>
                                         </label>
-                                            <input type="text" class="form-control col-lg-6" id="kd_desa" placeholder="Masukan Kode Desa" name="kd_desa" value="{{ old('kd_desa') }}">
+                                            <input type="text" class="form-control col-lg-6 @error('kd_desa') is-invalid @enderror" id="kd_desa" placeholder="Masukan Kode Desa" name="kd_desa" value="{{ old('kd_desa') }}">
+                                            @error('kd_desa')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                     </div>
-                                    <div class="form-group row col-md-6" {{ $errors->has('kd_desa') ? ' has-error' : '' }}>
+                                    <div class="form-group row col-md-6">
                                         <label class="col-lg-4 col-form-label"  type="hidden" for=""> <span class="text-danger"></span>
                                         </label>
-                                            {{-- <input type="text" class="form-control col-lg-6" id="kd_desa" placeholder="Masukan Kode Desa" name="kd_desa" value="{{ old('kd_desa') }}"> --}}
                                             <button type="button" class="btn btn-primary col-lg-4" data-toggle="modal" data-target=".bd-example-modal-lg">Pilih Lokasi</button>
                                     </div>
 
@@ -125,7 +148,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>

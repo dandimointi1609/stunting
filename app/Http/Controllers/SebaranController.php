@@ -38,12 +38,14 @@ class SebaranController extends Controller
     public function index()
     {
         $periode = Periode::all();
+        $kecamatan = Kecamatan::all();
         $results = $this->TitikModel->allLokasi();
         $pencarian = $this->TitikModel->allPencarian();
 
         return view('sebaran')->with([
             'lokasi' => $results,
             'pencarian' => $pencarian,
+            'kecamatan' => $kecamatan,
             'periode' => $periode
 
         ]);
@@ -75,6 +77,25 @@ class SebaranController extends Controller
     public function data($kd_kecamatan='')
     {
         $results = $this->TitikModel->getGrafik($kd_kecamatan);
+        // $desa = "";
+        // $total = "";
+        // $no=0;
+        // foreach ($results as $key) {
+        //     if($no == count($results) -1){ 
+        //         $koma = "";
+        //     }else{
+        //         $koma = ",";
+        //     }
+        //     $desa .= "'".$key->nama_desa."'".$koma;
+        //     $total .= $key->sangat_pendek.$koma;
+        // $no++;
+        // }
+        // $data = [
+        //     'desa' => $desa,
+        //     'total' => $total
+        // ];
+        // dd($results);
+     
         return json_encode($results);
     }
 

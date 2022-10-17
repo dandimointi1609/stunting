@@ -16,6 +16,35 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
+                <div class="card mb-1 mt-1">
+                    <div class="card-body">
+                        <div class="row mt ml-1">
+                            <div class="col">
+                                <div class="form-row">
+                                    <div class="form-group col-md-2">
+                                        <input type="date" name="tglawal" id="tglawal" class="form-control"/>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="date" name="tglakhir" id="tglakhir" class="form-control"/>
+                                    </div>
+                                    <div class="form-inline">
+                                        <a href="#" onclick="this.href='/filter-laporan/'+document.getElementById('tglawal').value +
+                                        '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-danger ml-1">Export Pdf</a>
+                                        <a href={{ route ('laporanexport') }} class="btn mb-1 btn-outline-success ml-1">Export Excel</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
                 <div class="card mb-2 mt-1">
                     <div class="card-body">
                         <div class="row mt-1 ml-1">
@@ -31,7 +60,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="container-fluid">
         <div class="row">

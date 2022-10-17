@@ -7,9 +7,14 @@ use App\models\Desa;
 use App\models\Puskes;
 use App\models\Balita;
 use App\models\PuskesModel;
+use App\User;
+// use Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class PuskesController extends Controller
 {
@@ -20,13 +25,19 @@ class PuskesController extends Controller
      */
     public function index()
     {
+
         $puskes = Puskes::all();
+        $user = User::all();
+
         $kecamatan = Kecamatan::get();
+        $balita = Balita::get();
         $desa = Desa::get();
-        // return view('puskes', [ 'puskes' =>$puskes]);
         return view('puskes')->with([
             'puskes' => $puskes,
             'kecamatan' => $kecamatan,
+            'balita' => $balita,
+            'desa' => $desa,
+            'user' => $user,
 
         ]);
     }
@@ -65,8 +76,8 @@ class PuskesController extends Controller
         $kecamatan = Kecamatan::get();
         $desa = Desa::get();
         $puskes = Puskes::all();
-        return view('tambahpuskes', compact('kecamatan','desa','puskes'));
-        // return view('puskes', [ 'puskes' =>$puskes]);
+        $user = User::all();
+        return view('tambahpuskes', compact('kecamatan','desa','puskes','user'));
 
        
     }
@@ -79,20 +90,42 @@ class PuskesController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
+
         Puskes::create([
-            'nama_puskes' => $request->nama_puskes,
-            'alamat' => $request->alamat,
-            'kd_kecamatan' => $request->kd_kecamatan,
-            'status' => '0',
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude
 
-
-            
+            'nama_puskes' => $data['nama_puskes'],
+            'alamat' => $data['alamat'],
+            'email' => $data['email'],
+            'kd_kecamatan' => $data['kd_kecamatan'],
+            'latitude' => $data['latitude'],
+            'longitude' => $data['longitude'],
+            'status' => "0",
+            'user_id' => "0",
 
         ]);
-            
-        return redirect('/puskes');
+
+        User::create([
+            // 'id' => $data['user_id'],
+            'name' => $data['nama_puskes'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'level' => "puskes"
+        ]);
+
+        // $validatedData = $request->validate([
+
+        //     'kd_puskes' => 'required',
+        //     'alamat' => 'required',
+        //     'kd_kecamatan' => 'required',
+        //     'status' => '0',
+        //     'latitude' => 'required',
+        //     'longitude' => 'required',
+        // ]);
+
+        // Puskes::create($validatedData);
+        return redirect('/puskes')->with('success', 'data berhasil tertambah');
+
         
     }
 

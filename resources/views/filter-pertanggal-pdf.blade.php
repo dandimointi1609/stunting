@@ -38,26 +38,24 @@
   <tr>
     <th>No</th>
     <th>Kecamatan</th>
-    <th>Desa/Kelurahan</th>
     <th>Puskes</th>
-    <th>Tanggal</th>
-    <th>Total Balita</th>
+    <th>Alamat</th>
     <th>Pendek</th>
     <th>Sangat Pendek</th>
     <th>Total Balita Sangat pendek+Pendek</th>
+    <th>Tanggal</th>
     <th>Pravelensi</th>
   </tr>
-  @foreach ($cetakpertanggal as $item)
+  @foreach ($filterpertanggal as $item)
   <tr>
     <td>{{ $loop->iteration }}</td>
     <td>{{ $item->nama_kecamatan}}</td>
-    <td>{{ $item->nama_desa}}</td>
     <td>{{ $item->nama_puskes}}</td>
-    <td>{{ $item->tgl_pengukuran}}</td>
-    <td>{{ $item->total}}</td>
+    <td>{{ $item->alamat}}</td>
     <td>{{ $item->total_pendek}}</td>
     <td>{{ $item->sangat_pendek}}</td>
     <td>{{ $item->total}}</td>
+    <td>{{ $item->tgl_pengukuran}}</td>
     <td>{{ $item->total}}</td>
     </tr>
     @endforeach                                    

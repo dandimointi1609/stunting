@@ -29,6 +29,7 @@
 @section('content')
 <div class="content-body">
     <div class="container-fluid mt-3">
+        <div class="alert alert-info"> Selamat Datang {{ Auth::user()->name }}</div>
         @guest
         @else
         @if (Auth::user()->level=='puskes') 
@@ -132,6 +133,10 @@
         </div>
         @endif
         @endguest
+
+        <p>
+        <br>
+            {{-- <center><h1>Selamat Datang {{ Auth::user()->name }} </h1></center> --}}
 
     </div> 
 </div>

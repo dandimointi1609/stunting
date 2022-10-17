@@ -28,37 +28,30 @@
 </head>
 <body>
 
-  <center>
-  <h3>HASIL ANALISIS PENGUKURAN PREVALENSI STUNTING  KABUPATEN POHUWATO</h3>
-  </center>
+
+  <h1>HASIL ANALISIS PENDERITA STUNTING  KABUPATEN POHUWATO</h1>
 
 
 
 <table id="customers">
   <tr>
     <th>No</th>
+    <th>Nama</th> 
+    <th>Jenis Kelamin</th>   
     <th>Kecamatan</th>
     <th>Desa/Kelurahan</th>
-    <th>Puskes</th>
-    <th>Tanggal</th>
-    <th>Total Balita</th>
-    <th>Pendek</th>
-    <th>Sangat Pendek</th>
-    <th>Total Balita Sangat pendek+Pendek</th>
-    <th>Pravelensi</th>
+    <th>Puskesmas</th>
+    <th>Periode</th>
   </tr>
-  @foreach ($cetakpertanggal as $item)
+  @foreach ($filterlaporan as $item)
   <tr>
     <td>{{ $loop->iteration }}</td>
+    <td>{{ $item->nama_balita}}</td>
+    <td>{{ $item->jenis_kelamin}}</td>
     <td>{{ $item->nama_kecamatan}}</td>
     <td>{{ $item->nama_desa}}</td>
     <td>{{ $item->nama_puskes}}</td>
     <td>{{ $item->tgl_pengukuran}}</td>
-    <td>{{ $item->total}}</td>
-    <td>{{ $item->total_pendek}}</td>
-    <td>{{ $item->sangat_pendek}}</td>
-    <td>{{ $item->total}}</td>
-    <td>{{ $item->total}}</td>
     </tr>
     @endforeach                                    
 </table>

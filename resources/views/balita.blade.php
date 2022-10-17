@@ -60,32 +60,50 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Periode</th>
-                                        <th>kecamatan</th>
-                                        <th>desa</th>
+                                        <th>Jk</th>
+                                        <th>Tgl Lahir</th>
+                                        <th>Bb Lahir</th>
+                                        <th>Tb Lahir</th>
+                                        <th>Nama Ortu</th>
+                                        <th>Kecamatan</th>
                                         <th>Puskesmas</th>
+                                        <th>desa</th>
+                                        <th>Alamat</th>
+                                        <th>Tgl Pengukuran</th>
+                                        <th>Berat</th>
+                                        <th>Tinggi</th>
+                                        <th>TB/U</th>
+                                        <th>Periode</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($balita as $item)
+                                    @if ($item->puskes->user->id == Auth::user()->id)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_balita }}</td>
+                                        <td>{{$item->nama_balita}}</td>
+                                        <td>{{$item->jenis_kelamin->jenis_kelamin}}</td>
+                                        <td>{{$item->tgl_lahir}}</td>
+                                        <td>{{$item->bb_lahir}}</td>
+                                        <td>{{$item->tb_lahir}}</td>
+                                        <td>{{$item->nama_ortu}}</td>
+                                        <td>{{$item->puskes->kecamatan->nama_kecamatan}}</td>
+                                        <td>{{($item->puskes->nama_puskes)}}</td>
+                                        <td>{{$item->desa->nama_desa}}</td>
+                                        <td>{{$item->alamat}}</td>
                                         <td>{{$item->tgl_pengukuran}}</td>
-                                        <td>{{ $item->puskes->kecamatan->nama_kecamatan }}</td>
-                                        <td>{{ $item->desa->nama_desa }}</td>
-                                        <td>{{ $item->puskes->nama_puskes }}</td>
-                                        <td>     
-                                            @if($item->puskes->status == '1')
-                                            <label class="btn mb-1 btn-outline-success">Terverifikasi</label>
+                                        <td>{{$item->bb}}</td>
+                                        <td>{{$item->tb}}</td>
+                                        <td>{{$item->hasil}}</td>
+                                        <td>{{$item->tgl_pengukuran}}</td>
 
-                                            @else
+                                        <td>     
                                             <a href="{{url('ubahbalita',$item->id_balita)}}"  class="btn mb-1 btn-outline-primary">Update</a>
                                             <a href="{{url('delete-balita',$item->id_balita)}}" class="btn mb-1 btn-outline-danger">Delete </a>
-                                            @endif
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach                                      
                             </table>
                         </div>
@@ -97,4 +115,3 @@
     <!-- #/ container -->
 </div>
 @endsection
-

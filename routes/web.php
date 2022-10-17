@@ -20,7 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('profile', 'ProfileController@edit')
+        ->name('profile.edit');
+
+    Route::patch('profile', 'ProfileController@update')
+        ->name('profile.update');
+});
 
 Route::resource('/home', 'HomeController');
 Route::get('/edit/{id}', 'HomeController@edit')->name('edit-pengguna');
@@ -50,7 +57,7 @@ Route::get('map', 'TitikController@index');
 Route::get('/titik/json', 'TitikController@titik');
 Route::get('/titik/lokasi/{kd_kecamatan}', 'TitikController@lokasi');
 
-//puskes
+//PUSKESMAP
 Route::get('sebaran', 'TitikpuskesController@index');
 Route::get('/puskes/json', 'TitikpuskesController@puskes');
 Route::get('/puskes/lokasip/{id_puskes}', 'TitikpuskesController@lokasip');
@@ -97,28 +104,23 @@ Route::get('/data-penderita/{tglawal}/{tglakhir}', 'BalitaController@cetakpender
 Route::get('laporan', 'LaporanController@index');
 Route::get('/penderitaexport', 'LaporanController@penderitaexport')->name('penderitaexport');
 Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapdf');
-Route::get('/data-pertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('data-pertanggal');
-
-
-
-// Route::get('laporan', 'LaporanpenderitaController@index');
-// Route::get('/penderitaexport', 'LaporanpenderitaController@penderitaexport')->name('penderitaexport');
-// Route::get('/penderitapdf', 'LaporanpenderitaController@penderitapdf')->name('penderitapdf');
-// Route::get('/data-penderita/{tglawal}/{tglakhir}', 'LaporanpenderitaController@cetakpenderita')->name('data-penderita');?
-
+Route::get('/data-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'LaporanController@cetakpertanggal')->name('data-pertanggal');
 
 
 //BALITA
-Route::get('penderita', 'BalitaController@penderita');
+Route::get('penderita', 'LaporanstuntingController@index');
+Route::get('/laporanexport', 'LaporanstuntingController@laporanexport')->name('laporanexport');
+Route::get('/filter-laporan/{tglawal}/{tglakhir}', 'LaporanstuntingController@cetaklaporan')->name('filter-laporan');
+Route::get('/filter-laporan', 'LaporanstuntingController@laporanall')->name('filter-laporan');
+
+
 
 
 //Periode
 Route::get('dataperiode', 'PeriodeController@index');
 Route::get('/dataperiode/create', 'PeriodeController@create');
 Route::post('/dataperiode', 'PeriodeController@store');
-// Route::get('/ubahbalita/{id_balita}', 'BalitaController@edit')->name('edit-balita');
-// Route::put('/balita/update/{id_balita}', 'BalitaController@update');
-// Route::get('/delete-balita/{id_balita}', 'BalitaController@destroy')->name('delete-balita');
+
 
 //Dpravelensi
 Route::resource('/dpravelensi', 'DpravelensiController');
@@ -129,8 +131,12 @@ Route::get('/ubahdpravelensi/{id}', 'DpravelensiController@edit')->name('edit-dp
 Route::put('/dpravelensi/update/{id}', 'DpravelensiController@update');
 Route::get('/delete-dpravelensi/{id}', 'DpravelensiController@destroy')->name('delete-dpravelensi');
 
-Route::get('/belajar', 'BelajarController@index');
-Route::get('/getdesa', 'BelajarController@getDesa');
+Route::get('/pravelensiexport', 'DpravelensiController@pravelensiexport')->name('pravelensiexport');
+Route::get('/pravelensipdf', 'DpravelensiController@penderitapdf')->name('pravelensipdf');
+Route::get('/filter-pertanggal/{tglawal}/{tglakhir}', 'DpravelensiController@filterpertanggal')->name('filter-pertanggal');
+
+// Route::get('/belajar', 'BelajarController@index');
+// Route::get('/getdesa', 'BelajarController@getDesa');
 
 
 // Route::get('/', [HomeController::class, 'index']);

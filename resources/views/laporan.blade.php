@@ -20,7 +20,6 @@
                     <div class="card-body">
                         <div class="row mt-1 ml-1">
                             <div class="col">
-                                {{-- <form method="POST" action="/laporan" class="form-inline"> --}}
                                 <form class="form-inline">
                                     <div class="col-lg-1 col-xl-2">    
                                             <select class="custom-select mr-sm-2">
@@ -29,6 +28,18 @@
                                                 @endforeach
                                             </select>
                                     </div>
+                                    <div class="col-lg-1 col-xl-2">    
+                                        <select class="custom-select mr-sm-2"  id="fkecamatan">
+                                            @foreach ($kecamatan as $item)
+                                                <option value="{{$item->nama_kecamatan}}">{{$item->nama_kecamatan}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <input type="hidden" name="fkecamatan" id="fkecamatan" class="form-control" value="{{$item->nama_kecamatan}}">
+                                    </div>
+                                    
                                     <div class="input-group mb-1">
                                         <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
                                     </div>
@@ -37,10 +48,12 @@
                                     </div>
                                     <div class="input-group">
                                         <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +
-                                        '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
+                                        '/' +document.getElementById('tglakhir').value +
+                                        '/' +document.getElementById('fkecamatan').value" 
+                                        target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
                                     </div>
                                     <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a>
-                                    {{-- <a style="float: right;" class="btn mb-1 btn-outline-danger ml-1" href={{ route ('penderitapdf') }}>Export Pdf</a> --}}
+
                                 </form>
                             </div>
                         </div>
@@ -78,6 +91,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($laporan as $item)
+                                    @if ($item->user_id == Auth::user()->id)
 
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -92,6 +106,7 @@
                                         <td>{{ $item->total}}</td>
                                         
                                     </tr>
+                                    @endif
                                     @endforeach                                   
                                    
                             </table>

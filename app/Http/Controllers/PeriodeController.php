@@ -42,15 +42,26 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        Periode::create([
-            'id_periode' => $request->id_periode,
-            'nama_periode' => $request->nama_periode,
-            'tgl_awal' => $request->tgl_awal,
-            'tgl_akhir' => $request->tgl_akhir,
-            'jenis_periode' => $request->jenis_periode,
+        $validatedData = $request->validate([
+
+            'id_periode' => 'required',
+            'nama_periode' => 'required',
+            'tgl_awal' => 'required',
+            'tgl_akhir' => 'required',
+            'jenis_periode' => 'required',
         ]);
 
-        return redirect('/dataperiode');
+        Periode::create($validatedData);
+        return redirect('/desa')->with('success', 'data berhasil tertambah');
+        // Periode::create([
+        //     'id_periode' => $request->id_periode,
+        //     'nama_periode' => $request->nama_periode,
+        //     'tgl_awal' => $request->tgl_awal,
+        //     'tgl_akhir' => $request->tgl_akhir,
+        //     'jenis_periode' => $request->jenis_periode,
+        // ]);
+
+        // return redirect('/dataperiode');
     }
 
     /**

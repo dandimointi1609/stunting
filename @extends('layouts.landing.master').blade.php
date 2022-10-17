@@ -198,7 +198,6 @@
                             </div>
 
                             <div class="bootstrap-modal">
-                                {{-- <button type="button"  id="tombol" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Lihat Detail</button> --}}
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModalLong">
                                     <div class="modal-dialog modal-dialog-scrollable">
@@ -217,7 +216,9 @@
                                                     <p>
                                                         <canvas id="myChart"></canvas>
                                                     </p> --}}
-                                                    <div ><canvas id="region-stat-chart"></canvas></div>
+                                                    <div >
+                                                                        <canvas id="region-stat-chart"></canvas>
+                                                                      </div>
                                                         
 
                                             </div>
@@ -297,7 +298,7 @@ var puskesIcon = L.icon({
   
             });
         });
-    }); 
+    });
 
 //GEOJSON DATABASE
 var geoLayer;
@@ -341,71 +342,28 @@ var geoLayer;
                 // });
                 
               layer.on('click', (e)=>{
-                    // $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
+                    $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
 
-                    //     $.each(detail, function(index){
-                    //         // // const a = JSON_parse(detail[0]);
-                    //         // // alert(a);
-                    //         // // alert(detail[0].nama_desa);
-                    //             var element = [];
-                    //             var total = [];
-                    //             for (let index = 0; index < 5; index++) {
-                    //                 // if(detail[index].nama_desa != "undefined"){
-                    //                 element[index] = detail[index].nama_desa;
-                    //                 total[index] = detail[index].sangat_pendek;
-                    //                 // alert(element[index]);
-                    //                 // }else{
-                    //                 //     element[index] = "";
-                    //                 //     total[index] = "";
-                    //                 // }
-                    //             }
+                        $.each(detail, function(index){
+                            // alert(detail[0].nama_desa);
                             
-                    //         // // var d = JSON_parse(detail);
-                    //         // for (let index = 0; index < detail.length; index++) {
-                    //         //     element = [element,detail[index].nama_desa];
-                    //         //     lokasi = [lokasi,detail[index].sangat_pendek];
-                    //         // }
-                        // $(".modal-body").html('Sebaran '+detail[index].nama_desa+');
 
-                            
-                    //     $(".modal.body").append($("<canvas>").attr("id","region-stat-chart"));
-                    //     $('#exampleModalLong').modal('show');
-                        // var generateRegionChart = () => {
-                          
-                                   
+                        // $(".modal-body").html('Sebaran ' detail[index].nama_desa,);
+                        $(".modal.body").append(
+                                                                $("<canvas>").attr("id","region-stat-chart")
 
-                    //     leafletMap.setView(e.target.getLatLng());
-                    //     e.preventDefault();
-
-                    //     });
-                    // });
-
-                    $.ajax({
-                                url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                method: "GET",
-                                dataType: "JSON",
-                                success: function(data) {
-                                let element = [];
-                                let total = [];
-                                for (let index = 0; index < 10; index++) {
-                                    if(data[index]){
-                                    element[index] = data[index].nama_desa;
-                                    total[index] = data[index].total_pendek;
-                                    }else{
-                                        element[index] = "";
-                                        total[index] = "";
-                                    }
-                                    }
-                    $(".modal.body").append($("<canvas>").attr("id","region-stat-chart"));
+                        );
                         $('#exampleModalLong').modal('show');
-                                    var ctx = document.getElementById("region-stat-chart").getContext('2d');
+                        // var generateRegionChart = () => {
+                            var ctx = document.getElementById("region-stat-chart").getContext('2d');
                                     var myChart = new Chart(ctx, {
                                     type: 'bar',
                                     data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                        // labels: [@foreach ($lokasi as $d) '{{$d->nama_desa}}',@endforeach],
+                                        labels: [''+detail[0].nama_desa+'',''+detail[1].nama_desa+''],
                                         datasets: [{
                                             label: 'Balita Sangat Pendek',
-                                            data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+                                            data: [detail[0].sangat_pendek,detail[1].sangat_pendek],
                                             backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
@@ -435,12 +393,17 @@ var geoLayer;
                                     }
                                   });
                                   return myChart;
-                                  
+
                             
-                                },
-                                error: function(data) {}
-                            });
-                                    
+                        // };
+                                   
+
+                        leafletMap.setView(e.target.getLatLng());
+                        e.preventDefault();
+
+                        });
+                    });
+                    
                 });
 
 

@@ -18,8 +18,8 @@
                         <h4 class="card-title">Tambah Pengguna</h4>
                         <div class="basic-form">
                                 <form class="form-valide" method="post" action="{{ route('pengguna.store') }}">
-
                                     {{ csrf_field() }}
+                                    
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Nama</label>

@@ -58,7 +58,7 @@
 
 
 @push('scripts')
-<script>
+<script>    
     
     var leafletMap = L.map('map', {
      fullscreenControl: true,

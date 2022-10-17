@@ -45,12 +45,12 @@
                                         <input type="text" class="form-control col-lg-6" id="longitude" placeholder="LONGITUDE" name="longitude" value="{{ $kecamatan->longitude}}">
                                     </div> 
                                     <div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Pilih Lokasi</button>
+                                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Pilih Lokasi</button> --}}
                                     </div>
 
                                 </div>
 
-                                <div class="bootstrap-modal">
+                                {{-- <div class="bootstrap-modal">
                                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
@@ -62,7 +62,7 @@
                                                 <div class="modal-body">
                                                     
                                                     <div>
-                                                        {{-- <div id="map" style='width' 100%; height='80vh' > </div>  --}}
+                                                        <div id="map" style='width' 100%; height='80vh' > </div> 
                                                     </div>
 
                                                 </div>
@@ -72,7 +72,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">

@@ -181,8 +181,8 @@
                                         <input type="text" class="form-control" id="nama_balita" placeholder="Masukan Nama Balita" name="nama_balita" value="{{ $balita->nama_balita}}">
                                     </div>
                                     <div class="form-group col-md-6" {{ $errors->has('kecamatan') ? ' has-error' : '' }}">
-                                        <label for="kecamatan">Nama Kecamatan</label>
-                                        <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Masukan Nama Kecamatan" value="{{ $balita->kecamatan}}">
+                                        <label for="tambah_kecamatan">Nama Kecamatan</label>
+                                        <input type="text" class="form-control" id="tambah_kecamatan" name="tambah_kecamatan" placeholder="Masukan Nama Kecamatan" value="{{ $balita->tambah_kecamatan}}">
                                     </div>
                                 </div>
 

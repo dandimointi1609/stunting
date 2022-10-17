@@ -190,3 +190,19 @@ ON t_balita.kode_desa=t_desa.kd_desa
 RIGHT JOIN t_kecamatan
 ON t_desa.kd_kecamatan=t_kecamatan.kd_kecamatan
 GROUP BY kode_desa
+
+
+
+SELECT t_balita.nama_balita, t_balita.tgl_pengukuran, t_kecamatan.nama_kecamatan, t_desa.nama_desa, users.id, t_puskes.nama_puskes
+
+FROM t_balita
+RIGHT JOIN t_puskes
+ON t_balita.id_puskes=t_puskes.id_puskes
+RIGHT JOIN t_desa
+ON t_balita.kode_desa=t_desa.kd_desa
+RIGHT JOIN t_kecamatan
+ON t_desa.kd_kecamatan=t_kecamatan.kd_kecamatan
+RIGHT JOIN users
+ON t_puskes.user_id = users.id
+WHERE (user_id)
+GROUP BY t_kecamatan.kd_kecamatan;

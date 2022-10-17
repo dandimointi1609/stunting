@@ -75,7 +75,7 @@
 
      
         <style>
-            #map { height: 350px; width: 750px; }
+            #map { height: 350px; width: 1080px; }
 
             .label-bidang{
                 font-size: 6pt;

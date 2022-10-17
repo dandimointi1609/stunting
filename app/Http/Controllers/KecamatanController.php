@@ -77,15 +77,26 @@ class KecamatanController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
 
-        Kecamatan::create([
-            'kd_kecamatan' => $request->kd_kecamatan,
-            'nama_kecamatan' => $request->nama_kecamatan,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
+            'kd_kecamatan' => 'required',
+            'nama_kecamatan' => 'required',
+            'kd_kecamatan' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
-        return redirect('/kecamatan');
+        Kecamatan::create($validatedData);
+        return redirect('/kecamatan')->with('success', 'data berhasil tertambah');
+
+        // Kecamatan::create([
+        //     'kd_kecamatan' => $request->kd_kecamatan,
+        //     'nama_kecamatan' => $request->nama_kecamatan,
+        //     'longitude' => $request->longitude,
+        //     'latitude' => $request->latitude,
+        // ]);
+
+        // return redirect('/kecamatan');
     }
 
     /**

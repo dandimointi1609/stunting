@@ -25,23 +25,38 @@
                                 <div class="form-row">
                                     <div class="form-group row col-md-6 ">
                                         <label class="col-lg-4 col-form-label" for="nama">Kode Kecamatan <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control col-lg-6" id="kd_kecamatan" placeholder="Masukan Kode Kecamatan" name="kd_kecamatan" value="{{ old('kd_kecamatan') }}">
+                                            <input type="text" class="form-control col-lg-6 @error('kd_kecamatan') is-invalid @enderror" id="kd_kecamatan" placeholder="Masukan Kode Kecamatan" name="kd_kecamatan" value="{{ old('kd_kecamatan') }}">
+                                            @error('kd_kecamatan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                     </div> 
                                     <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama">Kecamatan <span class="text-danger">*</span>
+                                        <label class="col-lg-4 col-form-label" for="nama_kecamatan">Kecamatan <span class="text-danger">*</span>
                                         </label>
-                                            <input type="text" class="form-control col-lg-6" id="nama_kecamatan" placeholder="Masukan Kecamatan" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}">
+                                            <input type="text" class="form-control col-lg-6 @error('nama_kecamatan') is-invalid @enderror" id="nama_kecamatan" placeholder="Masukan Kecamatan" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama">Latitude <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control col-lg-6" id="latitude" placeholder="LATITUDE" name="latitude" value="{{ old('latitude') }}">
+                                        <label class="col-lg-4 col-form-label" for="latitude">Latitude <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control col-lg-6 @error('latitude') is-invalid @enderror" id="latitude" placeholder="LATITUDE" name="latitude" value="{{ old('latitude') }}">
+                                        @error('latitude')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                     <div class="form-group row col-md-6 ">
                                         <label class="col-lg-4 col-form-label" for="nama">Longitude <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control col-lg-6" id="longitude" placeholder="LONGITUDE" name="longitude" value="{{ old('longitude') }}">
+                                        <input type="text" class="form-control col-lg-6 @error('longitude') is-invalid @enderror" id="longitude" placeholder="LONGITUDE" name="longitude" value="{{ old('longitude') }}">
+                                        @error('longitude')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div> 
                                     <div>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Pilih Lokasi</button>
@@ -99,8 +114,8 @@
                                         <th>No</th>
                                         <th>Kode Kecamatan</th>
                                         <th>Kecamatan</th>
-                                        {{-- <th>longitude</th> --}}
-
+                                        <th>longitude</th>
+                                        <th>latitude</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -110,7 +125,9 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->kd_kecamatan }}</td>
                                         <td>{{ $item->nama_kecamatan }}</td>
-                                        {{-- <td>{{ $item->latitude }}</td> --}}
+                                        <td>{{ $item->longitude }}</td>
+                                        <td>{{ $item->latitude }}</td>
+
                                         <td>     
                                             <a href="{{url('ubahkecamatan',$item->kd_kecamatan)}}"  class="btn mb-1 btn-outline-primary">Edit</a>
                                             <a href="{{url('delete-kecamatan',$item->kd_kecamatan)}}" class="btn mb-1 btn-outline-danger">Hapus</a>   

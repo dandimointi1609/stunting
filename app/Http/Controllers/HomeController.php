@@ -35,6 +35,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $balita = Balita::all();
         $puskes = Puskes::all();
         $desa = Desa::all();
@@ -52,6 +53,8 @@ class HomeController extends Controller
 
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.

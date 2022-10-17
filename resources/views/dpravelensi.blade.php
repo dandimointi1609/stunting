@@ -13,7 +13,45 @@
     </div>
     <!-- row -->
 
+  
     <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card mb-2 mt-1">
+                    <div class="card-body">
+                        <div class="row mt-1 ml-1">
+                            <div class="col">
+                                <form class="form-inline">
+                                    <div class="col-lg-1 col-xl-2">    
+                                            <select class="custom-select mr-sm-2">
+                                                @foreach ($periode as $d)
+                                                    <option value="{{$d->id_periode}}">{{$d->nama_periode}}</option>
+                                                @endforeach
+                                            </select>
+                                    </div>
+                                    
+                                    <div class="input-group mb-1">
+                                        <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="hidden" name="tglakhir" id="tglakhir" class="form-control" value="{{ $d->tgl_akhir}}">
+                                    </div>
+                                    <div class="input-group">
+                                        <a href="#" onclick="this.href='/filter-pertanggal/'+document.getElementById('tglawal').value +
+                                        '/' +document.getElementById('tglakhir').value"  target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
+                                    </div>
+                                    <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('pravelensiexport') }}>Export Excel</a>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="card mb-2 mt-1">
@@ -31,7 +69,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="container-fluid">
         <div class="row">
@@ -54,7 +92,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($dpravelensi as $item)
+                                    @foreach ($puskes as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->kecamatan->nama_kecamatan }}</td>
@@ -64,21 +102,7 @@
                                         <td>{{ $item->balita->where('hasil', 'sangat pendek')->count()}}</td>
                                         <td>{{ $item->balita->count()}}</td>
                                         <td>{{ $item->balita->count()}}</td>
-                                        {{-- <td>  
-                                        @if($item->status == '0')
-                                           <form action ="{{ route('dpravelensi.update', $item->id_puskes) }}" method="post" enctype="multipart/form-data">
-                                                 {{ csrf_field() }}
-                                                 {{ method_field('put') }}
-                                                      <button class="btn mb-1 btn-outline-primary" onclick="return confirm('Anda yakin data ini di Verifikasi?')">Verifikasi
-                                                      </button>
-                                                    </form>
-                                                    @else
-                                                             <button class="btn mb-1 btn-outline-success" onclick="return confirm('Anda yakin data ini di Verifikasi?')"> Terverifikasi
-                                                             </button>
-                                                               
-                                                    @endif
-                                                </td> --}}
-                                                @endforeach                                   
+                                    @endforeach                                   
                                     </tr>
                                    
                             </table>

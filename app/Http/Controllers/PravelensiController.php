@@ -37,15 +37,15 @@ class PravelensiController extends Controller
         return view('pravelensi')->with([
             'lokasi' => $results,
             'periode' => $periode,
-            'kecID' => $kecamatan
+            'kecamatan' => $kecamatan
 
         ]);
     }
 
-    public function getDesa(Request $request){
-        $desa = Desa::where("kd_kecamatan",$request->kecID)->pluck('kd_desa','nama_desa');
-        return response()->json($desa);
-    }
+    // public function getDesa(Request $request){
+    //     $desa = Desa::where("kd_kecamatan",$request->kecID)->pluck('kd_desa','nama_desa');
+    //     return response()->json($desa);
+    // }
 
 
 
