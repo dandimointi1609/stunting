@@ -444,7 +444,7 @@ var geoLayer;
                 });
 
 
-                // layer.on('click', (e)=>{
+    // layer.on('click', (e)=>{
                 //     $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
                 //         $.each(detail, function(index){
                 //             $('#exampleModalLong').modal('show');
