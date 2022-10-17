@@ -93,6 +93,8 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($puskes as $item)
+                                    {{-- @if ($item->user_id == Auth::user()->id) --}}
+
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->kecamatan->nama_kecamatan }}</td>
@@ -102,6 +104,7 @@
                                         <td>{{ $item->balita}}</td>
                                         <td>{{ $item->balita}}</td>
                                         <td>{{ $item->balita}}</td>
+                                        {{-- @endif --}}
                                     @endforeach                                   
                                     </tr>
                                    
