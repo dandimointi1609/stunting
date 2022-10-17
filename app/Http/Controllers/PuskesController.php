@@ -23,7 +23,12 @@ class PuskesController extends Controller
         $puskes = Puskes::all();
         $kecamatan = Kecamatan::get();
         $desa = Desa::get();
-        return view('puskes', [ 'puskes' =>$puskes]);
+        // return view('puskes', [ 'puskes' =>$puskes]);
+        return view('puskes')->with([
+            'puskes' => $puskes,
+            'kecamatan' => $kecamatan,
+
+        ]);
     }
 
          /**
