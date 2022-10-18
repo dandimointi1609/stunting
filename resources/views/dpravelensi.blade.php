@@ -96,14 +96,14 @@
                                     {{-- @if ($item->user_id == Auth::user()->id) --}}
 
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->kecamatan->nama_kecamatan }}</td>
-                                        <td>{{ $item->nama_puskes }}</td>
-                                        <td>{{ $item->alamat }}</td>
-                                        <td>{{ $item->balita}}</td>
-                                        <td>{{ $item->balita}}</td>
-                                        <td>{{ $item->balita}}</td>
-                                        <td>{{ $item->balita}}</td>
+                                        <td>{{ $loop->iteration}}</td>
+                                        <td>{{ $item->kecamatan->nama_kecamatan}}</td>
+                                        <td>{{ $item->nama_puskes}}</td>
+                                        <td>{{ $item->alamat}}</td>
+                                        <td>{{ $item->balita->where('hasil','pendek',)->count()}}</td>
+                                        <td>{{ $item->balita->where('hasil','sangat_pendek')->count()}}</td>
+                                        <td>{{ $item->balita->count()}}</td>
+                                        <td>{{ $item->balita->count()}}</td>
                                         {{-- @endif --}}
                                     @endforeach                                   
                                     </tr>

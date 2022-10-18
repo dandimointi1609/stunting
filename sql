@@ -206,3 +206,19 @@ RIGHT JOIN users
 ON t_puskes.user_id = users.id
 WHERE (user_id)
 GROUP BY t_kecamatan.kd_kecamatan;
+
+
+
+
+SELECT t_kecamatan.nama_kecamatan, t_puskes.nama_puskes,t_puskes.alamat, 
+SUM(t_balita.hasil ="pendek") AS status_pendek, 
+SUM(t_balita.hasil = "sangatpendek") AS status_sangat_pendek,
+COUNT(t_balita.hasil = 'pendek'+'sangatpendek') AS pendek_sangat_pendek,
+SUM(t_balita.hasil)
+
+FROM t_balita
+RIGHT JOIN t_puskes
+ON t_balita.id_puskes=t_puskes.id_puskes
+RIGHT JOIN t_kecamatan
+on t_puskes.kd_kecamatan=t_kecamatan.kd_kecamatan
+GROUP BY t_puskes.kd_kecamatan;

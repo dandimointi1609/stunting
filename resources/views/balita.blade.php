@@ -60,7 +60,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Jk</th>
+                                        <th>Jenis kelamin</th>
                                         <th>Tgl Lahir</th>
                                         <th>Bb Lahir</th>
                                         <th>Tb Lahir</th>

@@ -34,14 +34,18 @@ class DpravelensiController extends Controller
     {
         //  return view('dpravelensi');
         $puskes = Puskes::all();
+        // dd($puskes);
         $periode = Periode::all();
         $kecamatan = Kecamatan::all();
+        $balita = Balita::all();
+
 
         // return view('dpravelensi', [ 'dpravelensi' =>$puskes]);
 
         return view('dpravelensi')->with([
             'puskes' => $puskes,
             'kecamatan' => $kecamatan,
+            'balita' => $balita,
             'periode' => $periode
 
         ]);

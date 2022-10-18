@@ -74,21 +74,42 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>kecamatan</th>
-                                        <th>desa</th>
+                                        <th>Jenis kelamin</th>
+                                        <th>Tgl Lahir</th>
+                                        <th>Bb Lahir</th>
+                                        <th>Tb Lahir</th>
+                                        <th>Nama Ortu</th>
+                                        <th>Kecamatan</th>
                                         <th>Puskesmas</th>
+                                        <th>desa</th>
+                                        <th>Alamat</th>
+                                        <th>Tgl Pengukuran</th>
+                                        <th>Berat</th>
+                                        <th>Tinggi</th>
+                                        <th>TB/U</th>
+                                        <th>Periode</th>
+                                        {{-- <th>Aksi</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($penderita as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_balita }}</td>
-                                        <td>{{ $item->jenis_kelamin->jenis_kelamin }}</td>
-                                        <td>{{ $item->puskes->kecamatan->nama_kecamatan }}</td>
-                                        <td>{{ $item->desa->nama_desa }}</td>
-                                        <td>{{ $item->puskes->nama_puskes }}</td>
+                                        <td>{{$item->nama_balita}}</td>
+                                        <td>{{$item->jenis_kelamin->jenis_kelamin}}</td>
+                                        <td>{{$item->tgl_lahir}}</td>
+                                        <td>{{$item->bb_lahir}}</td>
+                                        <td>{{$item->tb_lahir}}</td>
+                                        <td>{{$item->nama_ortu}}</td>
+                                        <td>{{$item->puskes->kecamatan->nama_kecamatan}}</td>
+                                        <td>{{($item->puskes->nama_puskes)}}</td>
+                                        <td>{{$item->desa->nama_desa}}</td>
+                                        <td>{{$item->alamat}}</td>
+                                        <td>{{$item->tgl_pengukuran}}</td>
+                                        <td>{{$item->bb}}</td>
+                                        <td>{{$item->tb}}</td>
+                                        <td>{{$item->hasil}}</td>
+                                        <td>{{$item->tgl_pengukuran}}</td>
                                     </tr>
                                     @endforeach                                      
                             </table>

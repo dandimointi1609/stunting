@@ -222,7 +222,7 @@
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button id="selector" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
@@ -322,64 +322,25 @@ var geoLayer;
                 L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
 
 
-                // layer.on('mouseover', (e)=>{
-                //     $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                //         $.each(detail, function(index){
-                //             // alert(detail[index].nama_kecamatan);
-                //             var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                //                 html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                //                 html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                //                 html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                //                 html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                //             L.popup()
-                //                     .setLatLng(layer.getBounds().getCenter())
-                //                     .setContent(html)
-                //                     .openOn(leafletMap);
-                //         });
-                //     });
+                layer.on('mouseover', (e)=>{
+                    $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                        $.each(detail, function(index){
+                            // alert(detail[index].nama_kecamatan);
+                            var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                                html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                                html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                                html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                                html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                            L.popup()
+                                    .setLatLng(layer.getBounds().getCenter())
+                                    .setContent(html)
+                                    .openOn(leafletMap);
+                        });
+                    });
                     
-                // });
+                });
                 
-              layer.on('click', (e)=>{
-                    // $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
-
-                    //     $.each(detail, function(index){
-                    //         // // const a = JSON_parse(detail[0]);
-                    //         // // alert(a);
-                    //         // // alert(detail[0].nama_desa);
-                    //             var element = [];
-                    //             var total = [];
-                    //             for (let index = 0; index < 5; index++) {
-                    //                 // if(detail[index].nama_desa != "undefined"){
-                    //                 element[index] = detail[index].nama_desa;
-                    //                 total[index] = detail[index].sangat_pendek;
-                    //                 // alert(element[index]);
-                    //                 // }else{
-                    //                 //     element[index] = "";
-                    //                 //     total[index] = "";
-                    //                 // }
-                    //             }
-                            
-                    //         // // var d = JSON_parse(detail);
-                    //         // for (let index = 0; index < detail.length; index++) {
-                    //         //     element = [element,detail[index].nama_desa];
-                    //         //     lokasi = [lokasi,detail[index].sangat_pendek];
-                    //         // }
-                        // $(".modal-body").html('Sebaran '+detail[index].nama_desa+');
-
-                            
-                    //     $(".modal.body").append($("<canvas>").attr("id","region-stat-chart"));
-                    //     $('#exampleModalLong').modal('show');
-                        // var generateRegionChart = () => {
-                          
-                                   
-
-                    //     leafletMap.setView(e.target.getLatLng());
-                    //     e.preventDefault();
-
-                    //     });
-                    // });
-
+            layer.on('click', (e)=>{
                     $.ajax({
                                 url: 'titik/data/'+feature.properties.kd_kecamatan,
                                 method: "GET",
@@ -396,7 +357,9 @@ var geoLayer;
                                         total[index] = "";
                                     }
                                     }
-                    $(".modal.body").append($("<canvas>").attr("id","region-stat-chart"));
+
+                                    $(".modal.body").append($("<canvas>").attr("id","region-stat-chart"));
+                                        // $( ".selector" ).dialog({ dialogClass: 'no-close' , closeOnEscape: false,});
                         $('#exampleModalLong').modal('show');
                                     var ctx = document.getElementById("region-stat-chart").getContext('2d');
                                     var myChart = new Chart(ctx, {
@@ -439,117 +402,119 @@ var geoLayer;
                             
                                 },
                                 error: function(data) {}
+
+
                             });
                                     
                 });
 
+ // layer.on('click', (e)=>{
+    //                 $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
+    //                     $.each(detail, function(index){
+    //                         $('#exampleModalLong').modal('show');
+    //                         var data = {
+    //                                 // labels:[detail[index].kd_desa],
+    //                                 labels: [@foreach ($lokasi as $data) '{{$data->nama_desa}}',@endforeach],
 
-    // layer.on('click', (e)=>{
-                //     $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
-                //         $.each(detail, function(index){
-                //             $('#exampleModalLong').modal('show');
-                //             var data = {
-                //                     // labels:[detail[index].kd_desa],
-                //                     labels: [@foreach ($lokasi as $data) '{{$data->nama_desa}}',@endforeach],
+    //                                 datasets: [{
+    //                                     label: 'Balita Pendek',
+    //                                     // data: [detail[index].jumlah], 
+    //                                 data: [@foreach ($lokasi as $data)'{{$data->total_pendek  }}',@endforeach],
 
-                //                     datasets: [{
-                //                         label: 'Balita Pendek',
-                //                         // data: [detail[index].jumlah], 
-                //                     data: [@foreach ($lokasi as $data)'{{$data->total_pendek  }}',@endforeach],
+    //                                     backgroundColor: [
+    //                                     'rgba(255, 26, 104, 0.2)',
+    //                                     'rgba(54, 162, 235, 0.2)',
+    //                                     'rgba(255, 206, 86, 0.2)',
+    //                                     'rgba(75, 192, 192, 0.2)',
+    //                                     'rgba(153, 102, 255, 0.2)',
+    //                                     'rgba(255, 159, 64, 0.2)',
+    //                                     'rgba(0, 0, 0, 0.2)'
+    //                                     ],
+    //                                     borderColor: [
+    //                                     'rgba(255, 26, 104, 1)',
+    //                                     'rgba(54, 162, 235, 1)',
+    //                                     'rgba(255, 206, 86, 1)',
+    //                                     'rgba(75, 192, 192, 1)',
+    //                                     'rgba(153, 102, 255, 1)',
+    //                                     'rgba(255, 159, 64, 1)',
+    //                                     'rgba(0, 0, 0, 1)'
+    //                                     ],
+    //                                     borderWidth: 1
+    //                                 }]
+    //                                 };  
 
-                //                         backgroundColor: [
-                //                         'rgba(255, 26, 104, 0.2)',
-                //                         'rgba(54, 162, 235, 0.2)',
-                //                         'rgba(255, 206, 86, 0.2)',
-                //                         'rgba(75, 192, 192, 0.2)',
-                //                         'rgba(153, 102, 255, 0.2)',
-                //                         'rgba(255, 159, 64, 0.2)',
-                //                         'rgba(0, 0, 0, 0.2)'
-                //                         ],
-                //                         borderColor: [
-                //                         'rgba(255, 26, 104, 1)',
-                //                         'rgba(54, 162, 235, 1)',
-                //                         'rgba(255, 206, 86, 1)',
-                //                         'rgba(75, 192, 192, 1)',
-                //                         'rgba(153, 102, 255, 1)',
-                //                         'rgba(255, 159, 64, 1)',
-                //                         'rgba(0, 0, 0, 1)'
-                //                         ],
-                //                         borderWidth: 1
-                //                     }]
-                //                     };  
-
-                //                     // config 
-                //                     var config = {
-                //                     type: 'bar',
-                //                     data,
-                //                     options: {
-                //                         indexAxis: 'y', 
-                //                         scales: {
-                //                         y: {
-                //                             beginAtZero: true
-                //                         }
-                //                         }
-                //                     }
-                //                     };
+    //                                 // config 
+    //                                 var config = {
+    //                                 type: 'bar',
+    //                                 data,
+    //                                 options: {
+    //                                     indexAxis: 'y', 
+    //                                     scales: {
+    //                                     y: {
+    //                                         beginAtZero: true
+    //                                     }
+    //                                     }
+    //                                 }
+    //                                 };
                                     
-                //                     // render init block
-                //                     var pendekChart = new Chart(
-                //                     document.getElementById('pendekChart'),
-                //                     config
-                //                     );
+    //                                 // render init block
+    //                                 var pendekChart = new Chart(
+    //                                 document.getElementById('pendekChart'),
+    //                                 config
+    //                                 );
 
-                //                     var ctx = document.getElementById("myChart").getContext('2d');
-                //                     var myChart = new Chart(ctx, {
-                //                     type: 'bar',
-                //                     data: {
-                //                         labels: [@foreach ($lokasi as $d) '{{$d->nama_desa}}',@endforeach],
-                //                         datasets: [{
-                //                             label: 'Balita Sangat Pendek',
-                //                             data: [@foreach ($lokasi as $d) '{{$d->sangat_pendek}}',@endforeach],
-                //                             backgroundColor: [
-                //                             'rgba(255, 99, 132, 0.2)',
-                //                             'rgba(54, 162, 235, 0.2)',
-                //                             'rgba(255, 206, 86, 0.2)',
-                //                             'rgba(75, 192, 192, 0.2)',
-                //                             'rgba(153, 102, 255, 0.2)',
-                //                             'rgba(255, 159, 64, 0.2)'
-                //                             ],
-                //                             borderColor: [
-                //                             'rgba(255,99,132,1)',
-                //                             'rgba(54, 162, 235, 1)',
-                //                             'rgba(255, 206, 86, 1)',
-                //                             'rgba(75, 192, 192, 1)',
-                //                             'rgba(153, 102, 255, 1)',
-                //                             'rgba(255, 159, 64, 1)'
-                //                             ],
-                //                             borderWidth: 1
-                //                         }]
-                //                     },
-                //                     options: {
-                //                         indexAxis: 'y', 
-                //                         scales: {
-                //                         y: {
-                //                             beginAtZero: true
-                //                         }
-                //                         }
-                //                     }
-                //                   });
+    //                                 var ctx = document.getElementById("myChart").getContext('2d');
+    //                                 var myChart = new Chart(ctx, {
+    //                                 type: 'bar',
+    //                                 data: {
+    //                                     labels: [@foreach ($lokasi as $d) '{{$d->nama_desa}}',@endforeach],
+    //                                     datasets: [{
+    //                                         label: 'Balita Sangat Pendek',
+    //                                         data: [@foreach ($lokasi as $d) '{{$d->sangat_pendek}}',@endforeach],
+    //                                         backgroundColor: [
+    //                                         'rgba(255, 99, 132, 0.2)',
+    //                                         'rgba(54, 162, 235, 0.2)',
+    //                                         'rgba(255, 206, 86, 0.2)',
+    //                                         'rgba(75, 192, 192, 0.2)',
+    //                                         'rgba(153, 102, 255, 0.2)',
+    //                                         'rgba(255, 159, 64, 0.2)'
+    //                                         ],
+    //                                         borderColor: [
+    //                                         'rgba(255,99,132,1)',
+    //                                         'rgba(54, 162, 235, 1)',
+    //                                         'rgba(255, 206, 86, 1)',
+    //                                         'rgba(75, 192, 192, 1)',
+    //                                         'rgba(153, 102, 255, 1)',
+    //                                         'rgba(255, 159, 64, 1)'
+    //                                         ],
+    //                                         borderWidth: 1
+    //                                     }]
+    //                                 },
+    //                                 options: {
+    //                                     indexAxis: 'y', 
+    //                                     scales: {
+    //                                     y: {
+    //                                         beginAtZero: true
+    //                                     }
+    //                                     }
+    //                                 }
+    //                               });
 
-                //             L.popup()
+    //                         L.popup()
 
-                //                     .setLatLng(layer.getBounds().getCenter())
-                //                     .setContent(pendekChart,myChart)
-                //                     .openOn(leafletMap);
-                //         });
-                //     });
-                // })
+    //                                 .setLatLng(layer.getBounds().getCenter())
+    //                                 .setContent(pendekChart,myChart)
+    //                                 .openOn(leafletMap);
+    //                     });
+    //                 });
+    //             })
 
                 layer.addTo(leafletMap);  
             }
         });
 
                    
+    
     })
 
 
