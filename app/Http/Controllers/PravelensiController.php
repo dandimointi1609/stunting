@@ -20,8 +20,6 @@ class PravelensiController extends Controller
     public function __construct()
     {
         $this->TitikModel= new TitikModel();
-        // $this->PuskesModel= new PuskesModel();
-
     }
 
     /**
@@ -32,21 +30,16 @@ class PravelensiController extends Controller
     public function index()
     {
         $periode = Periode::all();
-        $kecamatan = Kecamatan::all();
+        // $kecamatan = Kecamatan::all();
         $results = $this->TitikModel->allLokasi();
+
         return view('pravelensi')->with([
             'lokasi' => $results,
-            'periode' => $periode,
-            'kecamatan' => $kecamatan
+            'periode' => $periode
+            // 'kecamatan' => $kecamatan
 
         ]);
     }
-
-    // public function getDesa(Request $request){
-    //     $desa = Desa::where("kd_kecamatan",$request->kecID)->pluck('kd_desa','nama_desa');
-    //     return response()->json($desa);
-    // }
-
 
 
     /**
