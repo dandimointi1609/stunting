@@ -4,7 +4,7 @@
       <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Tivo</a> -->
 
       <!-- Image Logo -->
-      <a class="navbar-brand logo-image" href="index.html"><img src="landing/images/Logoweb.png" /></a>
+      <a class="navbar-brand logo-image" href="index.html"><img src="{{ asset('landing/images/Logoweb.png')}}" /></a>
 
       <!-- Mobile Menu Toggle Button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,17 +16,17 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="master">HOME <span class="sr-only">(current)</span></a>
+            <a class="nav-link page-scroll" href='homepage'>HOME</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="sebaran">SEBARAN</a>
+            {{-- <a class="nav-link page-scroll" href="sebaran">SEBARAN</a> --}}
           </li>
           <li class="nav-item">
             <a class="nav-link page-scroll" href="pravelensi">PRAVALENSI</a>
           </li>
         </ul>
         <span class="nav-item">
-          <a class="btn-outline-sm" href="/login">Masuk</a>
+          {{-- <a class="btn-outline-sm" href="/login">Masuk</a> --}}
         </span>
       </div>
     </div>

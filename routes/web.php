@@ -14,8 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts/landing/landing');
+    return view('homepage');
 });
+
+//LANDING
+Route::get('homepage', 'LandingController@index');
+Route::get('/titik/json', 'LandingController@titik');
+Route::get('/titik/lokasi/{kd_kecamatan}', 'LandingController@lokasi');
+Route::get('/titik/data/{kd_kecamatan}', 'LandingController@data');
+Route::get('/sebaran-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'LandingController@sebaranpertanggal')->name('sebaran-pertanggal');
 
 Auth::routes();
 
@@ -72,6 +79,17 @@ Route::get('sebaran', 'SebaranController@index');
 Route::get('/titik/json', 'SebaranController@titik');
 Route::get('/titik/lokasi/{kd_kecamatan}', 'SebaranController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'SebaranController@data');
+Route::get('/sebaran-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'SebaranController@sebaranpertanggal')->name('sebaran-pertanggal');
+
+
+
+
+
+// //laporan
+// Route::get('laporan', 'LaporanController@index');
+// Route::get('/penderitaexport', 'LaporanController@penderitaexport')->name('penderitaexport');
+// Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapdf');
+// Route::get('/data-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'LaporanController@cetakpertanggal')->name('data-pertanggal');
 
 
 //DATA PUSKESMAS
@@ -104,10 +122,10 @@ Route::get('/data-penderita/{tglawal}/{tglakhir}', 'BalitaController@cetakpender
 Route::get('laporan', 'LaporanController@index');
 Route::get('/penderitaexport', 'LaporanController@penderitaexport')->name('penderitaexport');
 Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapdf');
-Route::get('/data-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'LaporanController@cetakpertanggal')->name('data-pertanggal');
+Route::get('/data-pertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('data-pertanggal');
 
 
-//BALITA
+//Penderita
 Route::get('penderita', 'LaporanstuntingController@index');
 Route::get('/laporanexport', 'LaporanstuntingController@laporanexport')->name('laporanexport');
 Route::get('/filter-laporan/{tglawal}/{tglakhir}', 'LaporanstuntingController@cetaklaporan')->name('filter-laporan');
@@ -135,8 +153,8 @@ Route::get('/pravelensiexport', 'DpravelensiController@pravelensiexport')->name(
 Route::get('/pravelensipdf', 'DpravelensiController@penderitapdf')->name('pravelensipdf');
 Route::get('/filter-pertanggal/{tglawal}/{tglakhir}', 'DpravelensiController@filterpertanggal')->name('filter-pertanggal');
 
-// Route::get('/belajar', 'BelajarController@index');
-// Route::get('/getdesa', 'BelajarController@getDesa');
+Route::get('/belajar', 'BelajarController@index');
+Route::get('/getdesa', 'BelajarController@getDesa');
 
 
 // Route::get('/', [HomeController::class, 'index']);

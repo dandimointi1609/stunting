@@ -1107,8 +1107,8 @@ s-1 .h2-heading {
 /*     10. Video     */
 /*********************/
 .basic-2 {
-  padding-top: 8rem;
-  padding-bottom: 6.75rem;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
   background-color: #f3f7fd;
   text-align: center;
 }
@@ -1511,7 +1511,7 @@ a:hover.back-to-top {
 
 .ex-basic-1 {
   padding-top: 0.5rem;
-  padding-bottom: 0.50rem;
+  padding-bottom: 1rem;
   background-color: #f3f7fd;
 }
 

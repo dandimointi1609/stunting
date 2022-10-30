@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\models\Kecamatan;
+use App\models\Puskes;
+
+
 
 
 class PenggunaController extends Controller
@@ -17,7 +21,11 @@ class PenggunaController extends Controller
     public function index()
     {
         $pengguna = User::get();
-        return view('pengguna.index', compact('pengguna'));
+        $kecamatan = Kecamatan::get();
+        $puskes = Puskes::get();
+
+
+        return view('pengguna.index', compact('pengguna','kecamatan','puskes'));
     }
 
     /**
@@ -42,8 +50,8 @@ class PenggunaController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make ($request['password']),
-            'level' => $request->level
-
+            'level' => $request->level,
+            'id_puskesmas' => $request->id_puskesmas,
         ]);
         return redirect('pengguna');
     }
@@ -72,9 +80,13 @@ class PenggunaController extends Controller
     public function edit($id)
     {
         $item = User::findOrFail($id);
+        $puskes = Puskes::get();
+
         // return view('pengguna.edit', compact('item'));
         return view('editpengguna')->with([
-            'item' => $item
+            'item' => $item,
+            'puskes' => $puskes
+
         ]);
     }
 
@@ -90,6 +102,7 @@ class PenggunaController extends Controller
         $item = User::findOrFail($id);
         $item->name = $request->name;
         $item->email = $request->email;
+        $item->id_puskesmas = $request->id_puskesmas;
         $item->password = Hash::make  ($request['password']);
         $item->update();
         return redirect()->route('pengguna.index');

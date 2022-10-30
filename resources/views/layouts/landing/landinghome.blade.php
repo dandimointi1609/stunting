@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Ayo Cegah Stunting</title>
+    <!-- Website Title -->
+    <title>Tivo - SaaS App HTML Landing Page Template</title>
 
+    <!-- MAPPING -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin=""/>
@@ -11,13 +13,8 @@
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin=""></script>
     <link rel="stylesheet" href="{{ asset('webmap/js/leaflet-panel-layers-master/src/leaflet-panel-layers.css')}}" />
+    <!-- END MAPPING -->
 
-    <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
-
-
-    {{-- <!-- Website Title -->
-    <title>Ayo Cegah Stunting</title> --}}
-    
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet" />
     <link href="{{ asset('landing/css/bootstrap.css')}}" rel="stylesheet" />
@@ -25,7 +22,7 @@
     <link href="{{ asset('landing/css/swiper.css')}}" rel="stylesheet" />
     <link href="{{ asset('landing/css/magnific-popup.css')}}" rel="stylesheet" />
     <link href="{{ asset('landing/css/styles.css')}}" rel="stylesheet" />
-    <link href="{{ asset('landing/customs/css/style.css')}}" rel="stylesheet">
+    {{-- <link href="{{ asset('landing/customs/css/style.css')}}" rel="stylesheet"> --}}
 
     <!-- Chartist -->
     <link rel="stylesheet" href="{{ asset('../assets/plugins/chartist/css/chartist.min.css')}}">
@@ -47,60 +44,65 @@
     <script type="text/javascript" src="webmap/js/leaflet.ajax.js"></script>
 
 
-         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-     
-        <style>
-            #map { height: 350px; width: 1080px; }
 
-            .label-bidang{
-                font-size: 6pt;
-                color: black;
-                opacity: 0.5;
-                text-align: center;
-            }
+    <style>
+        #map { height: 350px; width: 1080px; }
 
-            .legend{
-                background: white,
-                padding:10px;
-            }
-            {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-      }
-      .chartMenu {
-        width: 100vw;
-        height: 40px;
-        background: #1A1A1A;
-        color: rgba(255, 26, 104, 1);
-      }
-      .chartMenu p {
-        padding: 10px;
-        font-size: 20px;
-      }
-      .chartCard {
-        width: 100vw;
-        height: calc(100vh - 40px);
-        background: rgba(255, 26, 104, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .chartBox {
-        width: 700px;
-        padding: 20px;
-        border-radius: 20px;
-        border: solid 3px rgba(255, 26, 104, 1);
-        background: white;
-      }
-        </style>
+        .label-bidang{
+            font-size: 6pt;
+            color: black;
+            opacity: 0.5;
+            text-align: center;
+        }
+
+        .legend{
+            background: white,
+            padding:10px;
+        }
+        {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        .chartMenu {
+            width: 100vw;
+            height: 40px;
+            background: #1A1A1A;
+            color: rgba(255, 26, 104, 1);
+        }
+        .chartMenu p {
+            padding: 10px;
+            font-size: 20px;
+        }
+        .chartCard {
+            width: 100vw;
+            height: calc(100vh - 40px);
+            background: rgba(255, 26, 104, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chartBox {
+            width: 700px;
+            padding: 20px;
+            border-radius: 20px;
+            border: solid 3px rgba(255, 26, 104, 1);
+            background: white;
+        }
+    </style>
+
+
 
     <!-- Favicon  -->
+    {{-- <link rel="icon" href="images/favicon.png" /> --}}
     <link rel="icon" href="{{ asset('landing/images/favicon.png')}}" />
-    <link rel="icon" type="{{ asset('landing/customs/image/png')}}" sizes="16x16" href="{{ asset('images/favicon.png')}}">
+    {{-- <link rel="icon" type="{{ asset('landing/customs/image/png')}}" sizes="16x16" href="{{ asset('images/favicon.png')}}"> --}}
+
   </head>
+
 
   <body data-spy="scroll" data-target=".fixed-top">
     <!-- Preloader -->
@@ -116,21 +118,12 @@
     <!-- Navigation -->
     @include('layouts.landing.navbar')
 
-    <!-- Features -->
-    @yield('content')
-
-    <!-- end of tabs -->
-    <!-- end of features -->
-
-    <!-- Pricing -->
-
-    <!-- end of cards-2 -->
-    <!-- end of pricing -->
+   <!-- Features -->
+   @yield('content')
 
 
     <!-- Footer -->
     @include('layouts.landing.footer')
-  
 
     <!-- Scripts -->
     <script src="{{ asset('landing/js/jquery.min.js')}}"></script>
@@ -151,6 +144,7 @@
 
 
     <script src="{{url('wilayah.js')}}"></script>
+
 
 
   </body>

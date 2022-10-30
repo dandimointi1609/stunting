@@ -39,6 +39,8 @@ class DpravelensiController extends Controller
         $kecamatan = Kecamatan::all();
         $balita = Balita::all();
 
+        
+
 
         // return view('dpravelensi', [ 'dpravelensi' =>$puskes]);
 
@@ -171,9 +173,10 @@ class DpravelensiController extends Controller
                            'd.nama_desa',
                            'k.nama_kecamatan',
                            'b.tgl_pengukuran',
+                           'b.alamat',
                            'p.nama_puskes'
                           )
-                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa')
+                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.alamat')
                           ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                           ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')

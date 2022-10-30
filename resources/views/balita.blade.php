@@ -79,7 +79,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($balita as $item)
-                                    @if ($item->puskes->user->id == Auth::user()->id)
+                                    @if ($item->puskes->id_puskes == Auth::user()->id_puskesmas)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{$item->nama_balita}}</td>

@@ -21,12 +21,8 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\facades\Excel;
 use App\Http\Controllers\Controller;
 
-
-
-
-
-class SebaranController extends Controller
-{
+class LandingController extends Controller
+{   
     /**
      * Display a listing of the resource.
      *
@@ -39,6 +35,8 @@ class SebaranController extends Controller
         $this->PuskesModel= new PuskesModel();
 
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -51,7 +49,7 @@ class SebaranController extends Controller
         $results = $this->TitikModel->allLokasi();
         $pencarian = $this->TitikModel->allPencarian();
 
-        return view('sebaran')->with([
+        return view('homepage')->with([
             'lokasi' => $results,
             'pencarian' => $pencarian,
             'kecamatan' => $kecamatan,
@@ -60,8 +58,7 @@ class SebaranController extends Controller
         ]);
     }
 
-
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -157,6 +154,7 @@ class SebaranController extends Controller
     }
 
     public function sebaranpertanggal($tglawal,$tglakhir,$fkecamatan){
+
         $sebaranpertanggal= DB::table('t_balita AS b')     
         ->select(DB::raw('count(b.hasil) as total'),
                  DB::raw('sum(b.hasil = "pendek") as total_pendek'),
@@ -172,11 +170,9 @@ class SebaranController extends Controller
                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
                           ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
                           ->where('nama_kecamatan',[$fkecamatan])
-                        //   ->
                           ->orderBy('p.nama_puskes', 'desc')
-                   ->get();
+        ->get();
         return view('cetak-sebaranpertanggal-pdf', compact('sebaranpertanggal'));
         view()->share('data', $sebaranpertanggal);
-
     }
 }

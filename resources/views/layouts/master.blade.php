@@ -7,19 +7,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Ayo Cegah Stunting</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('../assets/images/favicon.png')}}">
     <!-- Pignose Calender -->
-    <link href="../assets/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <link href="{{ asset('../assets/plugins/pg-calendar/css/pignose.calendar.min.css')}}" rel="stylesheet">
     <!-- Chartist -->
-    <link rel="stylesheet" href="../assets/plugins/chartist/css/chartist.min.css">
-    <link rel="stylesheet" href="../assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="{{ asset('../assets/plugins/chartist/css/chartist.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('../assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css')}}">
     <!-- Custom Stylesheet -->
-    <link href="../assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="../assets/css/style.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="../assets/leaflet-control-window/src/L.Control.Window.css" />
-
-        
+    <link href="{{ asset('../assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('../assets/css/style.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -32,16 +28,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
     <script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.umd.js"></script> 
 
-    {{-- <link rel="stylesheet" type="text/css" href="webmap/Chartjs/Chart.min.css">
-    <script type="text/javascript" src="webmap/Chartjs/Chart.min.js"> </script> --}}
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
+    <link rel="stylesheet" href="{{ asset('webmap/js/leaflet-panel-layers-master/src/leaflet-panel-layers.css')}}"/>
 
-
-    <link rel="stylesheet" href="webmap/js/leaflet-panel-layers-master/src/leaflet-panel-layers.css" />
-
-    <script type="text/javascript" src="webmap/js/leaflet.ajax.js"></script>
+    <script type="text/javascript" src="{{ asset('webmap/js/leaflet.ajax.js')}}"></script>
 
 
          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -60,39 +49,36 @@
                 background: white,
                 padding:10px;
             }
-    {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-      }
-      .chartMenu {
-        width: 100vw;
-        height: 40px;
-        background: #1A1A1A;
-        color: rgba(255, 26, 104, 1);
-      }
-      .chartMenu p {
-        padding: 10px;
-        font-size: 20px;
-      }
-      .chartCard {
-        width: 100vw;
-        height: calc(100vh - 40px);
-        background: rgba(255, 26, 104, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .chartBox {
-        width: 700px;
-        padding: 20px;
-        border-radius: 20px;
-        border: solid 3px rgba(255, 26, 104, 1);
-        background: white;
-      }
-
-      
-
+            {
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+            }
+            .chartMenu {
+                width: 100vw;
+                height: 40px;
+                background: #1A1A1A;
+                color: rgba(255, 26, 104, 1);
+            }
+            .chartMenu p {
+                padding: 10px;
+                font-size: 20px;
+            }
+            .chartCard {
+                width: 100vw;
+                height: calc(100vh - 40px);
+                background: rgba(255, 26, 104, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .chartBox {
+                width: 700px;
+                padding: 20px;
+                border-radius: 20px;
+                border: solid 3px rgba(255, 26, 104, 1);
+                background: white;
+            }
 
         </style>
 
@@ -131,10 +117,10 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="index.html">
-                    <b class="logo-abbr"><img src="../assets/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./assets/images/logo-compact.png" alt=""></span>
+                    <b class="logo-abbr"><img src="{{ asset('../assets/images/logo.png')}}" alt=""> </b>
+                    <span class="logo-compact"><img src="{{ asset('./assets/images/logo-compact.png')}}" alt=""></span>
                     <span class="brand-title">
-                        <img src="../assets/images/Logo Dashboard.png" width="90%" alt="">
+                        <img src="{{ asset('../assets/images/Logo Dashboard.png')}}" width="90%" alt="">
                     </span>
                 </a>
             </div>
@@ -189,41 +175,41 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <script src="../assets/plugins/common/common.min.js"></script>
-    <script src="../assets/js/custom.min.js"></script>
-    <script src="../assets/js/settings.js"></script>
-    <script src="../assets/js/gleek.js"></script>
-    <script src="../assets/js/styleSwitcher.js"></script>
+    <script src="{{ asset('../assets/plugins/common/common.min.js')}}"></script>
+    <script src="{{ asset('../assets/js/custom.min.js')}}"></script>
+    <script src="{{ asset('../assets/js/settings.js')}}"></script>
+    <script src="{{ asset('../assets/js/gleek.js')}}"></script>
+    <script src="{{ asset('../assets/js/styleSwitcher.js')}}"></script>
 
     <!-- Chartjs -->
-    <script src="../assets/plugins/chart.js/Chart.bundle.min.js"></script>
+    <script src="{{ asset('../assets/plugins/chart.js/Chart.bundle.min.js')}}"></script>
     <!-- Circle progress -->
-    <script src="../assets/plugins/circle-progress/circle-progress.min.js"></script>
+    <script src="{{ asset('../assets/plugins/circle-progress/circle-progress.min.js')}}"></script>
     <!-- Datamap -->
-    <script src="../assets/plugins/d3v3/index.js"></script>
-    <script src="../assets/plugins/topojson/topojson.min.js"></script>
-    <script src="../assets/plugins/datamaps/datamaps.world.min.js"></script>
+    <script src="{{ asset('../assets/plugins/d3v3/index.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/topojson/topojson.min.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/datamaps/datamaps.world.min.js')}}"></script>
     <!-- Morrisjs -->
-    <script src="../assets/plugins/raphael/raphael.min.js"></script>
-    <script src="../assets/plugins/morris/morris.min.js"></script>
+    <script src="{{ asset('../assets/plugins/raphael/raphael.min.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/morris/morris.min.js')}}"></script>
     <!-- Pignose Calender -->
-    <script src="../assets/plugins/moment/moment.min.js"></script>
-    <script src="../assets/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <script src="{{ asset('../assets/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/pg-calendar/js/pignose.calendar.min.js')}}"></script>
     <!-- ChartistJS -->
-    <script src="../assets/plugins/chartist/js/chartist.min.js"></script>
-    <script src="../assets/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+    <script src="{{ asset('../assets/plugins/chartist/js/chartist.min.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js')}}"></script>
 
-    <script src="../assets/plugins/flot/js/jquery.flot.min.js"></script>
-    <script src="../assets/plugins/flot/js/jquery.flot.pie.js"></script>
-    <script src="../assets/plugins/flot/js/jquery.flot.resize.js"></script>
-    <script src="../assets/plugins/flot/js/jquery.flot.spline.js"></script>
-    <script src="../assets/plugins/flot/js/jquery.flot.init.js"></script>
+    <script src="{{ asset('../assets/plugins/flot/js/jquery.flot.min.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/flot/js/jquery.flot.pie.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/flot/js/jquery.flot.resize.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/flot/js/jquery.flot.spline.js')}}"></script>
+    <script src=".{{ asset('./assets/plugins/flot/js/jquery.flot.init.js')}}"></script>
 
-    <script src="../assets/plugins/tables/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
-    <script src="../assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+    <script src="{{ asset('../assets/plugins/tables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('../assets/plugins/tables/js/datatable-init/datatable-basic.min.js')}}"></script>
 
-    <script src="../assets/leaflet-control-window/src/L.Control.Window.js"></script> 
+    {{-- <script src="{{ asset('../assets/leaflet-control-window/src/L.Control.Window.js')}}"></script>  --}}
 
     @stack('scripts')
     @stack('update')

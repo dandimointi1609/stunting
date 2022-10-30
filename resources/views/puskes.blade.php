@@ -78,7 +78,7 @@
                                         </div> 
                                     </div>
 
-                                    <div class="form-row">    
+                                    {{-- <div class="form-row">    
                                         <div class="form-group row col-md-6">
                                             <label class="col-lg-4 col-form-label" for="email">Masukan  Username<span class="text-danger">*</span>
                                             </label>
@@ -101,7 +101,7 @@
                                             @enderror
                                         </div>
                                         
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-row"> 
                                         <div class="form-group row col-md-6">
@@ -275,7 +275,9 @@
             </div>
         </div>
     </div>
-    <!-- #/ container -->
+
+
+
 
 </div>
 @endsection

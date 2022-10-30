@@ -103,13 +103,11 @@
             @endif
             @endguest
 
-            {{-- <li class="nav-label">Belajar</li>
+            <li class="nav-label">Belajar</li>
                 <ul>
                     <li><a href="/belajar">KECAMATAN</a></li>
                 </ul>
-            </li> --}}
-
-
+            </li>
 
             @guest
             @else 

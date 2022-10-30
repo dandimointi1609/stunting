@@ -28,9 +28,19 @@
 </head>
 <body>
 
-  <center>
+  {{-- <center>
   <h3>HASIL ANALISIS PENGUKURAN PREVALENSI STUNTING  KABUPATEN POHUWATO</h3>
-  </center>
+  </center> --}}
+  <table width="100%">
+    <tr>
+    <td width="20" align="right"><img src="{{ asset('assets/images/pohuwato.png')}}" width="60%"></td>
+    <td width="50" align="center"><h3><p>LAPORAN DATA BALITA STATUS GIZI SANGAT PENDEK DAN PENDEK</p>
+                                              <p>UMUR 0 - 59 BULAN KABUPATEN POHUWATO</p>
+                                                    <p>PERIODE BULAN FEBRUARI 2022</p></h3></td>
+    <td width="30" align="left"><img src="{{ asset('assets/images/dinkes.png')}}" width="60%"></td>
+    </tr>
+  </table>
+  <hr>
 
 
 
@@ -47,10 +57,9 @@
     <th>Total Balita Sangat pendek+Pendek</th>
     <th>Pravelensi</th>
   </tr>
-  @foreach ($cetakpertanggal as $item)
+  @foreach ($sebaranpertanggal as $item)
   {{-- @if ($item->puskes->id_puskes == Auth::user()->id_puskesmas) --}}
-  @if ($item->id_puskes == Auth::user()->id_puskesmas)
-  
+
   <tr>
     <td>{{ $loop->iteration }}</td>
     <td>{{ $item->nama_kecamatan}}</td>
@@ -63,7 +72,7 @@
     <td>{{ $item->total}}</td>
     <td>{{ $item->total}}</td>
     </tr>
-    @endif
+    {{-- @endif --}}
     @endforeach                                    
 </table>
 

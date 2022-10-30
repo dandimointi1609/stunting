@@ -8,7 +8,7 @@ class Puskes extends Model
 {
     protected $table = 't_puskes';
     protected $primaryKey = 'id_puskes';
-    protected $fillable = ['nama_puskes','alamat','kd_kecamatan','id_puskes','status','latitude','longitude','user_id','email'];
+    protected $fillable = ['nama_puskes','alamat','kd_kecamatan','id_puskes','status','latitude','longitude'];
     public $timestamps = false;
 
     public function kecamatan()
@@ -33,6 +33,11 @@ class Puskes extends Model
 
         public function user()
         {
-           return $this->belongsTo('App\User', 'user_id');
+            return $this->hasOne('App\user','id_puskesmas');
         }
+
+        // public function user()
+        // {
+        //    return $this->belongsTo('App\User', 'user_id');
+        // }
 }

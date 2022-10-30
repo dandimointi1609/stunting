@@ -28,17 +28,17 @@
                                                 @endforeach
                                             </select>
                                     </div>
-                                    <div class="col-lg-1 col-xl-2">    
+                                    {{-- <div class="col-lg-1 col-xl-2">    
                                         <select class="custom-select mr-sm-2"  id="fkecamatan">
                                             @foreach ($kecamatan as $item)
                                                 <option value="{{$item->nama_kecamatan}}">{{$item->nama_kecamatan}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="input-group mb-3">
+                                    {{-- <div class="input-group mb-3">
                                         <input type="hidden" name="fkecamatan" id="fkecamatan" class="form-control" value="{{$item->nama_kecamatan}}">
-                                    </div>
+                                    </div> --}}
                                     
                                     <div class="input-group mb-1">
                                         <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
@@ -47,9 +47,8 @@
                                         <input type="hidden" name="tglakhir" id="tglakhir" class="form-control" value="{{ $d->tgl_akhir}}">
                                     </div>
                                     <div class="input-group">
-                                        <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +
-                                        '/' +document.getElementById('tglakhir').value +
-                                        '/' +document.getElementById('fkecamatan').value" 
+                                        {{-- <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +'/' +document.getElementById('tglakhir').value +'/' +document.getElementById('fkecamatan').value"  --}}
+                                        <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +'/' +document.getElementById('tglakhir').value" 
                                         target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
                                     </div>
                                     <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a>
@@ -91,7 +90,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($laporan as $item)
-                                    @if ($item->user_id == Auth::user()->id)
+                                    {{-- @if ($item->user_id == Auth::user()->id) --}}
+                                    @if ($item->id_puskes == Auth::user()->id_puskesmas)
+
 
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>

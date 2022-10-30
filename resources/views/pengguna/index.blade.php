@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label  for="level"><b>Pengguna</b></label>
-                                                <select class="form-control" name="level" value="{{ old('level') }}">
+                                                <select class="form-control" name="level" onchange="myFunction()" id="level">
                                                     <option value="">Pilih Pengguna</option>
                                                     <option value="bptd">bptd</option>
                                                     <option value="puskes">Puskesmas</option>
@@ -49,6 +49,10 @@
                                                     <option value="admin">admin</option>
                                                 </select>
                                     </div>
+                                    <div class="col-12" id="show-puskes">
+                                        <input type="hidden" name="id_puskesmas" id="puskes" value="0" />
+                                    </div>
+                                     
                                 </div>
                                <div class="form-group row">
                                             <div class="col-lg-8 ml-auto">
@@ -77,7 +81,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Username</th>
-                                        <th>Password</th>
+                                        {{-- <th>Password</th> --}}
                                         <th>Pengguna</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -88,7 +92,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->password}}</td>
+                                        {{-- <td>{{ $item->password}}</td> --}}
                                         <td>{{ $item->level }}</td>
                                         <td>     
                                             <a href="{{ url('edit', $item->id) }}"  class="btn mb-1 btn-outline-primary">Update</a>
@@ -109,6 +113,29 @@
         </div>
     </div>
     <!-- #/ container -->
+    
 </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
 
+function myFunction() {
+  var x = document.getElementById("level").value;
+    if(x == 'puskes'){
+            $('#show-puskes').html('<div class="form-row">'+
+                                    '<div class="col-12">'+
+                                        '<label  for="level"><b>Pilih Puskesmas</b></label>'+
+                                            '<select class="form-control" name="id_puskesmas" id="id_puskesmas">'+
+                                              '<option selected>---Pilih Puskesmas---</option>'+
+                                              @foreach ($puskes as $kec)
+                                                  '<option  value="{{$kec->id_puskes}}">{{$kec->nama_puskes}}</option>'+
+                                              @endforeach
+                                            '</select>'+
+                                            '</div>'+
+                                    '</div>'+
+                                    '</div><br/>');
+        }else{
+            $('#show-puskes').html('<input type="hidden" name="id_puskesmas" id="puskes" value="0" />');
+        }
+}
+</script>

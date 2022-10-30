@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-// use App\models\Jenis_Kelamin;
-// use App\models\Balita;
+use Illuminate\Http\Request;
+
 use App\models\Jenis_Kelamin;
 use App\models\Balita;
 use App\models\Puskes;
@@ -15,13 +15,10 @@ use App\models\Periode;
 
 use Illuminate\Support\Facades\DB;
 
-
-use Illuminate\Http\Request;
-
 use Maatwebsite\Excel\facades\Excel;
 use App\Http\Controllers\Controller;
 
-class LaporanController extends Controller
+class BappedapravelensiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -50,7 +47,6 @@ class LaporanController extends Controller
                            ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
                           ->rightjoin('users as u', 'u.id_puskesmas', '=', 'p.id_puskes')
                            ->orderBy('d.nama_desa', 'desc')
-                        //    ->where('p.user_id')
                     ->get();
 
         return view('laporan')->with([
@@ -59,23 +55,6 @@ class LaporanController extends Controller
             'periode' => $periode
 
         ]);
-
-        // $balita = DB::table('t_balita AS b')     
-        // ->select(           'b.nama_balita', 
-        //                     'b.tgl_pengukuran',
-        //                     'b.id_balita',
-        //                     'k.nama_kecamatan',
-        //                     'd.nama_desa',
-        //                     'u.id',
-        //                     'p.nama_puskes'
-        //                   )
-        //                   ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
-        //                   ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-        //                   ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-        //                   ->rightjoin('users as u', 'p.user_id', '=', 'u.id')
-        //                   ->where('p.user_id')
-        //            ->get();
-        
     }
 
          /**
@@ -123,8 +102,7 @@ class LaporanController extends Controller
      */
     public function create()
     {
-        // return view('tambahbalita');
-       
+        //
     }
 
     /**
@@ -135,13 +113,7 @@ class LaporanController extends Controller
      */
     public function store(Request $request)
     {
-        // Balita::create([
-        //     'nama_balita' => $request->nama_balita,
-        //     'id_jenis_kelamin' => $request->jenis_kelamin,
-
-        // ]);
-
-        // return redirect('/balita');
+        //
     }
 
     /**
@@ -152,6 +124,7 @@ class LaporanController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -160,12 +133,9 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_balita)
+    public function edit($id)
     {
-        // return view('editkecamatan');
-        // $balita = Balita::find($id_balita);
-        // return view('ubahbalita', compact('balita'));
-
+        //
     }
 
     /**
@@ -177,12 +147,7 @@ class LaporanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $balita = Balita::find($id_balita);
-        // $balita->nama_balita = $request->nama_balita;
-        // $balita->id_jenis_kelamin = $request->jenis_kelamin;
-        // $balita->update();
-
-        // return redirect('/balita');
+        //
     }
 
     /**
@@ -193,35 +158,6 @@ class LaporanController extends Controller
      */
     public function destroy($id)
     {
-        // $balita = Balita::find($id_balita);
-        // $balita->delete();
-        // return back();
-    }
-
-
-    public function cetakpertanggal($tglawal,$tglakhir){
-        $cetakpertanggal= DB::table('t_balita AS b')     
-        ->select(DB::raw('count(b.hasil) as total'),
-                 DB::raw('sum(b.hasil = "pendek") as total_pendek'),
-                 DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
-                           'd.nama_desa',
-                           'k.nama_kecamatan',
-                           'b.tgl_pengukuran',
-                           'p.nama_puskes',
-                           'p.id_puskes'
-                          )
-                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','p.id_puskes')
-                          ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
-                          ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-                          ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-                          ->rightjoin('users as u', 'u.id_puskesmas', '=', 'p.id_puskes')
-                          ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
-                        //   ->where('nama_kecamatan',[$fkecamatan])
-                        //   ->
-                          ->orderBy('p.nama_puskes', 'desc')
-                   ->get();
-        return view('cetak-pertanggal-pdf', compact('cetakpertanggal'));
-        view()->share('data', $cetakpertanggal);
-
+        //
     }
 }

@@ -7,6 +7,10 @@ use App\models\TitikModel;
 use App\models\Periode;
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use App\Models\Balita;
+use App\Models\Puskes;
+
+
 
 
 
@@ -30,13 +34,24 @@ class PravelensiController extends Controller
     public function index()
     {
         $periode = Periode::all();
+        $desa = Desa::all();
+        $balita = Balita::all();
+        $puskes = Puskes::all();
+        $kecamatan = Kecamatan::all();
+        $kecamatan = Kecamatan::all();
+
         // $kecamatan = Kecamatan::all();
         $results = $this->TitikModel->allLokasi();
+        // $pencarian = $this->TitikModel->allPencarian();
 
         return view('pravelensi')->with([
             'lokasi' => $results,
-            'periode' => $periode
-            // 'kecamatan' => $kecamatan
+            // 'pencarian' => $pencarian,
+            'periode' => $periode,
+            'balita' => $balita,
+            'puskes' => $puskes,
+            'kecamatan' => $kecamatan,
+            'desa' => $desa
 
         ]);
     }

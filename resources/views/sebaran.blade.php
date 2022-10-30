@@ -158,7 +158,7 @@
                                                         </form>
                                                         <form class="form-inline">
                                                             <div class="col-lg-1 col-xl-2"> 
-                                                                <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +
+                                                                <a href="#" onclick="this.href='/sebaran-pertangal/'+document.getElementById('tglawal').value +
                                                                 '/' +document.getElementById('tglakhir').value +
                                                                 '/' +document.getElementById('fkecamatann').value" target="_blank" class="btn mb-1 btn-rounded btn-warning"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>           
                                                             </div>

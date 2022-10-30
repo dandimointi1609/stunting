@@ -47,13 +47,39 @@ class LaporanstuntingController extends Controller
     public function cetaklaporan($tglawal,$tglakhir){
         $filterlaporan= DB::table('t_balita AS b')     
         ->select(          'b.nama_balita',
-                           'b.tgl_pengukuran',
-                           'k.nama_kecamatan',
-                           'd.nama_desa',
                            'j.jenis_kelamin',
-                           'p.nama_puskes'
+                           'b.tgl_lahir',
+                           'b.bb_lahir',
+                           'b.tb_lahir',
+                           'b.nama_ortu',
+                           'k.nama_kecamatan',
+                           'p.nama_puskes',
+                           'd.nama_desa',
+                           'b.alamat',
+                           'b.tgl_pengukuran',
+                           'b.bb',
+                           'b.tb',
+                           'b.hasil',
+                           'b.tgl_pengukuran'
+
                           )
-                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita','j.jenis_kelamin')
+                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita','j.jenis_kelamin',
+                          
+                          'b.tgl_lahir',
+                          'b.bb_lahir',
+                          'b.tb_lahir',
+                          'b.nama_ortu',
+                          'k.nama_kecamatan',
+                          'p.nama_puskes',
+                          'd.nama_desa',
+                          'b.alamat',
+                          'b.tgl_pengukuran',
+                          'b.bb',
+                          'b.tb',
+                          'b.hasil',
+                          'b.tgl_pengukuran'
+                          
+                                    )
                           ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                           ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
                           ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
@@ -68,14 +94,34 @@ class LaporanstuntingController extends Controller
     public function laporanall(){
         $filterlaporan = DB::table('t_balita AS b')     
         ->select(          'b.nama_balita',
-                           'b.tgl_pengukuran',
-                           'k.nama_kecamatan',
-                           'd.nama_desa',
-                           'j.jenis_kelamin',
-                           'p.nama_puskes'
+                            'j.jenis_kelamin',
+                            'b.tgl_lahir',
+                            'b.bb_lahir',
+                            'b.tb_lahir',
+                            'b.nama_ortu',
+                            'k.nama_kecamatan',
+                            'p.nama_puskes',
+                            'd.nama_desa',
+                            'b.alamat',
+                            'b.tgl_pengukuran',
+                            'b.bb',
+                            'b.tb',
+                            'b.hasil',
+                            'b.tgl_pengukuran'
                           )
                         //   ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita')
-                        ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita','j.jenis_kelamin')
+                        ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita','j.jenis_kelamin','b.tgl_lahir','b.bb_lahir','b.tb_lahir',
+                                'b.nama_ortu',
+                                'k.nama_kecamatan',
+                                'p.nama_puskes',
+                                'd.nama_desa',
+                                'b.alamat',
+                                'b.tgl_pengukuran',
+                                'b.bb',
+                                'b.tb',
+                                'b.hasil',
+                                'b.tgl_pengukuran')
+
                         ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
                           ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                           ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
@@ -84,11 +130,14 @@ class LaporanstuntingController extends Controller
                    ->get();
                    return view('cetak-laporan-pdf', compact('filterlaporan'));
                    view()->share('filterlaporan', $filterlaporan);
+
+                //    $pdf = PDF::loadview('cetak-laporan-pdf',['filterlaporan'=>$filterlaporan]);
+                //    return $pdf->download('cetak-laporan-pdf');
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+     *  
      * @return \Illuminate\Http\Response
      */
     public function create()
