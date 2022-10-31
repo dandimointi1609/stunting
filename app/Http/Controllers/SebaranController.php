@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LaporanExport;
 use Illuminate\Http\Request;
 use App\models\Kecamatan;
 use App\models\Desa;
@@ -179,4 +180,6 @@ class SebaranController extends Controller
         view()->share('data', $sebaranpertanggal);
 
     }
+
+
 }

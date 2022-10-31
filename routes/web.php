@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-});
+// Route::get('/', function () {
+//     return view('homepage');
+// });
 
 //LANDING
 Route::get('homepage', 'LandingController@index');
+Route::get('/', 'LandingController@index');
 Route::get('/titik/json', 'LandingController@titik');
 Route::get('/titik/lokasi/{kd_kecamatan}', 'LandingController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'LandingController@data');
@@ -80,6 +81,12 @@ Route::get('/titik/json', 'SebaranController@titik');
 Route::get('/titik/lokasi/{kd_kecamatan}', 'SebaranController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'SebaranController@data');
 Route::get('/sebaran-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'SebaranController@sebaranpertanggal')->name('sebaran-pertanggal');
+
+//pravelensi
+Route::get('pravelensi/{fkecamatan}', 'PravelensiController@index');
+Route::get('/getdesa', 'PravelensiController@getDesa');
+// Route::post('pravelensi', 'PravelensiController@laporan');
+// Route::get('/pravelensi/{fkecamatan}', 'PravelensiController@sebaranpertanggal')->name('spravelensi');
 
 
 
@@ -155,28 +162,6 @@ Route::get('/filter-pertanggal/{tglawal}/{tglakhir}', 'DpravelensiController@fil
 
 Route::get('/belajar', 'BelajarController@index');
 Route::get('/getdesa', 'BelajarController@getDesa');
-
-
-// Route::get('/', [HomeController::class, 'index']);
-// Route::get('/getkecamatan', [HomeController::class, 'getKecamatan']);
-// Route::get('/getdesa', [HomeController::class, 'getDesa']);
-
-
-
-
-
-
-
-//sebaran
-// Route::get('sebaran', 'SebaranController@index');
-//Map sebaran
-// Route::get('sebaran', 'SebaranController@index');
-// Route::get('/titik/json', 'SebaranController@titik');
-// Route::get('/titik/lokasi/{kd_kecamatan}', 'SebaranController@lokasi');
-//pravelensi
-Route::get('pravelensi', 'PravelensiController@index');
-Route::get('/getdesa', 'PravelensiController@getDesa');
-Route::post('pravelensi', 'PravelensiController@laporan');
 
 
 Route::resource('/pengguna', 'PenggunaController');

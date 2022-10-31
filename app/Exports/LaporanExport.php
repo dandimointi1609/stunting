@@ -6,12 +6,15 @@ use App\models\Kecamatan;
 use App\models\Desa;
 use App\models\Puskes;
 use App\models\Balita;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Withheadings;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-
-
+// class LaporanExport implements FromCollection, Withheadings
 class LaporanExport implements FromCollection, Withheadings
 {
     /**
@@ -29,6 +32,8 @@ class LaporanExport implements FromCollection, Withheadings
             'Puseksmas'
         ];        
     }
+
+
 
 
     public function collection()

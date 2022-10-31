@@ -43,10 +43,9 @@
                                     <div class="col">
                                         <div class="form-group col-md-12">
                                             <label class="mr-sm-2">Pilih Kecamatan</label>   
-                                                <select class="custom-select mr-sm-2" onchange="filter()" id="fkecamatann">
-                                                    <option value="all" <?php if($fkecamatan == 'all'): echo 'selected'; endif;?>>Pilih Kecamatan..</option>
+                                                <select class="custom-select mr-sm-2" id="fkecamatann">
                                                     @foreach ($kecamatan as $kec)
-                                                        <option value="{{$kec->nama_kecamatan}}" <?php if($fkecamatan == $kec->nama_kecamatan): echo 'selected'; endif;?>>{{$kec->nama_kecamatan}}</option>
+                                                        <option value="{{$kec->nama_kecamatan}}">{{$kec->nama_kecamatan}}</option>
                                                     @endforeach
                                                 </select>
                                         </div>
@@ -55,11 +54,9 @@
                                             <input type="hidden" name="fkecamatan" id="fkecamatan" class="form-control" value="{{$kec->nama_kecamatan}}">
                                         </div>
 
-                                        {{-- <div class="col-lg-1 col-xl-2">  --}}
-                                            {{-- <a href="#" onclick="this.href='/pravelensi/'+document.getElementById('fkecamatann').value"  class="btn mb-1 btn-rounded btn-warning">Filter</a>  --}}
-                                            {{-- <button onclick=location='/pravelensi/'+document.getElementById('fkecamatann').value" target="_blank" class="btn mb-1 btn-rounded btn-warning">Refresh</button>     --}}
-                                            {{-- <button onclick="('/pravelensi/')+document.getElementById('fkecamatann').value" target="_blank" class="btn mb-1 btn-rounded btn-warning">Filter</button>            --}}
-                                        {{-- </div> --}}
+                                        <div class="col-lg-1 col-xl-2"> 
+                                            <a href="#" onclick="this.href='/sebaran-pertangal/'+document.getElementById('fkecamatann').value" target="_blank" class="btn mb-1 btn-rounded btn-warning">Filter</a>           
+                                        </div>
 
                                     </div>
                                 </div>
@@ -141,12 +138,12 @@
                 var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: [@foreach ($lokasi as $d) '{{$d->nama_desa }}',@endforeach],
+                    labels: [@foreach ($sebaranpertanggal as $d) '{{$d->nama_desa }}',@endforeach],
                     // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                     datasets: [{
                         label: '# of Votes',
                         // data: [12, 19, 3, 23, 2, 3],
-                        data: [@foreach ($lokasi as $d) '{{$d->total_pendek}}',@endforeach],
+                        data: [@foreach ($sebaranpertanggal as $d) '{{$d->total_pendek}}',@endforeach],
                         backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -180,9 +177,3 @@
         // });
         </script>
 @endsection
-<script>
-    function filter(){
-        var i = $('#fkecamatann').val();
-        window.location.href = i;
-    }
-</script>

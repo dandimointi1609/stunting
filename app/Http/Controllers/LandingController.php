@@ -155,6 +155,7 @@ class LandingController extends Controller
 
     public function sebaranpertanggal($tglawal,$tglakhir,$fkecamatan){
 
+        // $periode = Periode::all();
         $sebaranpertanggal= DB::table('t_balita AS b')     
         ->select(DB::raw('count(b.hasil) as total'),
                  DB::raw('sum(b.hasil = "pendek") as total_pendek'),
@@ -172,7 +173,12 @@ class LandingController extends Controller
                           ->where('nama_kecamatan',[$fkecamatan])
                           ->orderBy('p.nama_puskes', 'desc')
         ->get();
-        return view('cetak-sebaranpertanggal-pdf', compact('sebaranpertanggal'));
+        // return view('cetak-sebaranpertanggal-pdf', compact('sebaranpertanggal','periode'));
+        return view('cetak-sebaranpertanggal-pdf')->with([
+            'sebaranpertanggal' => $sebaranpertanggal,
+            // 'periode' => $periode
+
+        ]);
         view()->share('data', $sebaranpertanggal);
     }
 }

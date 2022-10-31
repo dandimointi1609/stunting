@@ -28,10 +28,19 @@
 </head>
 <body>
 
-  <center>
+  {{-- <center>
   <h3>HASIL ANALISIS PENGUKURAN PREVALENSI STUNTING  KABUPATEN POHUWATO</h3>
-  </center>
-
+  </center> --}}
+  <table width="100%">
+    <tr>
+    <td width="20" align="right"><img src="{{ asset('assets/images/pohuwato.png')}}" width="60%"></td>
+    <td width="50" align="center"><h3><p>LAPORAN DATA PRAVELENSI STUNTING</p>
+                                              <p>UMUR 0 - 59 BULAN KABUPATEN POHUWATO</p>
+                                                    <p>PERIODE BULAN FEBRUARI 2022</p></h3></td>  
+    <td width="30" align="left"><img src="{{ asset('assets/images/dinkes.png')}}" width="60%"></td>
+    </tr>
+  </table>
+  <hr>
 
 
 <table id="customers">

@@ -18,11 +18,11 @@
           <li class="nav-item">
             <a class="nav-link page-scroll" href='homepage'>HOME</a>
           </li>
+          {{-- <li class="nav-item">
+            <a class="nav-link page-scroll" href="sebaran">SEBARAN</a>
+          </li> --}}
           <li class="nav-item">
-            {{-- <a class="nav-link page-scroll" href="sebaran">SEBARAN</a> --}}
-          </li>
-          <li class="nav-item">
-            <a class="nav-link page-scroll" href="pravelensi">PRAVALENSI</a>
+            <a class="nav-link page-scroll" href="pravelensi/all">PRAVALENSI</a>
           </li>
         </ul>
         <span class="nav-item">

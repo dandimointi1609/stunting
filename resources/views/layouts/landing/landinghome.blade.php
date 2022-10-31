@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <!-- Website Title -->
-    <title>Tivo - SaaS App HTML Landing Page Template</title>
+    {{-- <title>Tivo - SaaS App HTML Landing Page Template</title> --}}
+    <title>Ayo Cegah Stunting</title>
+
 
     <!-- MAPPING -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
