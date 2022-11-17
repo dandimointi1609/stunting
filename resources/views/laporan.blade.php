@@ -28,17 +28,6 @@
                                                 @endforeach
                                             </select>
                                     </div>
-                                    {{-- <div class="col-lg-1 col-xl-2">    
-                                        <select class="custom-select mr-sm-2"  id="fkecamatan">
-                                            @foreach ($kecamatan as $item)
-                                                <option value="{{$item->nama_kecamatan}}">{{$item->nama_kecamatan}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> --}}
-
-                                    {{-- <div class="input-group mb-3">
-                                        <input type="hidden" name="fkecamatan" id="fkecamatan" class="form-control" value="{{$item->nama_kecamatan}}">
-                                    </div> --}}
                                     
                                     <div class="input-group mb-1">
                                         <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
@@ -67,7 +56,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Laporan Data Penderita</h4>
+                        <h3 class="card-title"><i class="fa fa-pencil-square display-12 "></i>Laporan Data Penderita</span></h3>
+                        {{-- <br> --}}
+                        {{-- <h4 class="card-title">Laporan Data Penderita</h4> --}}
                         <div class="table-responsive">
 
                                 
@@ -90,10 +81,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($laporan as $item)
-                                    {{-- @if ($item->user_id == Auth::user()->id) --}}
                                     @if ($item->id_puskes == Auth::user()->id_puskesmas)
-
-
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama_kecamatan}}</td>
@@ -105,7 +93,19 @@
                                         <td>{{ $item->sangat_pendek}}</td>
                                         <td>{{ $item->total}}</td>
                                         <td>{{ $item->total}}</td>
-                                        
+                                    </tr>
+                                    @elseif (Auth::user()->level=='bptd')
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->nama_kecamatan}}</td>
+                                        <td>{{ $item->nama_desa}}</td>
+                                        <td>{{ $item->nama_puskes}}</td>
+                                        <td>{{ $item->tgl_pengukuran}}</td>
+                                        <td>{{ $item->total}}</td>
+                                        <td>{{ $item->total_pendek}}</td>
+                                        <td>{{ $item->sangat_pendek}}</td>
+                                        <td>{{ $item->total}}</td>
+                                        <td>{{ $item->total}}</td>
                                     </tr>
                                     @endif
                                     @endforeach                                   

@@ -42,6 +42,13 @@
                                     </a>
     
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a href="{{ route('pengguna.edit', Auth::user()->id) }}" class="dropdown-item">
+                                            Edit Profile
+                                        </a>
+                                        <a href="{{ route('pengguna.show', Auth::user()->id) }}" class="dropdown-item">
+                                            Lihat Profile
+                                        </a>
+                                        
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
@@ -50,9 +57,7 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
-                                            {{-- <a href="{{ route('pengguna.edit') }}" class="dropdown-item">
-                                                Edit Profile
-                                            </a> --}}
+                                           
                                     </div>
                                         {{-- <a class="dropdown-item" href="{{ url('edit', $pengguna->id) }}"> Ubah Profile </a>
                                         <a class="dropdown-item" href="{{ route('pengguna.show', $pengguna->id) }}"> Lihat Profile </a> --}}

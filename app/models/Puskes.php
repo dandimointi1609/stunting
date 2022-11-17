@@ -8,7 +8,7 @@ class Puskes extends Model
 {
     protected $table = 't_puskes';
     protected $primaryKey = 'id_puskes';
-    protected $fillable = ['nama_puskes','alamat','kd_kecamatan','id_puskes','status','latitude','longitude'];
+    protected $fillable = ['nama_puskes','alamat','kd_kecamatan','latitude','longitude'];
     public $timestamps = false;
 
     public function kecamatan()

@@ -15,7 +15,12 @@
     <link rel="stylesheet" href="{{ asset('../assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css')}}">
     <!-- Custom Stylesheet -->
     <link href="{{ asset('../assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{ asset('./assets/plugins/sweetalert/css/sweetalert.css')}}" rel="stylesheet"> --}}
     <link href="{{ asset('../assets/css/style.css')}}" rel="stylesheet">
+
+    {{-- <link rel="stylesheet" href="{{ asset('/assets/fontawesome/css/fontawesome.min.css')}}"/> --}}
+
+    
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -180,6 +185,9 @@
     <script src="{{ asset('../assets/js/settings.js')}}"></script>
     <script src="{{ asset('../assets/js/gleek.js')}}"></script>
     <script src="{{ asset('../assets/js/styleSwitcher.js')}}"></script>
+
+    {{-- <script src="{{ asset('./assets/plugins/sweetalert/js/sweetalert.min.js')}}"></script>
+    <script src="{{ asset('./assets/plugins/sweetalert/js/sweetalert.init.js')}}"></script> --}}
 
     <!-- Chartjs -->
     <script src="{{ asset('../assets/plugins/chart.js/Chart.bundle.min.js')}}"></script>

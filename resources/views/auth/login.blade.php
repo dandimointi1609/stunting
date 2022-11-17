@@ -57,7 +57,27 @@
                    
                     <!-- Sign Up Form -->
                     <div class="form-container">
-                        {{-- <form action="login"  method="post"> --}}
+
+                            {{-- @if(session()->has('status'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('status')}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                                </div>
+                            @endif --}}
+                            @if(session()->has('status'))
+                            <div class="alert alert-primary alert-dismissible fade show">
+                                    {{ session('status')}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                </div>
+                            @endif
+
+                            @if(session()->has('loginError'))
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                    {{ session('loginError')}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                </div>
+                            @endif
+
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                             <div class="form-group">

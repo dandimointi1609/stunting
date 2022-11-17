@@ -54,13 +54,6 @@
                                         <div class="input-group mb-3">
                                             <input type="hidden" name="fkecamatan" id="fkecamatan" class="form-control" value="{{$kec->nama_kecamatan}}">
                                         </div>
-
-                                        {{-- <div class="col-lg-1 col-xl-2">  --}}
-                                            {{-- <a href="#" onclick="this.href='/pravelensi/'+document.getElementById('fkecamatann').value"  class="btn mb-1 btn-rounded btn-warning">Filter</a>  --}}
-                                            {{-- <button onclick=location='/pravelensi/'+document.getElementById('fkecamatann').value" target="_blank" class="btn mb-1 btn-rounded btn-warning">Refresh</button>     --}}
-                                            {{-- <button onclick="('/pravelensi/')+document.getElementById('fkecamatann').value" target="_blank" class="btn mb-1 btn-rounded btn-warning">Filter</button>            --}}
-                                        {{-- </div> --}}
-
                                     </div>
                                 </div>
                         </div>  
@@ -69,11 +62,6 @@
             </div>
         </div>
     </div>
-
-
-    {{-- <div class="col-12" id="show-chart">
-        <canvas style="width: 900px; height: 300px" id="myChart"></canvas>
-    </div> --}}
 
         <div class="ex-basic-1">
             <div class="container">

@@ -212,11 +212,11 @@
                                                     {{-- <p>
                                                     <canvas id="pendekChart" value="{{$d->kd_kecamatan}}"></canvas>
                                                     </p> --}}
-                                                    {{-- <p>
+                                                    <p>
                                                     </p>
                                                     <p>
                                                         <canvas id="myChart"></canvas>
-                                                    </p> --}}
+                                                    </p>
                                                     <div ><canvas id="region-stat-chart"></canvas></div>
                                                         
 
@@ -348,17 +348,23 @@ var geoLayer;
                                 success: function(data) {
                                 let element = [];
                                 let total = [];
+                                let sangat = [];
+
                                 for (let index = 0; index < 10; index++) {
                                     if(data[index]){
                                     element[index] = data[index].nama_desa;
                                     total[index] = data[index].total_pendek;
+                                    sangat[index] = data[index].sangat_pendek;
+
                                     }else{
                                         element[index] = "";
                                         total[index] = "";
+                                        sangat[index] = "";
+
                                     }
                                     }
 
-                                    $(".modal.body").append($("<canvas>").attr("id","region-stat-chart"));
+                        $(".modal.body").append($("<canvas>").attr("id","region-stat-chart"));
                                         // $( ".selector" ).dialog({ dialogClass: 'no-close' , closeOnEscape: false,});
                         $('#exampleModalLong').modal('show');
                                     var ctx = document.getElementById("region-stat-chart").getContext('2d');
@@ -367,7 +373,7 @@ var geoLayer;
                                     data: {
                                         labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                         datasets: [{
-                                            label: 'Balita Sangat Pendek',
+                                            label: 'Balita Pendek',
                                             data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
                                             backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
@@ -398,6 +404,45 @@ var geoLayer;
                                     }
                                   });
                                   return myChart;
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                    var myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+
+                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                        datasets: [{
+                                            label: 'Balita Sangat Pendek',
+                                            data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
+                                            backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                            ],
+                                            borderColor: [
+                                            'rgba(255,99,132,1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        indexAxis: 'y', 
+                                        scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                        }
+                                    }
+                                  });
+
                                   
                             
                                 },

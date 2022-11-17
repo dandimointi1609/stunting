@@ -36,8 +36,11 @@ class TitikModel extends Model
             )
             ->rightjoin('t_puskes as p', 'k.kd_kecamatan', '=', 'p.kd_kecamatan')
             ->join('t_balita as b', 'p.id_puskes', '=', 'b.id_puskes')
+            ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
             ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
             ->groupBy('k.kd_kecamatan','k.nama_kecamatan','d.nama_desa')
+            ->where('dp.status','1')
+
        ->get();
          return $result;
     }
@@ -71,8 +74,11 @@ class TitikModel extends Model
             ->where('k.kd_kecamatan',$kd_kecamatan)
             ->rightjoin('t_puskes as p', 'k.kd_kecamatan', '=', 'p.kd_kecamatan')
             ->join('t_balita as b', 'p.id_puskes', '=', 'b.id_puskes')
+            ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
             ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
             ->groupBy('k.kd_kecamatan','k.nama_kecamatan','k.longitude','k.latitude')
+            ->where('dp.status','1')
+
        ->get();
         return $result;
      }

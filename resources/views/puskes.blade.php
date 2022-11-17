@@ -47,6 +47,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <h3 class="card-title"><i class="fa fa-pencil-square display-12"></i>Tambah Data Puskesmas</span></h3>
+                        <br>
                         <div class="form-validation">
                                 <form class="form-valide" action="/puskes" method="post">
                                     {{ csrf_field() }}
@@ -64,12 +66,12 @@
                                         <div class="form-group row col-md-6">
                                             <label class="col-lg-4 col-form-label" for="kd_kecamatan">Kecamatan <span class="text-danger">*</span></label>
                                                 <div class="input-group col-md-6">
-                                                    <input  class="form-control" id="kd_kecamatan" type="hidden" name="kd_kecamatan" value="{{ old('kd_kecamatan') }}" readonly="" required >
-                                                    <input type="text" class="form-control @error('nama_kecamatan') is-invalid @enderror" id="nama_kecamatan" type="text" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}" required readonly="" >
+                                                    <input  class="form-control @error('kd_kecamatan') is-invalid @enderror" id="kd_kecamatan" type="hidden" name="kd_kecamatan" value="{{ old('kd_kecamatan') }}" readonly="" required >
+                                                    <input type="text" class="form-control" id="nama_kecamatan" type="text" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}" required readonly="" >
                                                     <span class="input-group-btn">
                                                         <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal2"><span class="fa fa-search"></span></button>
                                                     </span>
-                                                    @error('nama_puskes')
+                                                    @error('kd_kecamatan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -77,31 +79,6 @@
                                                 </div>
                                         </div> 
                                     </div>
-
-                                    {{-- <div class="form-row">    
-                                        <div class="form-group row col-md-6">
-                                            <label class="col-lg-4 col-form-label" for="email">Masukan  Username<span class="text-danger">*</span>
-                                            </label>
-                                            <input type="email" class="form-control col-lg-6 @error('email') is-invalid @enderror" id="email" placeholder="Masukan Nama Puskes" name="email" value="{{ old('email') }}">
-                                            @error('email')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group row col-md-6">
-                                            <label class="col-lg-4 col-form-label" for="password">Masukan Password <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="password" class="form-control col-lg-6 @error('password') is-invalid @enderror" id="password" placeholder="Masukan Nama Puskes" name="password" value="{{ old('password') }}">
-                                            @error('password')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        
-                                    </div> --}}
 
                                     <div class="form-row"> 
                                         <div class="form-group row col-md-6">
@@ -139,14 +116,9 @@
                                             @enderror
                                         </div> 
                                     </div>
-
-                                    {{-- <div class="card-body">
-                                        <div id="map" style='width' 50%; height='50vh' > </div> 
-                                    </div> --}}
-
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button style="float: right; type="submit"  class="btn btn-primary">Submit</button>
+                                        <button style="float: right; type="submit"  class="btn btn-primary"><span class="mr-3"><i class="fa fa-floppy-o"></i></span>Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -156,32 +128,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <div class="bootstrap-modal">
-        <!-- Large modal -->
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <div>
-                            <div id="map" style='width' 100%; height='80vh' > </div> 
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -236,7 +182,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Data Puskesmas</h4>
                         <div class="table-responsive">
-                            <a style="float: right;" class="btn mb-1 btn-outline-secondary" href="/puskes/create">Tambah Data</a>
+                            {{-- <a style="float: right;" class="btn mb-1 btn-outline-secondary" href="/puskes/create"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Tambah Data</a> --}}
                             <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
@@ -261,8 +207,10 @@
 
 
                                         <td>     
-                                            <a href="{{url('ubahpuskes',$item->id_puskes)}}"  class="btn mb-1 btn-outline-primary">Update</a>
-                                            <a href="{{url('delete-puskes',$item->id_puskes)}}" class="btn mb-1 btn-outline-danger">Delete</a>
+                                            <a href="{{url('ubahpuskes',$item->id_puskes)}}"  class="btn mb-1 btn-outline-primary"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Ubah</a>
+                                            {{-- <a href="{{url('delete-puskes',$item->id_puskes)}}" class="btn mb-1 btn-outline-danger">Delete</a> --}}
+                                            <a href="#" class="btn mb-1 btn-outline-danger delete-desa" data-id="{{$item->id_puskes}}" data-nama="{{ $item->nama_puskes}}"><span class="mr-2"><i class="fa fa-pencil-trash"></i></span>Hapus</a>  
+
     
                                     @endforeach                                   
                                         </td>
@@ -276,8 +224,39 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $('.delete-desa').click( function(){
+            var kodepuskes = $(this).attr('data-id')
+            var namapuskes = $(this).attr('data-nama')
+            swal({
+                title: "Yakin?",
+                text: "Kamu akan menghapus Data Dengan Nama "+namapuskes+"",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location = "/delete-puskes/"+kodepuskes+""
+                        swal("Data Berhasil Di Hapus", {
+                        icon: "success",
+                        });
+                    } else {
+                        swal("Data Tidak Jadi Di Hapus");
+                    }
+                });
+        });
+    </script>
 
-
+    <script>
+            @if (Session::has('success'))
+            toastr.success("{{ Session::get('success')}}")
+        @endif
+    </script>
 
 </div>
 @endsection

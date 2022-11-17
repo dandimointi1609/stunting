@@ -17,10 +17,17 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $periode = Balita::all();
-        $periode = User::get();
-        $periode = Periode::all();
-        return view('dataperiode', compact('periode'));
+        // $periode = Balita::all();
+        // $periode = User::get();
+        $dataperiode = Periode::all()->where('jenis_periode','sebaran');
+        $dataperiode2 = Periode::all()->where('jenis_periode','pravelensi');
+
+
+        // return view('dataperiode', compact('periode'));
+        return view('dataperiode', [ 'dataperiode' =>$dataperiode,
+                                     'dataperiode2' =>$dataperiode2,
+                                    ]);
+
     }
 
     /**
@@ -30,8 +37,10 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-                $periode = Periode::get();        
-                return view('dataperiode', compact('periode'));
+                $dataperiode = Periode::get();        
+                // return view('dataperiode', compact('periode'));
+                return view('dataperiode', [ 'dataperiode' =>$dataperiode]);
+
     }
 
     /**
@@ -42,26 +51,18 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        // $validatedData = $request->validate([
 
-            'id_periode' => 'required',
-            'nama_periode' => 'required',
-            'tgl_awal' => 'required',
-            'tgl_akhir' => 'required',
-            'jenis_periode' => 'required',
-        ]);
-
-        Periode::create($validatedData);
-        return redirect('/desa')->with('success', 'data berhasil tertambah');
-        // Periode::create([
-        //     'id_periode' => $request->id_periode,
-        //     'nama_periode' => $request->nama_periode,
-        //     'tgl_awal' => $request->tgl_awal,
-        //     'tgl_akhir' => $request->tgl_akhir,
-        //     'jenis_periode' => $request->jenis_periode,
+        //     'id_periode' => 'required',
+        //     'nama_periode' => 'required',
+        //     'tgl_awal' => 'required',
+        //     'tgl_akhir' => 'required',
+        //     'jenis_periode' => 'required',
         // ]);
 
-        // return redirect('/dataperiode');
+        // Periode::create($validatedData);
+        // return redirect('/desa')->with('success', 'data berhasil tertambah');
+
     }
 
     /**
@@ -83,7 +84,8 @@ class PeriodeController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('/dataperiode');
+        
     }
 
     /**
@@ -93,9 +95,14 @@ class PeriodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_periode)
     {
-        //
+        $periode = Periode::find($id_periode);
+        $periode->update([
+            'status' => '1'
+        ]);
+
+        return redirect('/dataperiode');
     }
 
     /**

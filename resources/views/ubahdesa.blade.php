@@ -93,7 +93,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button style="float: right; type="submit" class="btn btn-primary">Submit</button>
+                                        <button style="float: right; type="submit" class="btn btn-primary"><span class="mr-2"><i class="fa fa-floppy-o"></i></span>Submit</button>
 
                                     </div>
                                 </div>

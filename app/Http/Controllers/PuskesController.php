@@ -90,40 +90,39 @@ class PuskesController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        // $data = $request->all();
 
-        Puskes::create([
+        // Puskes::create([
 
-            'nama_puskes' => $data['nama_puskes'],
-            'alamat' => $data['alamat'],
-            'email' => $data['email'],
-            'kd_kecamatan' => $data['kd_kecamatan'],
-            'latitude' => $data['latitude'],
-            'longitude' => $data['longitude'],
-            'status' => "0",
-            'user_id' => "0",
+        //     'nama_puskes' => $data['nama_puskes'],
+        //     'alamat' => $data['alamat'],
+        //     'email' => $data['email'],
+        //     'kd_kecamatan' => $data['kd_kecamatan'],
+        //     'latitude' => $data['latitude'],
+        //     'longitude' => $data['longitude'],
+        //     'status' => "0",
+        //     'user_id' => "0",
 
-        ]);
-
-        User::create([
-            // 'id' => $data['user_id'],
-            'name' => $data['nama_puskes'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'level' => "puskes"
-        ]);
-
-        // $validatedData = $request->validate([
-
-        //     'kd_puskes' => 'required',
-        //     'alamat' => 'required',
-        //     'kd_kecamatan' => 'required',
-        //     'status' => '0',
-        //     'latitude' => 'required',
-        //     'longitude' => 'required',
         // ]);
 
-        // Puskes::create($validatedData);
+        // User::create([
+        //     // 'id' => $data['user_id'],
+        //     'name' => $data['nama_puskes'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'level' => "puskes"
+        // ]);
+
+        $validatedData = $request->validate([
+
+            'nama_puskes' => 'required',
+            'alamat' => 'required',
+            'kd_kecamatan' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+
+        Puskes::create($validatedData);
         return redirect('/puskes')->with('success', 'data berhasil tertambah');
 
         
@@ -174,7 +173,7 @@ class PuskesController extends Controller
 
         $puskes->update();
 
-        return redirect('/puskes');
+        return redirect('/puskes')->with('success', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -187,6 +186,6 @@ class PuskesController extends Controller
     {
         $puskes = Puskes::find($id_puskes);
         $puskes->delete();
-        return back();
+        return back()->with('success', 'Data Berhasil Di Hapus');
     }
 }

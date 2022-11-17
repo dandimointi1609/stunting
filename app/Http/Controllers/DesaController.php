@@ -61,7 +61,7 @@ class DesaController extends Controller
         ]);
 
         Desa::create($validatedData);
-        return redirect('/desa')->with('success', 'data berhasil tertambah');
+        return redirect('/desa')->with('success', 'Data Berhasil Di Tambahkan');
 
 
 
@@ -119,7 +119,7 @@ class DesaController extends Controller
 
         $desa->update();
 
-        return redirect('/desa');
+        return redirect('/desa')->with('success', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -132,6 +132,6 @@ class DesaController extends Controller
     {
         $desa = Desa::find($kd_desa);
         $desa->delete();
-        return back();
+        return back()->with('success', 'Data Berhasil Di Hapus');
     }
 }

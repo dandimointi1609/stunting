@@ -58,8 +58,11 @@ class PravelensiController extends Controller
                    )
                    ->rightjoin('t_puskes as p', 'k.kd_kecamatan', '=', 'p.kd_kecamatan')
                    ->join('t_balita as b', 'p.id_puskes', '=', 'b.id_puskes')
+                   ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
+                //    ->leftjoin('t_balita as c', 'dp.id_periode', '=', 'c.id_periode')
                    ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                    ->groupBy('k.kd_kecamatan','k.nama_kecamatan','d.nama_desa')
+                   ->where('dp.status','1')
                    ->where('nama_kecamatan',[$fkecamatan])
                 //    ->whereBetween('nama_kecamatan',[$fkecamatan])
               ->get();
@@ -68,14 +71,12 @@ class PravelensiController extends Controller
 
         return view('pravelensi')->with([
             'lokasi' => $results,
-            // 'pencarian' => $pencarian,
             'periode' => $periode,
             'balita' => $balita,
             'puskes' => $puskes,
             'kecamatan' => $kecamatan,
             'desa' => $desa,
             'fkecamatan' => $fkecamatan
-
         ]);
     }
 

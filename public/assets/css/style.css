@@ -8188,7 +8188,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
       .nk-sidebar .metismenu > li.active ul a {
         color: #464a53; }
       .nk-sidebar .metismenu > li a > i {
-        font-size: 0.95rem;
+        font-size: 0.95zrem;
         display: inline-block;
         vertical-align: middle;
         padding: 0 0.4375rem 0 0;

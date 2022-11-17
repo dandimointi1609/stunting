@@ -59,7 +59,7 @@
                                         <label for="id_puskes">Puskesmas
                                         </label>
                                             <div class="input-group">
-                                            <input  class="form-control" id="id_puskes" type="" name="id_puskes" value="{{ $puskes[0]->id_puskes }}" readonly="" required >
+                                            <input  class="form-control" id="id_puskes" type="hidden" name="id_puskes" value="{{ $puskes[0]->id_puskes }}" readonly="" required >
                                             <input type="text" class="form-control" id="nama_puskes" type="text" name="nama_puskes" value="{{ $puskes[0]->nama_puskes }}" required readonly="" >
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal2"><span class="fa fa-search"></span></button>
@@ -79,11 +79,30 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6" {{ $errors->has('tb_lahir') ? ' has-error' : '' }}">
+                                    {{-- <div class="form-group col-md-6" {{ $errors->has('tb_lahir') ? ' has-error' : '' }}>
                                         <label  for="nama_puskes">Pilih Periode</label>
                                         <input type="text" class="form-control" id="tb_lahir" name="tb_lahir" placeholder="Pilih Periode">
                                         
+                                    </div> --}}
+
+                                    <div class="form-group col-md-6" {{ $errors->has('id_periode') ? ' has-error' : '' }}s>
+                                        <label  for="id_periode"><b>Pilih Periode</b></label>
+                                                <select class="form-control" name="id_periode" value="{{ old('id_periode') }}">
+                                                    @foreach ($periode as $p)
+                                                    @if($p->status == '1')
+                                                    <option value="{{$p->id_periode}}">{{$p->nama_periode}}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
                                     </div>
+
+                                    {{-- <div class="col-lg-1 col-xl-2">    
+                                        <select class="custom-select mr-sm-2 mb-3" id="fkecamatann">
+                                            @foreach ($periode as $p)
+                                                <option value="{{$p->id_periode}}">{{$p->nama_periode}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div> --}}
 
                                     <div class="form-group col-md-6" {{ $errors->has('tgl_lahir') ? ' has-error' : '' }}">
                                         <label  for="tgl_lahir">Tanggal Lahir</label>

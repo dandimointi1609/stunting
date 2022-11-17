@@ -53,7 +53,7 @@ class PenggunaController extends Controller
             'level' => $request->level,
             'id_puskesmas' => $request->id_puskesmas,
         ]);
-        return redirect('pengguna');
+        return redirect('pengguna')->with('success', 'data berhasil tertambah');
     }
 
     /**
@@ -105,7 +105,7 @@ class PenggunaController extends Controller
         $item->id_puskesmas = $request->id_puskesmas;
         $item->password = Hash::make  ($request['password']);
         $item->update();
-        return redirect()->route('pengguna.index');
+        return redirect()->route('pengguna.index')->with('success', 'Data Berhasil Di Ubah');
     }
 
     /**

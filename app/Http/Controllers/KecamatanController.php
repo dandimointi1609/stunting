@@ -141,7 +141,7 @@ class KecamatanController extends Controller
         
         $kecamatan->update();
 
-        return redirect('/kecamatan');
+        return redirect('/kecamatan')->with('success', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -154,6 +154,6 @@ class KecamatanController extends Controller
     {
         $kecamatan = Kecamatan::find($kd_kecamatan);
         $kecamatan->delete();
-        return back();
+        return back()->with('success', 'Data Berhasil Di Hapus');
     }
 }

@@ -40,6 +40,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <h3 class="card-title"><i class="fa fa-pencil-square display-12 "></i>Tambah Data Desa</span></h3>
+                        <br>
                         <div class="form-validation">
                             <form class="form-valide" action="/desa" method="post">
                              {{ csrf_field() }}
@@ -118,7 +120,7 @@
                                
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button style="float: right; type="submit" class="btn btn-primary">Submit</button>
+                                        <button style="float: right; type="submit" class="btn btn-primary"><span class="mr-2"><i class="fa fa-floppy-o"></i></span>Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -185,8 +187,10 @@
                                         <td>{{ $item->longitude}}</td>
 
                                         <td>     
-                                            <a href="{{url('ubahdesa',$item->kd_desa)}}"  class="btn mb-1 btn-outline-primary">Edit</a>
-                                            <a href="{{url('delete-desa',$item->kd_desa)}}" class="btn mb-1 btn-outline-danger">Hapus</a>   
+                                            <a href="{{url('ubahdesa',$item->kd_desa)}}"  class="btn mb-1 btn-outline-primary"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Edit</a>
+                                            {{-- <a href="{{url('delete-desa',$item->kd_desa)}}" class="btn mb-1 btn-outline-danger">Hapus</a> --}}
+                                            <a href="#" class="btn mb-1 btn-outline-danger delete-desa" data-id="{{$item->kd_desa}}" data-nama="{{ $item->nama_desa}}"><span class="mr-2"><i class="fa fa-trash"></i></span>Hapus</a>  
+
                                     @endforeach                                      
                                         </td>
                                     </tr>
@@ -198,6 +202,40 @@
             </div>
         </div>
     </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $('.delete-desa').click( function(){
+            var kodedesa = $(this).attr('data-id')
+            var namadesa = $(this).attr('data-nama')
+            swal({
+                title: "Yakin?",
+                text: "Kamu akan menghapus Data Dengan Nama "+namadesa+"",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location = "/delete-desa/"+kodedesa+""
+                        swal("Data Berhasil Di Hapus", {
+                        icon: "success",
+                        });
+                    } else {
+                        swal("Data Tidak Jadi Di Hapus");
+                    }
+                });
+        });
+    </script>
+
+    <script>
+            @if (Session::has('success'))
+            toastr.success("{{ Session::get('success')}}")
+        @endif
+    </script>
 
 </div>
 
@@ -238,7 +276,6 @@
 @endsection
 
 @push('desa')
-
 <script>
     // you want to get it of the window global
     const providerOSM = new GeoSearch.OpenStreetMapProvider();
@@ -273,7 +310,6 @@
    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-     
 // MARKER DATABSE
      var puskesLayer;
      $( document ).ready(function(){

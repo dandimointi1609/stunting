@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,22 @@ Route::post('/desa', 'DesaController@store');
 Route::get('/ubahdesa/{kd_desa}', 'DesaController@edit')->name('edit-desa');
 Route::put('/desa/update/{kd_desa}', 'DesaController@update');
 Route::get('/delete-desa/{kd_desa}', 'DesaController@destroy')->name('delete-desa');
+
+//PREDIKSI
+Route::get('prediksi', 'PrediksiController@index');
+Route::get('/prediksi/create', 'PrediksiController@create');
+Route::post('/prediksi', 'PrediksiController@store');
+Route::get('/ubahprediksi/{id_prediksi}', 'PrediksiController@edit')->name('edit-prediksi');
+Route::put('/prediksi/update/{id_prediksi}', 'PrediksiController@update');
+Route::get('/delete-prediksi/{id_prediksi}', 'PrediksiController@destroy')->name('delete-prediksi');
+
+//FORECASTING
+Route::get('forecasting', 'ForecastingController@index');
+Route::get('/forecasting/create', 'ForecastingController@create');
+Route::post('/forecasting', 'ForecastingController@store');
+Route::get('/ubahforecasting/{id_forecasting}', 'ForecastingController@edit')->name('edit-forecasting');
+Route::put('/forecasting/update/{id_forecasting}', 'ForecastingController@update');
+Route::get('/delete-forecasting/{id_forecasting}', 'ForecastingController@destroy')->name('delete-forecasting');
 
 //Data Kecamatan
 Route::get('kecamatan', 'KecamatanController@index');
@@ -142,9 +159,13 @@ Route::get('/filter-laporan', 'LaporanstuntingController@laporanall')->name('fil
 
 
 //Periode
+Route::resource('/dataperiode', 'PeriodeController');
 Route::get('dataperiode', 'PeriodeController@index');
 Route::get('/dataperiode/create', 'PeriodeController@create');
 Route::post('/dataperiode', 'PeriodeController@store');
+Route::get('/ubahdataperiode/{id}', 'PeriodeController@edit')->name('edit-dataperiode');
+Route::put('/dataperiode/update/{id}', 'PeriodeController@update');
+Route::get('/delete-dataperiode/{id}', 'PeriodeController@destroy')->name('delete-dataperiode');
 
 
 //Dpravelensi
@@ -167,4 +188,3 @@ Route::get('/getdesa', 'BelajarController@getDesa');
 Route::resource('/pengguna', 'PenggunaController');
 Route::get('/edit/{id}', 'PenggunaController@edit')->name('edit-pengguna');
 Route::put('/pengguna/update/{id}', 'PenggunaController@update');
-

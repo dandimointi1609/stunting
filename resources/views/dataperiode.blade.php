@@ -17,6 +17,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <h3 class="card-title"><i class="fa fa-pencil-square display-12 "></i>Tambah Data Periode</span></h3>
+                        <br>
                         <div class="form-validation">
                             <form class="form-valide" action="/dataperiode" method="post">
                              {{ csrf_field() }}
@@ -68,7 +70,7 @@
                                 </div>                               
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button style="float: right; type="submit" class="btn btn-primary">Submit</button>
+                                        <button style="float: right; type="submit" class="btn btn-primary"><span class="mr-2"><i class="fa fa-floppy-o"></i></span>Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -99,9 +101,9 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Data Periode</h4>
-                @foreach ($periode as $item)
                 <div class="tab-content br-n pn">
                     <div id="navpills-1" class="tab-pane active">
+                        @foreach ($dataperiode as $item)
                         <div class="row align-items-center">
                             <div class="col-sm-8 col-md-8 col-xl-12">
                                 <br>{{ $loop->iteration }}. {{ $item->nama_periode }}
@@ -109,32 +111,49 @@
                                 <br>{{ $item->hasil}}
                             </div>
 
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $item->tgl_awal}}">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <input type="hidden" name="tglakhir" id="tglakhir" class="form-control" value="{{ $item->tgl_akhir}}">
-                                </div>
-                                <div class="form-inline">
-                                    <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +
-                                    '/' +document.getElementById('tglakhir').value" target="_blank" class="btn btn-primary col-md-12">Validasi</a>
-                                </div>
+                            <div class="form-row ml-3">
+                                @if($item->status == '0')
+                                <form action ="{{ route('dataperiode.update', $item->id_periode) }}" method="post">
+                                      {{ csrf_field() }}
+                                      {{ method_field('put') }}
+                                           <button class="btn mb-1 btn-outline-primary" onclick="return confirm('Anda yakin data ini di Verifikasi?')"><span class="mr-2"><i class="fa fa-check"></i></span>Validasi
+                                           </button>
+                                         </form>
+                                         @else  
+                                        <button class="btn mb-1 btn-outline-success" onclick="return confirm('Anda yakin data ini di Verifikasi?')"><span class="mr-2"><i class="fa fa-check"></i></span>Sudah Di Validasi </button>    
+                                @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div id="navpills-2" class="tab-pane">
+                        @foreach ($dataperiode2 as $dp)
+                        <div class="row align-items-center">
+                            <div class="col-sm-8 col-md-8 col-xl-12">
+                                <br>{{ $loop->iteration }}. {{ $dp->nama_periode }}
+                                <br>{{ $dp->tgl_awal }} s/d {{ $dp->tgl_akhir}}
+                                <br>{{ $dp->hasil}}
+                            </div>
+
+                            <div class="form-row ml-3">
+                                @if($dp->status == '0')
+                                <form action ="{{ route('dataperiode.update', $dp->id_periode) }}" method="post">
+                                      {{ csrf_field() }}
+                                      {{ method_field('put') }}
+                                           <button class="btn mb-1 btn-outline-primary" onclick="return confirm('Anda yakin data ini di Verifikasi?')"><span class="mr-2"><i class="fa fa-check"></i></span>Validasi
+                                           </button>
+                                         </form>
+                                         @else  
+                                        <button class="btn mb-1 btn-outline-success" onclick="return confirm('Anda yakin data ini di Verifikasi?')"><span class="mr-2"><i class="fa fa-check"></i></span>Sudah Di Validasi </button>    
+                                @endif
                             </div>
 
                         </div>
-                    </div>
-                    <div id="navpills-2" class="tab-pane">
-                        <div class="row align-items-center">
-                            <div class="col-sm-8 col-md-8 col-xl-12">
-                                <br>1. Agustus 2021
-                                <br>28 Februari 2021 s/d 31 agustus 2022
-                                <br>Total Penderita
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
-                @endforeach
+                {{-- @endforeach --}}
             </div>
         </div>
     </div>

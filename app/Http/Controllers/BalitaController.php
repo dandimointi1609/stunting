@@ -63,14 +63,18 @@ class BalitaController extends Controller
         // return view('tambahbalita');
           // return view('tambahpuskes');
         // return view('tambahdesa');
-        $puskes = Puskes::with('user')->where('user_id', Auth::user()->id)->get();
+        $puskes = Puskes::with('user')->where('id_puskes', Auth::user()->id_puskesmas)->get();
+        // @if ($item->puskes->id_puskes == Auth::user()->id_puskesmas)
+
         $balita = Balita::get();
 
         $desa = Desa::get();
+        $periode = Periode::get();
+
 
         // $status = Status::get();
 
-        return view('tambahbalita', compact('puskes','desa','balita'));
+        return view('tambahbalita', compact('puskes','desa','balita','periode'));
        
     }
 
@@ -98,9 +102,11 @@ class BalitaController extends Controller
             'lila' => $request->lila,
             'tambah_kecamatan' => $request->tambah_kecamatan,
             'hasil' => $request->hasil,
+            'id_periode' => $request->id_periode,
+
         ]);
 
-        return redirect('/balita');
+        return redirect('/balita')->with('success', 'data berhasil tertambah');
     }
 
     /**
@@ -154,11 +160,11 @@ class BalitaController extends Controller
         $balita->tb = $request->tb;
         $balita->bb = $request->bb;
         $balita->lila = $request->lila;
-        $balita->kecamatan = $request->kecamatan;
+        $balita->tambah_kecamatan = $request->tambah_kecamatan;
         $balita->hasil = $request->hasil;
         $balita->update();
 
-        return redirect('/balita');
+        return redirect('/balita')->with('success', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -171,7 +177,7 @@ class BalitaController extends Controller
     {
         $balita = Balita::find($id_balita);
         $balita->delete();
-        return back();
+        return back()->with('success', 'Data Berhasil Di Hapus');
     }
 
      /**

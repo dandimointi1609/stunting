@@ -37,7 +37,8 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-1">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Penderita Stunting</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-male"></i><span class="nav-text ml-2">Data Penderita Stunting</span></h3>
+                        {{-- <h3 class="card-title text-white">Data Penderita Stunting</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">{{$balita->where('hasil')->count()}}</h2>
                         </div>
@@ -47,7 +48,8 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-2">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Pravelensi</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-bar-chart"></i><span class="nav-text ml-2">Data Pravelensi</span></h3>
+                        {{-- <h3 class="card-title text-white">Data Pravelensi</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">10</h2>
                         </div>
@@ -65,7 +67,8 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-1">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Kecamatan</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-university"></i><span class="nav-text ml-2">Data Kecamatan</span></h3>
+                    {{-- <h3 class="card-title text-white">Data Kecamatan</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">{{$kecamatan->count()}}</h2>
                         </div>
@@ -75,7 +78,9 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-2">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Bali Desa</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-building"></i><span class="nav-text ml-2">Data Desa</span></h3>
+
+                        {{-- <h3 class="card-title text-white">Data Desa</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">{{$desa->count()}}</h2>
                         </div>
@@ -85,7 +90,9 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-3">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Pengguna</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-users"></i><span class="nav-text ml-2">Data User</span></h3>
+
+                        {{-- <h3 class="card-title text-white">Data Pengguna</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">5</h2>
                         </div>
@@ -103,7 +110,9 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-1">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Penderita Stunting</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-male"></i><span class="nav-text ml-2">Data Penderita Stunting</span></h3>
+
+                        {{-- <h3 class="card-title text-white">Data Penderita Stunting</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">{{$balita->where('hasil')->count()}}</h2>
                         </div>
@@ -113,7 +122,8 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-2">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Pravelensi</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-bar-chart"></i><span class="nav-text ml-2">Data Pravelensi</span></h3>
+                        {{-- <h3 class="card-title text-white">Data Pravelensi</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">8</h2>
                         </div>
@@ -123,7 +133,9 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="card gradient-3">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Data Puskesmas</h3>
+                        <h3 class="card-title text-white"><i class="fa fa-hospital-o"></i><span class="nav-text ml-2">Data Puskesmas</span></h3>
+
+                        {{-- <h3 class="card-title text-white">Data Puskesmas</h3> --}}
                         <div class="d-inline-block">
                             <h2 class="text-white">{{$puskes->count()}}</h2>
                         </div>
