@@ -134,7 +134,7 @@
                     datasets: [{
                         label: '# of Votes',
                         // data: [12, 19, 3, 23, 2, 3],
-                        data: [@foreach ($lokasi as $d) '{{$d->total_pendek}}',@endforeach],
+                        data: [@foreach ($lokasi as $d) '{{$d->pravelensi}}',@endforeach],
                         backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

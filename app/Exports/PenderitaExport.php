@@ -9,6 +9,8 @@ use App\models\Balita;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Withheadings;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 
 
@@ -20,7 +22,6 @@ class PenderitaExport implements FromCollection, Withheadings
     public function headings (): array
     {
         return [
-
             'No',
             'Kecamatan',
             'Puskesmas',
@@ -35,6 +36,8 @@ class PenderitaExport implements FromCollection, Withheadings
 
     public function collection()
     {
+        // $tglawal = request()->input('tglawal') ;
+        // $tglakhir   = request()->input('tglakhir') ;
         $puskes = DB::table('t_balita AS b')     
          ->select(DB::raw('count(b.hasil) as total'),
                   DB::raw('sum(b.hasil = "pendek") as total_pendek'),
@@ -46,7 +49,8 @@ class PenderitaExport implements FromCollection, Withheadings
                            ->groupBy('k.nama_kecamatan','d.nama_desa','p.nama_puskes','kode_desa')
                            ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                            ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')    
+                        //    ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
                            ->orderBy('p.nama_puskes', 'desc')
                     ->get();
         $xport[] = [

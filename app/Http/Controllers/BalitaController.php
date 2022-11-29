@@ -10,7 +10,7 @@ use App\models\Kecamatan;
 use App\Exports\PenderitaExport;
 use PDF;
 use App\models\Periode;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; 
 
 
 

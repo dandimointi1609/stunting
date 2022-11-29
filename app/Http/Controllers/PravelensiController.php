@@ -9,6 +9,7 @@ use App\Models\Kecamatan;
 use App\Models\Desa;
 use App\Models\Balita;
 use App\Models\Puskes;
+use Illuminate\Support\Carbon;
 
 use Illuminate\Support\Facades\DB;
 
@@ -52,6 +53,7 @@ class PravelensiController extends Controller
             ->select(DB::raw('count(hasil) as total'),
                   DB::raw('sum(b.hasil = "pendek") as total_pendek, k.kd_kecamatan'),
                   DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek, k.kd_kecamatan'),
+                  DB::raw('((sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")) / COUNT(b.hasil)) * 100  as pravelensi'),
                    'k.kd_kecamatan', 
                    'k.nama_kecamatan',
                    'd.nama_desa'
@@ -62,7 +64,11 @@ class PravelensiController extends Controller
                 //    ->leftjoin('t_balita as c', 'dp.id_periode', '=', 'c.id_periode')
                    ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                    ->groupBy('k.kd_kecamatan','k.nama_kecamatan','d.nama_desa')
-                   ->where('dp.status','1')
+                //    ->where('dp.status','1')
+                //   ->whereMonth('b.tgl_pengukuran', Carbon::now()->month)
+                ->whereYear('b.tgl_pengukuran', Carbon::now()->year)
+
+
                    ->where('nama_kecamatan',[$fkecamatan])
                 //    ->whereBetween('nama_kecamatan',[$fkecamatan])
               ->get();

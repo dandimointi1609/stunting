@@ -222,3 +222,88 @@ ON t_balita.id_puskes=t_puskes.id_puskes
 RIGHT JOIN t_kecamatan
 on t_puskes.kd_kecamatan=t_kecamatan.kd_kecamatan
 GROUP BY t_puskes.kd_kecamatan;
+
+
+SELECT t_desa.nama_desa, t_kecamatan.nama_kecamatan, t_balita.tgl_pengukuran, t_puskes.nama_puskes,
+t_puskes.id_puskes,
+COUNT(t_balita.hasil) as total,
+sum(t_balita.hasil = "pendek") as pendek,
+sum(t_balita.hasil = "sangatpendek") as sangat_pendek,
+sum(t_balita.hasil = "normal") as normal,
+COUNT(t_balita.hasil = 'pendek''sangatpendek') AS pendek_sangat_pendek,
+COUNT(t_balita.hasil = 'pendek'+'sangatpendek') / COUNT(t_balita.hasil) * 100 AS pravelensi
+
+FROM t_balita
+RIGHT JOIN t_desa 
+ON t_balita.kode_desa = t_desa.kd_desa
+RIGHT JOIN t_puskes
+ON t_balita.id_puskes = t_puskes.id_puskes
+RIGHT JOIN t_kecamatan
+ON t_desa.kd_kecamatan = t_kecamatan.kd_kecamatan
+ GROUP BY t_balita.kode_desa
+
+
+SELECT t_desa.nama_desa, t_kecamatan.nama_kecamatan, t_balita.tgl_pengukuran, t_puskes.nama_puskes,
+t_puskes.id_puskes,
+COUNT(t_balita.hasil) as total,
+sum(t_balita.hasil = "pendek") as pendek,
+sum(t_balita.hasil = "sangatpendek") as sangat_pendek,
+sum(t_balita.hasil = "normal") as normal,
+sum(t_balita.hasil = "sangatpendek") + sum(t_balita.hasil = "pendek")  as pendek_sangat_pendek,
+((sum(t_balita.hasil = "sangatpendek") + sum(t_balita.hasil = "pendek")) / COUNT(t_balita.hasil)) * 100  as pravelensi
+
+FROM t_balita
+RIGHT JOIN t_desa 
+ON t_balita.kode_desa = t_desa.kd_desa
+RIGHT JOIN t_puskes
+ON t_balita.id_puskes = t_puskes.id_puskes
+RIGHT JOIN t_kecamatan
+ON t_desa.kd_kecamatan = t_kecamatan.kd_kecamatan
+GROUP BY t_balita.kode_desa
+
+
+WITH t_prediksi
+AS
+(SELECT id_prediksi, bln_thn, d_aktual, 
+LAG(d_aktual) OVER (PARTITION BY bln_thn ORDER BY id_prediksi) as LagVal1,
+LAG(d_aktual,2) OVER (PARTITION BY bln_thn ORDER BY id_prediksi) as LagVal2
+FROM t_prediksi)
+
+SELECT id_prediksi, bln_thn,
+(d_aktual + LagVal1 + LagVal2)/3 as MovingAverage
+From t_prediksi
+
+
+WITH t_prediksi
+AS
+(SELECT id_prediksi,bln_thn,d_aktual,
+d_aktual + LEAD(d_aktual) over (ORDER BY id_prediksi) as perkiraan,
+d_aktual + LEAD(d_aktual) over (ORDER BY id_prediksi) as perkiraan1
+FROM t_prediksi)
+
+SELECT id_prediksi, bln_thn,d_aktual,
+d_aktual + LEAD(d_aktual) over (ORDER BY id_prediksi) AS total_aktual,
+perkiraan / 2  as data_perkiraan,
+perkiraan1
+From t_prediksi;
+
+
+                                    <?php
+
+                                        $loop = $loop+1;
+                                        if($loop == $count) {
+                                            echo "</table></div>";
+                                            dd($loop);
+                                        }
+
+
+                                    // ?>
+
+                                    @foreach ($users as $item)
+                                    <tr>
+                                        <td></td>
+                                            <td>{{ $item->bln_thn }}</td>
+                                            <td>{{ $item->peramalan}}</td>
+                                            <td>{{ $item->tes}}</td>
+                                    </tr>
+                                    @endforeach

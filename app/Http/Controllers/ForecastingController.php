@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\models\Prediksi;
 use App\models\Forecasting;
 use App\models\RamalanModel;
-use DB;
+// use DB;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -32,17 +33,47 @@ class ForecastingController extends Controller
      */
     public function index()
     {
-        // $forecasting = Forecasting::all();
-        // $prediksi = Prediksi::all();
+        $forecasting = Forecasting::all();
+
 
         $querytampil = $this->RamalanModel->allPrediksi();
-        $queryalpha = $this->RamalanModel->allAlpha();
+        $n_alpha = $this->RamalanModel->allAlpha();
         $querysum = $this->RamalanModel->allSum();
+        $querydaktual = $this->RamalanModel->allAktual();
+        $querybulan = $this->RamalanModel->allBulan();
+
+
+
+		//untuk menentukan nilai peramalan pertama
+        $resultquery = ($querysum);
+        $hasilsum = ($resultquery);   
+
+        $resultquery = ($querytampil);
+        $d_perkiraan = "";
+        $count = ($resultquery)->count();
+        $loop = 0;
+        $sum_abs_err = 0;
+        $sum_abs_err2 = 0;
+        $sum_abs_err_percent = 0;
+        
+
 
         
         return view('forecasting')->with(['querytampil' => $querytampil,
-                                            'queryalpha' => $queryalpha,
-                                            'querysum' => $querysum
+                                          'n_alpha' => $n_alpha,
+                                          'querysum' => $querysum,
+                                          'resultquery' => $resultquery,
+                                          'd_perkiraan' =>$d_perkiraan,
+                                          'hasilsum' => $hasilsum,
+                                          'count' => $count,
+                                          'sum_abs_err' => $sum_abs_err,
+                                          'sum_abs_err2' => $sum_abs_err2,
+                                          'sum_abs_err_percent' => $sum_abs_err_percent,
+                                          'loop' => $loop,
+                                          'querydaktual' =>$querydaktual,
+                                          'querybulan' =>$querybulan,
+                                          'forecasting' => $forecasting
+ 
                                         ]);
     }
 
@@ -84,9 +115,13 @@ class ForecastingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_alpha)
     {
-        //
+          // return view('editkecamatan');
+          $forecasting = Forecasting::find($id_alpha);
+        //   $kecamatan = Kecamatan::all();
+          
+          return view('ubahalpha', compact('forecasting'));
     }
 
     /**
@@ -96,9 +131,20 @@ class ForecastingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_alpha)
     {
-        //
+        $forecasting = Forecasting::find($id_alpha);
+        
+        $forecasting->nilai_alpha = $request->nilai_alpha;
+        $forecasting->id_alpha = $request->id_alpha;
+
+
+
+        
+
+        $forecasting->update();
+
+        return redirect('/forecasting')->with('success', 'Data Berhasil Di Ubah');
     }
 
     /**

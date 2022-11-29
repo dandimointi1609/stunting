@@ -1,0 +1,33 @@
+SELECT
+t.id_prediksi,
+t.bln_thn,
+b.d_aktual AS 'before',
+t.d_aktual AS 'now'
+FROM
+(SELECT (SELECT  COUNT(*) + 1 FROM t_prediksi AS n1 WHERE n1.id_prediksi = d1.id_prediksi AND n1.id_prediksi < d1.id_prediksi )AS Num, d1.*
+FROM t_prediksi AS d1 ORDER BY d1.id_prediksi,Num )AS t
+    LEFT JOIN
+     (
+       SELECT
+                (
+                	SELECT
+                    COUNT(*) + 1
+                    FROM
+                    	t_prediksi AS n2
+                    WHERE 
+                    n2.id_prediksi = d2.id_prediksi
+                    	AND
+                    n2.id_prediksi < d2.id_prediksi
+                    
+                )AS Num,
+                d2.*
+                FROM 
+                	t_prediksi AS d2
+                ORDER BY
+                	d2.id_prediksi,
+                	Num
+            ) AS b
+            ON b.id_prediksi = b.id_prediksi
+            	AND
+                b.Num = (t.Num - 1)
+                ;

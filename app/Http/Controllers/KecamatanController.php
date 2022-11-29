@@ -7,7 +7,12 @@ use App\models\Desa;
 use App\models\KecamatanModel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Str;
+use Illuminate\Support\Facades\Storage;
+// use Illuminate\Http\Request::getClien;
 
+// use file;
 class KecamatanController extends Controller
 { 
     /**
@@ -80,11 +85,57 @@ class KecamatanController extends Controller
         $validatedData = $request->validate([
 
             'kd_kecamatan' => 'required',
+            'no_kecamatan' => 'required',
             'nama_kecamatan' => 'required',
             'kd_kecamatan' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
+            'geojson' => 'required',
         ]);
+
+
+        
+		// menyimpan data file yang diupload ke variabel $file
+		if($geojson = $request->file('geojson')){
+ 
+                // nama file
+        echo 'File Name: '.$geojson->getClientOriginalName();
+        echo '<br>';
+
+                // ekstensi file
+        echo 'File Extension: '.$geojson->getClientOriginalExtension();
+        echo '<br>';
+
+                // real path
+        echo 'File Real Path: '.$geojson->getRealPath();
+        echo '<br>';
+
+                // ukuran file
+        echo 'File Size: '.$geojson->getSize();
+        echo '<br>';
+
+                // tipe mime
+        echo 'File Mime Type: '.$geojson->getMimeType();
+
+                // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'post-images';
+
+        
+
+            // upload file
+            $validatedData['geojson'] = $geojson->storeAS($tujuan_upload,$geojson->getClientOriginalName());
+        }
+ 
+
+
+        // if($request->file('geojson')){
+        //     // $request->getClientOriginalName();
+        //     // $request->getClientOriginalExtension();
+            
+        //     $validatedData['geojson'] = $request->file('geojson')->store('post-images');
+        // }
+
+
 
         Kecamatan::create($validatedData);
         return redirect('/kecamatan')->with('success', 'data berhasil tertambah');
@@ -135,9 +186,12 @@ class KecamatanController extends Controller
 
         $kecamatan = Kecamatan::find($kd_kecamatan);
         $kecamatan->kd_kecamatan = $request->kd_kecamatan;
+        $kecamatan->no_kecamatan = $request->no_kecamatan;
         $kecamatan->nama_kecamatan = $request->nama_kecamatan;
         $kecamatan->longitude = $request->longitude;
         $kecamatan->latitude = $request->latitude;
+        $kecamatan->geojson = $request->geojson;
+
         
         $kecamatan->update();
 
@@ -150,10 +204,27 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($kd_kecamatan)
+    public function destroy(Kecamatan $kecamatan)
     {
-        $kecamatan = Kecamatan::find($kd_kecamatan);
-        $kecamatan->delete();
+        if($kecamatan->geojson){
+            Storage::delete($kecamatan->geojson);
+
+        }
+        Kecamatan::destroy($kecamatan->kd_kecamatan);
+
+        // $file = Kecamatan::find($kecamatan);
+        // File::delete('storage/post-images' .$file->geojson);
+        // $file->delete();
+        
+        // $kecamatan = Kecamatan::where('kd_kecamatan',$kd_kecamatan)->first();
+		// File::delete('assets\ambil'.$kecamatan->geojson);
+
+        // 	// hapus data
+		// Kecamatan::where('kd_kecamatan',$kd_kecamatan)->delete();
+
+        // $kecamatan->delete();
+
+
         return back()->with('success', 'Data Berhasil Di Hapus');
     }
 }

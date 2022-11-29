@@ -24,7 +24,11 @@ Route::get('/', 'LandingController@index');
 Route::get('/titik/json', 'LandingController@titik');
 Route::get('/titik/lokasi/{kd_kecamatan}', 'LandingController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'LandingController@data');
-Route::get('/sebaran-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'LandingController@sebaranpertanggal')->name('sebaran-pertanggal');
+Route::get('/sebaranpertanggal/{tglawal}/{tglakhir}/{fkecamatan}', 'LandingController@sebaranpertanggal')->name('sebaranpertanggal');
+
+// Route::get('/hompage/export-filter', 'UserController@filter')->name('penderitaexport');
+
+
 
 Auth::routes();
 
@@ -63,11 +67,12 @@ Route::get('/delete-prediksi/{id_prediksi}', 'PrediksiController@destroy')->name
 Route::get('forecasting', 'ForecastingController@index');
 Route::get('/forecasting/create', 'ForecastingController@create');
 Route::post('/forecasting', 'ForecastingController@store');
-Route::get('/ubahforecasting/{id_forecasting}', 'ForecastingController@edit')->name('edit-forecasting');
-Route::put('/forecasting/update/{id_forecasting}', 'ForecastingController@update');
+Route::get('/ubahalpha/{id_alpha}', 'ForecastingController@edit')->name('edit-forecasting');
+Route::put('/forecasting/update/{id_alpha}', 'ForecastingController@update');
 Route::get('/delete-forecasting/{id_forecasting}', 'ForecastingController@destroy')->name('delete-forecasting');
 
 //Data Kecamatan
+Route::resource('/kecamatan', 'KecamatanController');
 Route::get('kecamatan', 'KecamatanController@index');
 Route::get('/kecamatan/create', 'KecamatanController@create');
 Route::post('/kecamatan', 'KecamatanController@store');
@@ -76,6 +81,7 @@ Route::put('/kecamatan/update/{id_kecamatan}', 'KecamatanController@update');
 Route::get('/delete-kecamatan/{id_kecamatan}', 'KecamatanController@destroy')->name('delete-kecamatan');
 Route::get('/kecamatan/json', 'KecamatanController@kecamatan');
 Route::get('/kecamatan/lokasik/{kd_kecamatan}', 'KecamatanController@lokasik');
+
 
 //Map
 Route::get('map', 'TitikController@index');
@@ -131,6 +137,7 @@ Route::get('/puskes/json', 'PuskesController@puskes');
 Route::get('/puskes/lokasip/{id_puskes}', 'PuskesController@lokasip');
 
 
+
 //BALITA
 Route::get('balita', 'BalitaController@index');
 Route::get('/balita/create', 'BalitaController@create');
@@ -141,12 +148,23 @@ Route::get('/delete-balita/{id_balita}', 'BalitaController@destroy')->name('dele
 Route::get('/data-penderita', 'BalitaController@cetakall')->name('data-penderita');
 Route::get('/data-penderita/{tglawal}/{tglakhir}', 'BalitaController@cetakpenderita')->name('data-penderita');
 
+//INPUT PRAVELENSI
+Route::get('inputpravelensi', 'InputpravelensiController@index');
+Route::get('/inputpravelensi/create', 'InputpravelensiController@create');
+Route::post('/inputpravelensi', 'InputpravelensiController@store');
+Route::get('/ubahinputpravelensi/{id_pravelensi}', 'InputpravelensiController@edit')->name('edit-inputpravelensi');
+Route::put('/inputpravelensi/update/{id_pravelensi}', 'InputpravelensiController@update');
+Route::get('/delete-inputpravelensi/{id_pravelensi}', 'InputpravelensiController@destroy')->name('delete-inputpravelensi');
+Route::get('/filter-inputpravelensi/{tglawal}/{tglakhir}', 'InputpravelensiController@cetaklaporan')->name('filter-inputpravelensi');
+Route::get('/filter-inputpravelensi', 'InputpravelensiController@laporanall')->name('filter-inputpravelensi');
 
 //laporan
 Route::get('laporan', 'LaporanController@index');
 Route::get('/penderitaexport', 'LaporanController@penderitaexport')->name('penderitaexport');
+// Route::get('/penderitaexport/{tglawal}/{tglakhir}', 'LaporanController@penderitaexport')->name('penderitaexport');
 Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapdf');
-Route::get('/data-pertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('data-pertanggal');
+Route::get('/cetakpertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('cetakpertanggal');
+
 
 
 //Penderita

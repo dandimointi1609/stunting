@@ -26,6 +26,11 @@ class Puskes extends Model
             return $this->hasOne('App\models\Balita', 'id_puskes');
         }
 
+        public function pravelensi()
+        {
+            return $this->hasOne('App\models\Pravelensi', 'id_puskes');
+        }
+
         public function penderita()
         {
             return $this->hasOne('App\models\Balita','id_puskes');

@@ -19,19 +19,25 @@ class RamalanModel extends Model
    public function allAlpha(){
      $queryalpha = DB::table('t_alpha')     
         ->select('id_alpha','nilai_alpha')
-        ->where('id_alpha', 'A1')
+      //   ->where('id_alpha', 'A1')
          ->get();
          return $queryalpha;
     }
 
     public function allSum(){
-      $querysum = DB::table('t_prediksi')     
-         ->select(DB::raw('sum(d_aktual) as total')
-                  )
-          ->get();
+      $querysum = DB::select('select sum(d_aktual) as sum from t_prediksi');
           return $querysum;
      }
 
+     public function allAktual(){
+      $querydaktual= DB::select('select d_aktual from t_prediksi');
+          return $querydaktual;
+     }
+
+     public function allBulan(){
+      $querybulan= DB::select('select bln_thn from t_prediksi');
+          return $querybulan;
+     }
    
 }
 

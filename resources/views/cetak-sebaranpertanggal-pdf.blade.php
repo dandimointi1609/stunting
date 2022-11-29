@@ -50,14 +50,14 @@
     <th>Kecamatan</th>
     <th>Desa/Kelurahan</th>
     <th>Puskes</th>
-    <th>Tanggal</th>
+    <th>Periode</th>
     <th>Total Balita</th>
     <th>Pendek</th>
     <th>Sangat Pendek</th>
     <th>Total Balita Sangat pendek+Pendek</th>
     <th>Pravelensi</th>
   </tr>
-  @foreach ($sebaranpertanggal as $item)
+  @foreach ($data as $item)
   {{-- @if ($item->puskes->id_puskes == Auth::user()->id_puskesmas) --}}
 
   <tr>
@@ -65,12 +65,12 @@
     <td>{{ $item->nama_kecamatan}}</td>
     <td>{{ $item->nama_desa}}</td>
     <td>{{ $item->nama_puskes}}</td>
-    <td>{{ $item->tgl_pengukuran}}</td>
+    <td>{{ $item->nama_periode}}</td>
     <td>{{ $item->total}}</td>
     <td>{{ $item->total_pendek}}</td>
     <td>{{ $item->sangat_pendek}}</td>
-    <td>{{ $item->total}}</td>
-    <td>{{ $item->total}}</td>
+    <td>{{ $item->pendek_sangat_pendek}}</td>
+    <td>{{ $item->pravelensi}}</td>
     </tr>
     {{-- @endif --}}
     @endforeach                                    

@@ -50,7 +50,7 @@
     <th>Kecamatan</th>
     <th>Desa/Kelurahan</th>
     <th>Puskes</th>
-    <th>Tanggal</th>
+    {{-- <th>Tanggal</th> --}}
     <th>Total Balita</th>
     <th>Pendek</th>
     <th>Sangat Pendek</th>
@@ -60,19 +60,31 @@
   @foreach ($cetakpertanggal as $item)
   {{-- @if ($item->puskes->id_puskes == Auth::user()->id_puskesmas) --}}
   @if ($item->id_puskes == Auth::user()->id_puskesmas)
-  
   <tr>
     <td>{{ $loop->iteration }}</td>
     <td>{{ $item->nama_kecamatan}}</td>
     <td>{{ $item->nama_desa}}</td>
     <td>{{ $item->nama_puskes}}</td>
-    <td>{{ $item->tgl_pengukuran}}</td>
+    {{-- <td>{{ $item->nama_periode}}</td> --}}
     <td>{{ $item->total}}</td>
     <td>{{ $item->total_pendek}}</td>
     <td>{{ $item->sangat_pendek}}</td>
-    <td>{{ $item->total}}</td>
-    <td>{{ $item->total}}</td>
+    <td>{{ $item->pendek_sangat_pendek}}</td>
+    <td>{{ $item->pravelensi}}</td>
     </tr>
+    @elseif (Auth::user()->level=='bptd')
+    <tr>
+      <td>{{ $loop->iteration }}</td>
+      <td>{{ $item->nama_kecamatan}}</td>
+      <td>{{ $item->nama_desa}}</td>
+      <td>{{ $item->nama_puskes}}</td>
+      {{-- <td>{{ $item->nama_periode}}</td> --}}
+      <td>{{ $item->total}}</td>
+      <td>{{ $item->total_pendek}}</td>
+      <td>{{ $item->sangat_pendek}}</td>
+      <td>{{ $item->pendek_sangat_pendek}}</td>
+      <td>{{ $item->pravelensi}}</td>
+      </tr>
     @endif
     @endforeach                                    
 </table>

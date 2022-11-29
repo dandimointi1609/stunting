@@ -16,13 +16,13 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link page-scroll" href='homepage'>HOME</a>
+            <a class="nav-link page-scroll" href='../homepage'>HOME</a>
           </li>
           {{-- <li class="nav-item">
             <a class="nav-link page-scroll" href="sebaran">SEBARAN</a>
           </li> --}}
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="pravelensi/all">PRAVALENSI</a>
+            <a class="nav-link page-scroll" href="/pravelensi/all">PRAVALENSI</a>
           </li>
         </ul>
         <span class="nav-item">

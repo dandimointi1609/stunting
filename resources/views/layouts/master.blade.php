@@ -20,7 +20,9 @@
 
     {{-- <link rel="stylesheet" href="{{ asset('/assets/fontawesome/css/fontawesome.min.css')}}"/> --}}
 
-    
+        <!-- Chartist -->
+        <link rel="stylesheet" href="{{ asset('../assets/plugins/chartist/css/chartist.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('../assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css')}}">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="

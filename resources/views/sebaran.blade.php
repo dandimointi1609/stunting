@@ -312,7 +312,7 @@ var geoLayer;
                 };
             },
 
-                onEachFeature: function(feature, layer) {
+                onEachFeature: function(feature, layer) {   
                 var iconLabel = L.divIcon({
                 className: 'label-bidang',
                 html: '<b>'+feature.properties.nama_kecamatan+'</b>',
@@ -452,108 +452,6 @@ var geoLayer;
                             });
                                     
                 });
-
- // layer.on('click', (e)=>{
-    //                 $.getJSON('titik/data/'+feature.properties.kd_kecamatan, function(detail){
-    //                     $.each(detail, function(index){
-    //                         $('#exampleModalLong').modal('show');
-    //                         var data = {
-    //                                 // labels:[detail[index].kd_desa],
-    //                                 labels: [@foreach ($lokasi as $data) '{{$data->nama_desa}}',@endforeach],
-
-    //                                 datasets: [{
-    //                                     label: 'Balita Pendek',
-    //                                     // data: [detail[index].jumlah], 
-    //                                 data: [@foreach ($lokasi as $data)'{{$data->total_pendek  }}',@endforeach],
-
-    //                                     backgroundColor: [
-    //                                     'rgba(255, 26, 104, 0.2)',
-    //                                     'rgba(54, 162, 235, 0.2)',
-    //                                     'rgba(255, 206, 86, 0.2)',
-    //                                     'rgba(75, 192, 192, 0.2)',
-    //                                     'rgba(153, 102, 255, 0.2)',
-    //                                     'rgba(255, 159, 64, 0.2)',
-    //                                     'rgba(0, 0, 0, 0.2)'
-    //                                     ],
-    //                                     borderColor: [
-    //                                     'rgba(255, 26, 104, 1)',
-    //                                     'rgba(54, 162, 235, 1)',
-    //                                     'rgba(255, 206, 86, 1)',
-    //                                     'rgba(75, 192, 192, 1)',
-    //                                     'rgba(153, 102, 255, 1)',
-    //                                     'rgba(255, 159, 64, 1)',
-    //                                     'rgba(0, 0, 0, 1)'
-    //                                     ],
-    //                                     borderWidth: 1
-    //                                 }]
-    //                                 };  
-
-    //                                 // config 
-    //                                 var config = {
-    //                                 type: 'bar',
-    //                                 data,
-    //                                 options: {
-    //                                     indexAxis: 'y', 
-    //                                     scales: {
-    //                                     y: {
-    //                                         beginAtZero: true
-    //                                     }
-    //                                     }
-    //                                 }
-    //                                 };
-                                    
-    //                                 // render init block
-    //                                 var pendekChart = new Chart(
-    //                                 document.getElementById('pendekChart'),
-    //                                 config
-    //                                 );
-
-    //                                 var ctx = document.getElementById("myChart").getContext('2d');
-    //                                 var myChart = new Chart(ctx, {
-    //                                 type: 'bar',
-    //                                 data: {
-    //                                     labels: [@foreach ($lokasi as $d) '{{$d->nama_desa}}',@endforeach],
-    //                                     datasets: [{
-    //                                         label: 'Balita Sangat Pendek',
-    //                                         data: [@foreach ($lokasi as $d) '{{$d->sangat_pendek}}',@endforeach],
-    //                                         backgroundColor: [
-    //                                         'rgba(255, 99, 132, 0.2)',
-    //                                         'rgba(54, 162, 235, 0.2)',
-    //                                         'rgba(255, 206, 86, 0.2)',
-    //                                         'rgba(75, 192, 192, 0.2)',
-    //                                         'rgba(153, 102, 255, 0.2)',
-    //                                         'rgba(255, 159, 64, 0.2)'
-    //                                         ],
-    //                                         borderColor: [
-    //                                         'rgba(255,99,132,1)',
-    //                                         'rgba(54, 162, 235, 1)',
-    //                                         'rgba(255, 206, 86, 1)',
-    //                                         'rgba(75, 192, 192, 1)',
-    //                                         'rgba(153, 102, 255, 1)',
-    //                                         'rgba(255, 159, 64, 1)'
-    //                                         ],
-    //                                         borderWidth: 1
-    //                                     }]
-    //                                 },
-    //                                 options: {
-    //                                     indexAxis: 'y', 
-    //                                     scales: {
-    //                                     y: {
-    //                                         beginAtZero: true
-    //                                     }
-    //                                     }
-    //                                 }
-    //                               });
-
-    //                         L.popup()
-
-    //                                 .setLatLng(layer.getBounds().getCenter())
-    //                                 .setContent(pendekChart,myChart)
-    //                                 .openOn(leafletMap);
-    //                     });
-    //                 });
-    //             })
-
                 layer.addTo(leafletMap);  
             }
         });

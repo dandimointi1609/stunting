@@ -182,32 +182,6 @@ class LaporanpenderitaController extends Controller
         // return back();
     }
 
-    // public function cetakform()
-    // {
-    //     return view('cetakpertanggal');
-    // }
-
-    // public function cetakpertanggal($tglawal,$tglakhir){
-    //     $cetakpertanggal= DB::table('t_balita AS b')     
-    //     ->select(DB::raw('count(b.hasil) as total'),
-    //              DB::raw('sum(b.hasil = "pendek") as total_pendek'),
-    //              DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
-    //                        'd.nama_desa',
-    //                        'k.nama_kecamatan',
-    //                        'b.tgl_pengukuran',
-    //                        'p.nama_puskes'
-    //                       )
-    //                    //    ->where('p.id_puskes')
-    //                       ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa')
-    //                       ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
-    //                       ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-    //                       ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-    //                       ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
-    //                       ->orderBy('p.nama_puskes', 'desc')
-    //                ->get();
-    //     return view('cetak-pertanggal-pdf', compact('cetakpertanggal'));
-    //    view()->share('data', $cetakpertanggal);
-    // }
 
     public function cetakpenderita($tglawal,$tglakhir){
         $cetakpenderita= DB::table('t_balita AS b')     
@@ -230,25 +204,4 @@ class LaporanpenderitaController extends Controller
             $pdf = PDF::loadview('cetak-penderita-pdf');
             return $pdf->download('cetak-penderita-pdf');
     }
-
-//     $data = DB::table('t_balita AS b')     
-//     ->select(DB::raw('count(b.hasil) as total'),
-//              DB::raw('sum(b.hasil = "pendek") as total_pendek'),
-//              DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
-//                        'd.nama_desa',
-//                        'k.nama_kecamatan',
-//                        'b.tgl_pengukuran',
-//                        'p.nama_puskes'
-//                       )
-//                    //    ->where('p.id_puskes')
-//                       ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa')
-//                       ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
-//                       ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-//                       ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-//                       ->orderBy('p.nama_puskes', 'desc')
-//                ->get();
-//    // $data = Puskes::all();
-//    view()->share('data', $data);
-//    $pdf = PDF::loadview('pravelensi-pdf');
-//    return $pdf->download('pravelensi.pdf');
 }

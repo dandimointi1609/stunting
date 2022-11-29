@@ -12,7 +12,11 @@ use App\models\PuskesModel;
 use App\models\KecamatanModel;
 use App\models\Periode;
 
+
 use App\Exports\PenderitaExport;
+use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+// use PDF;
 use PDF;
 
 
@@ -23,6 +27,7 @@ use App\Http\Controllers\Controller;
 
 class LandingController extends Controller
 {   
+
     /**
      * Display a listing of the resource.
      *
@@ -33,6 +38,8 @@ class LandingController extends Controller
         $this->TitikModel= new TitikModel();
         $this->KecamatanModel= new KecamatanModel();
         $this->PuskesModel= new PuskesModel();
+        ini_set('max_execution_time', 300);
+
 
     }
 
@@ -155,30 +162,47 @@ class LandingController extends Controller
 
     public function sebaranpertanggal($tglawal,$tglakhir,$fkecamatan){
 
-        // $periode = Periode::all();
-        $sebaranpertanggal= DB::table('t_balita AS b')     
-        ->select(DB::raw('count(b.hasil) as total'),
+        // $balita = Balita::all();
+        // ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
+
+
+        $data= DB::table('t_balita AS b')     
+        ->select(DB::raw('sum(b.hasil) as total'),
                  DB::raw('sum(b.hasil = "pendek") as total_pendek'),
                  DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
+                 DB::raw('sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")  as pendek_sangat_pendek'),
+                 DB::raw('((sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")) / COUNT(b.hasil)) * 100  as pravelensi'),   
                            'd.nama_desa',
                            'k.nama_kecamatan',
                            'b.tgl_pengukuran',
-                           'p.nama_puskes'
+                           'b.id_periode',
+                           'p.nama_puskes',
+                           'dp.nama_periode'
                           )
-                          ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa')
+                          ->groupBy('b.kode_desa')
+                          ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
                           ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                           ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-                          ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
-                          ->where('nama_kecamatan',[$fkecamatan])
-                          ->orderBy('p.nama_puskes', 'desc')
+                        //   ->where('b.id_periode',[$fperiode])
+                         ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
+                          ->where('k.nama_kecamatan',[$fkecamatan])
+                          ->orderBy('b.kode_desa', 'desc')
         ->get();
+        // $data = DB::select('SELECT t_desa.nama_desa, t_kecamatan.nama_kecamatan, t_balita.tgl_pengukuran, t_puskes.nama_puskes, t_puskes.id_puskes, COUNT(t_balita.hasil) as total, sum(t_balita.hasil = "pendek") as total_pendek , sum(t_balita.hasil = "sangatpendek") as sangat_pendek, sum(t_balita.hasil = "normal") as normal, sum(t_balita.hasil = "sangatpendek") + sum(t_balita.hasil = "pendek") as pendek_sangat_pendek, ((sum(t_balita.hasil = "sangatpendek") + sum(t_balita.hasil = "pendek")) / COUNT(t_balita.hasil)) * 100 as pravelensi FROM t_balita RIGHT JOIN t_desa ON t_balita.kode_desa = t_desa.kd_desa RIGHT JOIN t_puskes ON t_balita.id_puskes = t_puskes.id_puskes RIGHT JOIN t_kecamatan ON t_desa.kd_kecamatan = t_kecamatan.kd_kecamatan GROUP BY t_balita.kode_desa ORDER BY t_balita.kode_desa DESC;');
+        
         // return view('cetak-sebaranpertanggal-pdf', compact('sebaranpertanggal','periode'));
         return view('cetak-sebaranpertanggal-pdf')->with([
-            'sebaranpertanggal' => $sebaranpertanggal,
-            // 'periode' => $periode
-
+            'data' => $data,
         ]);
-        view()->share('data', $sebaranpertanggal);
+        view()->share('data', $data);
+
+
+
+        // view()->share('data', $data);
+        // $pdf = PDF::loadview('cetak-sebaranpertanggal-pdf');
+        // return $pdf->download('sebaranpertanggal.pdf');
     }
 }
+
+

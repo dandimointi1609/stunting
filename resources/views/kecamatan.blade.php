@@ -23,10 +23,26 @@
                         <div class="form-validation">
                                 <form  action="/kecamatan" method="post" enctype="multipart/form-data">
                                     @csrf
+                                <div class="form-row">
+                                    <div class="form-group row col-md-6 ">
+                                        <label class="col-lg-4 col-form-label" for="no_kecamatan">No Kecamatan <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control col-lg-6 @error('no_kecamatan') is-invalid @enderror" id="no_kecamatan" placeholder="Masukan Kode Kecamatan" name="no_kecamatan" value="{{ old('no_kecamatan') }}">
+                                            @error('no_kecamatan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                    </div> 
+                                    <div class="form-group row col-md-6 ">
+                                        <label class="col-lg-4 col-form-label" for="nama_kecamatan">Nama Kecamatan <span class="text-danger">*</span>
+                                        </label>
+                                            <input type="text" class="form-control col-lg-6 @error('nama_kecamatan') is-invalid @enderror" id="nama_kecamatan" placeholder="Masukan Kecamatan" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}">
+                                    </div>
+                                </div>
 
                                 <div class="form-row">
                                     <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama">Kode Kecamatan <span class="text-danger">*</span></label>
+                                        <label class="col-lg-4 col-form-label" for="nama">Kode Geojson <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control col-lg-6 @error('kd_kecamatan') is-invalid @enderror" id="kd_kecamatan" placeholder="Masukan Kode Kecamatan" name="kd_kecamatan" value="{{ old('kd_kecamatan') }}">
                                             @error('kd_kecamatan')
                                             <div class="invalid-feedback">
@@ -35,9 +51,9 @@
                                             @enderror
                                     </div> 
                                     <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama_kecamatan">Kecamatan <span class="text-danger">*</span>
+                                        <label class="col-lg-4 col-form-label" for="geojson">File Geojson <span class="text-danger">*</span>
                                         </label>
-                                            <input type="text" class="form-control col-lg-6 @error('nama_kecamatan') is-invalid @enderror" id="nama_kecamatan" placeholder="Masukan Kecamatan" name="nama_kecamatan" value="{{ old('nama_kecamatan') }}">
+                                            <input type="file" class="uploads form-control col-lg-6 @error('geojson') is-invalid @enderror" id="geojson" placeholder="Pilih File Geojson" name="geojson" value="{{ old('geojson') }}">
                                     </div>
                                 </div>
 
@@ -119,6 +135,7 @@
                                         <th>Kecamatan</th>
                                         <th>longitude</th>
                                         <th>latitude</th>
+                                        {{-- <th>geojson</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -126,17 +143,24 @@
                                     @foreach ($kecamatan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->kd_kecamatan }}</td>
+                                        <td>{{ $item->no_kecamatan }}</td>
                                         <td>{{ $item->nama_kecamatan }}</td>
                                         <td>{{ $item->longitude }}</td>
                                         <td>{{ $item->latitude }}</td>
+                                        {{-- <td>{{ $item->geojson }}</td> --}}
 
                                         <td>     
                                             <a href="{{url('ubahkecamatan',$item->kd_kecamatan)}}" class="btn mb-1 btn-outline-primary"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Ubah</a>
                                         {{-- <button style="float: right;" type="submit" class="btn btn-primary"><span class="mr-3"><i class="fa fa-floppy-o"></i></span>Simpan</button> --}}
+                                        <form action="{{ route('kecamatan.destroy', $item->kd_kecamatan) }}" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
+                                        <button  class="btn mb-1 btn-outline-danger" onclick="return confirm('Anda yakin ingin menghapus data ini?')"><span class="mr-2"><i class="fa fa-trash"></i></span>Hapus</button>
+                                        {{-- <button  class="btn mb-1 btn-outline-danger delete"> Delete</button> --}}
+                                        </form>
 
                                             {{-- <a href="{{url('delete-kecamatan',$item->kd_kecamatan)}}" class="btn mb-1 btn-outline-danger">Hapus</a>    --}}
-                                            <a href="#" class="btn mb-1 btn-outline-danger delete-desa" data-id="{{$item->kd_kecamatan}}" data-nama="{{ $item->nama_kecamatan}}"><span class="mr-2"><i class="fa fa-trash"></i></span>Hapus</a>  
+                                            {{-- <a href="#" class="btn mb-1 btn-outline-danger delete-desa" data-id="{{$item->kd_kecamatan}}" data-nama="{{ $item->nama_kecamatan}}"><span class="mr-2"><i class="fa fa-trash"></i></span>Hapus</a>   --}}
 
                                     @endforeach                                       
                                         </td>

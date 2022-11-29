@@ -187,13 +187,13 @@
                                         <td>{{ $item->longitude}}</td>
 
                                         <td>     
-                                            <a href="{{url('ubahdesa',$item->kd_desa)}}"  class="btn mb-1 btn-outline-primary"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Edit</a>
+                                            <a href="{{url('ubahdesa',$item->kd_desa)}}"  class="btn mb-1 btn-outline-primary"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Ubah</a>
                                             {{-- <a href="{{url('delete-desa',$item->kd_desa)}}" class="btn mb-1 btn-outline-danger">Hapus</a> --}}
                                             <a href="#" class="btn mb-1 btn-outline-danger delete-desa" data-id="{{$item->kd_desa}}" data-nama="{{ $item->nama_desa}}"><span class="mr-2"><i class="fa fa-trash"></i></span>Hapus</a>  
 
-                                    @endforeach                                      
                                         </td>
                                     </tr>
+                                    @endforeach                                      
                                    
                             </table>
                         </div>

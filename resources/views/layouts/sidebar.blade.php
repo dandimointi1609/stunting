@@ -39,11 +39,11 @@
                 
                 <ul class="metismenu" id="menu">
                 
-                    <li>
+                    {{-- <li>
                         <a href="/dataperiode" aria-expanded="false">
                             <i class="fa fa-calendar"></i><span class="nav-text">Data Periode</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li>
                         <a href="{{ url('pengguna') }}" aria-expanded="false">
@@ -70,13 +70,13 @@
                     <li><a href="/map">Sebaran</a></li>
                 </ul>
             </li>
-            <li class="nav-label">MANAGEMENT DATA</li>
+            {{-- <li class="nav-label">MANAGEMENT DATA</li>
                 <ul>
                     <li><a href="/dataperiode">Data Periode</a></li>
                     <li><a href="{{ url('pengguna') }}">Data Pengguna</a></li>
                     <li><a href="/laporan">Laporan Data Pravelensi</a></li>
                 </ul>
-            </li>
+            </li> --}}
             @endif
             @endguest
 
@@ -142,8 +142,14 @@
                         </a>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="/dpravelensi" aria-expanded="false">
+                            <i class="fa fa-bar-chart"></i><span class="nav-text">Data Pravelensi</span>
+                        </a>
+                    </li> --}}
+
+                    <li>
+                        <a href="/inputpravelensi" aria-expanded="false">
                             <i class="fa fa-bar-chart"></i><span class="nav-text">Data Pravelensi</span>
                         </a>
                     </li>

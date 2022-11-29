@@ -21,25 +21,31 @@
                         <div class="row mt-1 ml-1">
                             <div class="col">
                                 <form class="form-inline">
-                                    <div class="col-lg-1 col-xl-2">    
-                                            <select class="custom-select mr-sm-2">
+                                    {{-- <div class="col-lg-1 col-xl-2">    
+                                        <div class="col-lg-1 col-xl-2">    
+                                            <select class="custom-select mr-sm-2 mb-3" id="fperiode">
                                                 @foreach ($periode as $d)
                                                     <option value="{{$d->id_periode}}">{{$d->nama_periode}}</option>
                                                 @endforeach
                                             </select>
-                                    </div>
+                                        </div>
+                                    </div> --}}
                                     
-                                    <div class="input-group mb-1">
-                                        <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
+                                    <div class="form-group col-md-2">
+                                        <input type="date" name="tglawal" id="tglawal" class="form-control"/>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input type="hidden" name="tglakhir" id="tglakhir" class="form-control" value="{{ $d->tgl_akhir}}">
+                                    <div class="form-group col-md-2">
+                                        <input type="date" name="tglakhir" id="tglakhir" class="form-control"/>
                                     </div>
+                                    {{-- <div class="input-group mb-3">
+                                        <input type="hidden" name="fperiode" id="fperiode" class="form-control" value="{{ $d->id_periode}}">
+                                    </div> --}}
                                     <div class="input-group">
-                                        {{-- <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +'/' +document.getElementById('tglakhir').value +'/' +document.getElementById('fkecamatan').value"  --}}
-                                        <a href="#" onclick="this.href='/data-pertangal/'+document.getElementById('tglawal').value +'/' +document.getElementById('tglakhir').value" 
-                                        target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
+                                        <a href="#" onclick="this.href='/cetakpertangal/'+document.getElementById('tglawal').value +
+                                        '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
                                     </div>
+
+                                    
                                     <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a>
 
                                 </form>
@@ -91,8 +97,8 @@
                                         <td>{{ $item->total}}</td>
                                         <td>{{ $item->total_pendek}}</td>
                                         <td>{{ $item->sangat_pendek}}</td>
-                                        <td>{{ $item->total}}</td>
-                                        <td>{{ $item->total}}</td>
+                                        <td>{{ $item->pendek_sangat_pendek}}</td>
+                                        <td>{{ $item->pravelensi}}</td>
                                     </tr>
                                     @elseif (Auth::user()->level=='bptd')
                                     <tr>
@@ -104,8 +110,8 @@
                                         <td>{{ $item->total}}</td>
                                         <td>{{ $item->total_pendek}}</td>
                                         <td>{{ $item->sangat_pendek}}</td>
-                                        <td>{{ $item->total}}</td>
-                                        <td>{{ $item->total}}</td>
+                                        <td>{{ $item->pendek_sangat_pendek}}</td>
+                                        <td>{{ $item->pravelensi}}</td>
                                     </tr>
                                     @endif
                                     @endforeach                                   
