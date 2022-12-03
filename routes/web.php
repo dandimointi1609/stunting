@@ -25,6 +25,8 @@ Route::get('/titik/json', 'LandingController@titik');
 Route::get('/titik/lokasi/{kd_kecamatan}', 'LandingController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'LandingController@data');
 Route::get('/sebaranpertanggal/{tglawal}/{tglakhir}/{fkecamatan}', 'LandingController@sebaranpertanggal')->name('sebaranpertanggal');
+Route::get('/sebaranpertanggal/', 'LandingController@sebaranpertanggalall')->name('sebaranpertanggal');
+
 
 // Route::get('/hompage/export-filter', 'UserController@filter')->name('penderitaexport');
 
@@ -164,6 +166,7 @@ Route::get('/penderitaexport', 'LaporanController@penderitaexport')->name('pende
 // Route::get('/penderitaexport/{tglawal}/{tglakhir}', 'LaporanController@penderitaexport')->name('penderitaexport');
 Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapdf');
 Route::get('/cetakpertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('cetakpertanggal');
+Route::get('/cetakpertangal/', 'LaporanController@cetakpertanggalall')->name('cetakpertanggal');
 
 
 

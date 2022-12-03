@@ -118,1336 +118,1335 @@
           });
       }); 
     
-    //GEOJSON DATABASE
+//GEOJSON DATABASE
+var geoLayer;
+$.getJSON('storage/post-images/BUNTULIA32.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 0.2,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
 
-    var geoLayer;
-    $.getJSON('storage/post-images/BUNTULIA.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 0.2,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
-                          });
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
-          });
-    
-                     
-      
-    })
-    
-    $.getJSON('storage/post-images/DENGILO.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 1,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
                           });
+                                  
+          });
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
+
+$.getJSON('storage/post-images/DENGILO51.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 1,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
+
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
-          });
-    
-                     
-      
-    })
-    
-    $.getJSON('storage/post-images/DUHIADAA.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 1,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
                           });
+                                  
+          });
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
+
+$.getJSON('storage/post-images/DUHIADAA33.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 1,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
+
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
-          });
-    
-                     
-      
-    })
-    
-    $.getJSON('storage/post-images/LEMITO.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 1,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
                           });
+                                  
+          });
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
+
+$.getJSON('storage/post-images/LEMITO20.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 1,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
+
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
-          });
-    
-                     
-      
-    })
-    
-    $.getJSON('storage/post-images/MARISA.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 1,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
                           });
+                                  
+          });
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
+
+$.getJSON('storage/post-images/MARISA30.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 1,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
+
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
-          });
-    
-                     
-      
-    })
-    
-    $.getJSON('storage/post-images/PAGUAT.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 1,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
                           });
+                                  
+          });
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
+
+$.getJSON('storage/post-images/PAGUAT50.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 1,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
+
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
-          });
-    
-                     
-      
-    })
-    
-    $.getJSON('storage/post-images/PATILANGGIO.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 1,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
                           });
+                                  
+          });
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
+
+$.getJSON('storage/post-images/PATILANGGIO31.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 1,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
+
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
-          });
-    
-                     
-      
-    })
-    
-    $.getJSON('storage/post-images/POPAYATO.geojson', function(json){
-          geoLayer =  L.geoJSON(json, {
-              style: function (feature) {
-                  return {
-                      fillOpacity: 0.5,
-                      weight: 1,
-                      // opacity: 1,
-                      color: ""+feature.properties.kd_warna+""
-                  };
-              },
-    
-                  onEachFeature: function(feature, layer) {
-                  var iconLabel = L.divIcon({
-                  className: 'label-bidang',
-                  html: '<b>'+feature.properties.nama_kecamatan+'</b>',
-                  iconSize: [100, 20]
-                  });
-                  
-                  L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
-    
-    
-                  layer.on('mouseover', (e)=>{
-                      $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
-                          $.each(detail, function(index){
-                              // alert(detail[index].nama_kecamatan);
-                              var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
-                                  html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
-                                  html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
-                                  html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
-                                  html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
-                              L.popup()
-                                      .setLatLng(layer.getBounds().getCenter())
-                                      .setContent(html)
-                                      .openOn(leafletMap);
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
                           });
+                                  
+          });
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
+
+$.getJSON('storage/post-images/POPAYATO10.geojson', function(json){
+      geoLayer =  L.geoJSON(json, {
+          style: function (feature) {
+              return {
+                  fillOpacity: 0.5,
+                  weight: 1,
+                  // opacity: 1,
+                  color: ""+feature.properties.kd_warna+""
+              };
+          },
+
+              onEachFeature: function(feature, layer) {
+              var iconLabel = L.divIcon({
+              className: 'label-bidang',
+              html: '<b>'+feature.properties.nama_kecamatan+'</b>',
+              iconSize: [100, 20]
+              });
+              
+              L.marker(layer.getBounds().getCenter(), {icon:iconLabel}).addTo(leafletMap);
+
+
+              layer.on('mouseover', (e)=>{
+                  $.getJSON('titik/lokasi/'+feature.properties.kd_kecamatan, function(detail){
+                      $.each(detail, function(index){
+                          // alert(detail[index].nama_kecamatan);
+                          var html='<h6>Nama Kecamatan : '+detail[index].nama_kecamatan+'<h6>';
+                              html+='<h6> Total Stunting : '+detail[index].total+'<h6>';
+                              html+='<h6> Pendek : '+detail[index].total_pendek+'<h6>';
+                              html+='<h6> Sangat Pendek : '+detail[index].sangat_pendek+'<h6>';
+                              html+='<h6> Lokasi : '+detail[index].longitude+'-'+detail[index].latitude+'<h6>';
+                          L.popup()
+                                  .setLatLng(layer.getBounds().getCenter())
+                                  .setContent(html)
+                                  .openOn(leafletMap);
                       });
-                      
                   });
                   
-              layer.on('click', (e)=>{
-                      $.ajax({
-                                  url: 'titik/data/'+feature.properties.kd_kecamatan,
-                                  method: "GET",
-                                  dataType: "JSON",
-                                  success: function(data) {
-                                  let element = [];
-                                  let total = [];
-                                  let sangat = [];
-    
-                                  for (let index = 0; index < 10; index++) {
-                                      if(data[index]){
-                                      element[index] = data[index].nama_desa;
-                                      total[index] = data[index].total_pendek;
-                                      sangat[index] = data[index].sangat_pendek;
-    
-                                      }else{
-                                          element[index] = "";
-                                          total[index] = "";
+              });
+              
+          layer.on('click', (e)=>{
+                  $.ajax({
+                              url: 'titik/data/'+feature.properties.kd_kecamatan,
+                              method: "GET",
+                              dataType: "JSON",
+                              success: function(data) {
+                              let element = [];
+                              let total = [];
+                              let sangat = [];
+
+                              for (let index = 0; index < 10; index++) {
+                                  if(data[index]){
+                                  element[index] = data[index].nama_desa;
+                                  total[index] = data[index].total_pendek;
+                                  sangat[index] = data[index].sangat_pendek;
+
+                                  }else{
+                                      element[index] = "";
+                                      total[index] = "";
+                                  }
+                                  }
+                                  $('#exampleModalLong').modal('show');
+                          var data = {
+                                  // labels:[detail[index].kd_desa],
+                                  labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  datasets: [{
+                                      label: 'Balita Pendek',
+                                      // data: [detail[index].jumlah], 
+                                      data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
+
+                                      backgroundColor: [
+                                      'rgba(255, 26, 104, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)',
+                                      'rgba(0, 0, 0, 0.2)'
+                                      ],
+                                      borderColor: [
+                                      'rgba(255, 26, 104, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)',
+                                      'rgba(0, 0, 0, 1)'
+                                      ],
+                                      borderWidth: 1
+                                  }]
+                                  };  
+
+                                  // config 
+                                  var config = {
+                                  type: 'bar',
+                                  data,
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
                                       }
                                       }
-                                      $('#exampleModalLong').modal('show');
-                              var data = {
-                                      // labels:[detail[index].kd_desa],
-                                      labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
+                                  }
+                                  };
+                                  
+                                  // render init block
+                                  var pendekChart = new Chart(
+                                  document.getElementById('pendekChart'),
+                                  config
+                                  );
+
+                                  var ctx = document.getElementById("myChart").getContext('2d');
+                                  var myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
                                       datasets: [{
-                                          label: 'Balita Pendek',
-                                          // data: [detail[index].jumlah], 
-                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> total[<?= $i?>], <?php } ?>],
-    
+                                          label: 'Balita Sangat Pendek',
+                                          data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
                                           backgroundColor: [
-                                          'rgba(255, 26, 104, 0.2)',
+                                          'rgba(255, 99, 132, 0.2)',
                                           'rgba(54, 162, 235, 0.2)',
                                           'rgba(255, 206, 86, 0.2)',
                                           'rgba(75, 192, 192, 0.2)',
                                           'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(0, 0, 0, 0.2)'
+                                          'rgba(255, 159, 64, 0.2)'
                                           ],
                                           borderColor: [
-                                          'rgba(255, 26, 104, 1)',
+                                          'rgba(255,99,132,1)',
                                           'rgba(54, 162, 235, 1)',
                                           'rgba(255, 206, 86, 1)',
                                           'rgba(75, 192, 192, 1)',
                                           'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)',
-                                          'rgba(0, 0, 0, 1)'
+                                          'rgba(255, 159, 64, 1)'
                                           ],
                                           borderWidth: 1
                                       }]
-                                      };  
-    
-                                      // config 
-                                      var config = {
-                                      type: 'bar',
-                                      data,
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                      };
-                                      
-                                      // render init block
-                                      var pendekChart = new Chart(
-                                      document.getElementById('pendekChart'),
-                                      config
-                                      );
-    
-                                      var ctx = document.getElementById("myChart").getContext('2d');
-                                      var myChart = new Chart(ctx, {
-                                      type: 'bar',
-                                      data: {
-                                        labels: [<?php for ($i=6; $i >= 0 ; $i--) { ?> element[<?= $i?>], <?php } ?>],
-                                          datasets: [{
-                                              label: 'Balita Sangat Pendek',
-                                              data: [<?php for ($i=6; $i >= 0 ; $i--) { ?> sangat[<?= $i?>], <?php } ?>],
-                                              backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(255, 206, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)'
-                                              ],
-                                              borderColor: [
-                                              'rgba(255,99,132,1)',
-                                              'rgba(54, 162, 235, 1)',
-                                              'rgba(255, 206, 86, 1)',
-                                              'rgba(75, 192, 192, 1)',
-                                              'rgba(153, 102, 255, 1)',
-                                              'rgba(255, 159, 64, 1)'
-                                              ],
-                                              borderWidth: 1
-                                          }]
-                                      },
-                                      options: {
-                                          indexAxis: 'y', 
-                                          scales: {
-                                          y: {
-                                              beginAtZero: true
-                                          }
-                                          }
-                                      }
-                                    });  
-                    
-                                  
                                   },
-                                  error: function(data) {}
-    
-    
-                              });
-                                      
-              });
-    
-    
-                  layer.addTo(leafletMap);  
-              }
+                                  options: {
+                                      indexAxis: 'y', 
+                                      scales: {
+                                      y: {
+                                          beginAtZero: true
+                                      }
+                                      }
+                                  }
+                                });  
+                
+                              
+                              },
+                              error: function(data) {}
+
+
+                          });
+                                  
           });
-    
-                     
-      
-    })
+
+
+              layer.addTo(leafletMap);  
+          }
+      });
+
+                 
+  
+})
     
 
       function refreshPage(){

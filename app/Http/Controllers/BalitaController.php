@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\models\Jenis_Kelamin;
 use App\models\Balita;
+use App\User;
 use App\models\Puskes;
 use App\models\Desa;
 use App\models\Kecamatan;
@@ -11,6 +12,7 @@ use App\Exports\PenderitaExport;
 use PDF;
 use App\models\Periode;
 use Illuminate\Support\Facades\DB; 
+use Maatwebsite\Excel\Excel;
 
 
 
@@ -29,13 +31,18 @@ class BalitaController extends Controller
     {
 
         $balita = Balita::all();
+        
+        // dd($balita);
         $periode = Periode::all();
+        $user = User::all();
+        
 
-        return view('balita', [ 'balita' =>$balita]);
+        // return view('balita', [ 'balita' =>$balita]);
         
         return view('balita')->with([
             'balita' => $balita,
-            'periode' => $periode
+            'periode' => $periode,
+            'user' => $user
 
         ]);
     }
@@ -218,12 +225,16 @@ class BalitaController extends Controller
                            'b.tgl_pengukuran',
                            'k.nama_kecamatan',
                            'd.nama_desa',
-                           'p.nama_puskes'
+                           'p.nama_puskes',
+                           'u.id_puskesmas',
+                           'p.id_puskes'
+
                           )
                           ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita')
                           ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                           ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                          ->rightjoin('users as u', 'u.id_puskesmas', '=', 'p.id_puskes')
                           ->orderBy('p.nama_puskes', 'desc')
                    ->get();
         return view('cetak-penderita-pdf', compact('cetakpenderita'));

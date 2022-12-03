@@ -53,6 +53,8 @@
     <th>Puskesmas</th>
   </tr>
   @foreach ($cetakpenderita as $item)
+  @if ($item->id_puskes == Auth::user()->id_puskesmas)
+
   <tr>
     <td>{{ $loop->iteration }}</td>
     <td>{{ $item->nama_balita}}</td>
@@ -61,6 +63,7 @@
     <td>{{ $item->nama_desa}}</td>
     <td>{{ $item->nama_puskes}}</td>
     </tr>
+    @endif
     @endforeach                                    
 </table>
 

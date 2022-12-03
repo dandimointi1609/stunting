@@ -160,6 +160,7 @@
                                     
                                     <div class="col-lg-1 col-xl-2">    
                                         <select class="custom-select mr-sm-2 mb-3 ml-12" id="fkecamatan">
+                                            <option value="">Pilih Kecamatan..</option>
                                             @foreach ($kecamatan as $item)
                                                 <option value="{{$item->nama_kecamatan}}">{{$item->nama_kecamatan}}</option>
                                             @endforeach
@@ -312,7 +313,10 @@ var puskesIcon = L.icon({
   $( document ).ready(function(){
       $.getJSON('desa/json/', function(data){
           $.each(data, function(index){                
-              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)]).bindPopup("Desa : " + (data[index].nama_desa + "<br  />" )).addTo(leafletMap);                                                                                                             
+              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)]).bindPopup("Desa : "   + (data[index].nama_desa + "<br  />" 
+                                                                                                                                                                                                                      
+              
+              )).addTo(leafletMap);                                                                                                             
 
           });
       });
@@ -331,7 +335,7 @@ var puskesIcon = L.icon({
 
 //GEOJSON DATABASE
 var geoLayer;
-$.getJSON('storage/post-images/BUNTULIA.geojson', function(json){
+$.getJSON('storage/post-images/BUNTULIA32.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -497,7 +501,7 @@ $.getJSON('storage/post-images/BUNTULIA.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/DENGILO.geojson', function(json){
+$.getJSON('storage/post-images/DENGILO51.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -663,7 +667,7 @@ $.getJSON('storage/post-images/DENGILO.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/DUHIADAA.geojson', function(json){
+$.getJSON('storage/post-images/DUHIADAA33.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -829,7 +833,7 @@ $.getJSON('storage/post-images/DUHIADAA.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/LEMITO.geojson', function(json){
+$.getJSON('storage/post-images/LEMITO20.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -995,7 +999,7 @@ $.getJSON('storage/post-images/LEMITO.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/MARISA.geojson', function(json){
+$.getJSON('storage/post-images/MARISA30.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -1161,7 +1165,7 @@ $.getJSON('storage/post-images/MARISA.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/PAGUAT.geojson', function(json){
+$.getJSON('storage/post-images/PAGUAT50.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -1327,7 +1331,7 @@ $.getJSON('storage/post-images/PAGUAT.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/PATILANGGIO.geojson', function(json){
+$.getJSON('storage/post-images/PATILANGGIO31.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -1493,7 +1497,7 @@ $.getJSON('storage/post-images/PATILANGGIO.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/POPAYATO.geojson', function(json){
+$.getJSON('storage/post-images/POPAYATO10.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {

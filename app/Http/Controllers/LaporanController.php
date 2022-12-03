@@ -319,6 +319,59 @@ class LaporanController extends Controller
 
         
     }
+
+    public function cetakpertanggalall(){
+
+        $cetakpertanggal= DB::table('t_balita AS b')     
+        ->select(DB::raw('COUNT(b.hasil) as total'),
+                 DB::raw('sum(b.hasil = "pendek") as total_pendek'),
+                 DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
+                 DB::raw('sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")  as pendek_sangat_pendek'),
+                 DB::raw('((sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")) / COUNT(b.hasil)) * 100  as pravelensi'),   
+                           'd.nama_desa',
+                           'k.nama_kecamatan',
+                           'b.tgl_pengukuran',
+                           'b.id_periode',
+                           'p.nama_puskes',
+                           'p.id_puskes',
+                           'dp.nama_periode'
+                          )
+                          ->groupBy('b.kode_desa')
+                          ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
+                          ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+                          ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+                          ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                          ->rightjoin('users as u', 'u.id_puskesmas', '=', 'p.id_puskes')
+                        ->orderBy('b.kode_desa', 'desc')
+        ->get();
+        // $cetakpertanggal = DB::select("SELECT t_desa.nama_desa, t_kecamatan.nama_kecamatan, t_balita.tgl_pengukuran, t_puskes.nama_puskes,
+        //                         t_puskes.id_puskes,
+        //                         COUNT(t_balita.hasil) as total,
+        //                         sum(t_balita.hasil = 'pendek') as total_pendek,
+        //                         sum(t_balita.hasil = 'sangatpendek') as sangat_pendek,
+        //                         sum(t_balita.hasil = 'normal') as normal,
+        //                         sum(t_balita.hasil = 'sangatpendek') + sum(t_balita.hasil = 'pendek')  as pendek_sangat_pendek,
+        //                         ((sum(t_balita.hasil = 'sangatpendek') + sum(t_balita.hasil = 'pendek')) / COUNT(t_balita.hasil)) * 100  as pravelensi
+
+        //                         FROM t_balita
+        //                         RIGHT JOIN t_desa 
+        //                         ON t_balita.kode_desa = t_desa.kd_desa
+        //                         RIGHT JOIN t_puskes
+        //                         ON t_balita.id_puskes = t_puskes.id_puskes
+        //                         RIGHT JOIN t_kecamatan
+        //                         ON t_desa.kd_kecamatan = t_kecamatan.kd_kecamatan
+        //                         WHERE t_balita.tgl_pengukuran BETWEEN '$tglawal' AND '$tglakhir'
+        //                         GROUP BY t_balita.kode_desa");
+
+        // return view('cetak-sebaranpertanggal-pdf', compact('sebaranpertanggal','periode'));
+        
+        return view('cetak-pertanggal-pdf')->with([
+            'cetakpertanggal' => $cetakpertanggal,  
+        ]);
+        view()->share('data', $cetakpertanggal);
+
+        
+    }
     
 
 

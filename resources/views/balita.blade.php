@@ -89,7 +89,7 @@
                                         <td>{{$item->tb_lahir}}</td>
                                         <td>{{$item->nama_ortu}}</td>
                                         <td>{{$item->puskes->kecamatan->nama_kecamatan}}</td>
-                                        <td>{{($item->puskes->nama_puskes)}}</td>
+                                        <td>{{$item->puskes->nama_puskes}}</td>
                                         <td>{{$item->desa->nama_desa}}</td>
                                         <td>{{$item->alamat}}</td>
                                         <td>{{$item->tgl_pengukuran}}</td>
