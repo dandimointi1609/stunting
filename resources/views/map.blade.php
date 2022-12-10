@@ -85,27 +85,39 @@
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
     
-    // MARKER DATABSE PUSKES
-      var puskesLayer;
-      $( document ).ready(function(){
-          $.getJSON('puskes/json/', function(data){
-              $.each(data, function(index){                
-                  L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)], {icon: puskesIcon}).bindPopup("Puskesmas : " + (data[index].nama_puskes + "<br  />")).addTo(leafletMap);                                                                                                             
-    
-              });
+// MARKER DATABSE PUSKES
+var puskesLayer;
+  $( document ).ready(function(){
+      $.getJSON('puskes/json/', function(data){
+          $.each(data, function(index){                
+              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)], {icon: puskesIcon}).bindPopup(("Puskesmas : " + data[index].nama_puskes + "<br/>"
+                                                                                                                             + "Kecamatan : " + data[index].kd_kecamatan + "<br/>"
+                                                                                                                             + "Lokasi : " +data[index].latitude+ '-' +data[index].longitude+ "<br/>"
+                                                                                                                             
+
+                )).addTo(leafletMap);                                                                                                             
+
           });
       });
-    
-    // MARKER DATABASE DESA
-      var desaLayer;
-      $( document ).ready(function(){
-          $.getJSON('desa/json/', function(data){
-              $.each(data, function(index){                
-                  L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)]).bindPopup("Desa : " + (data[index].nama_desa + "<br  />" )).addTo(leafletMap);                                                                                                             
-    
-              });
+  });
+
+  
+// MARKER DATABASE DESA
+  var desaLayer;
+  $( document ).ready(function(){
+      $.getJSON('desa/json/', function(data){
+          $.each(data, function(index){                
+              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)]).bindPopup(("Kode Desa : "   + data[index].kd_desa + "<br/>" 
+                                                                                                          + "Nama Desa : " + data[index].nama_desa + "<br/>"
+                                                                                                          + "Kecamatan : " + data[index].kd_kecamatan + "<br/>"  
+                                                                                                          + "Lokasi : " +data[index].latitude+ '-' +data[index].longitude+ "<br/>"
+                                                                                                                                                                                                                      
+              
+              )).addTo(leafletMap);                                                                                                             
+
           });
       });
+  });
     
     // MARKER DATABASE KECAMATAN
       var kecamatanLayer;

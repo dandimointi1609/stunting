@@ -26,6 +26,17 @@ Route::get('/titik/lokasi/{kd_kecamatan}', 'LandingController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'LandingController@data');
 Route::get('/sebaranpertanggal/{tglawal}/{tglakhir}/{fkecamatan}', 'LandingController@sebaranpertanggal')->name('sebaranpertanggal');
 Route::get('/sebaranpertanggal/', 'LandingController@sebaranpertanggalall')->name('sebaranpertanggal');
+Route::get('/homeexport/{fkecamatan}', 'LandingController@homeexport')->name('homeexport');
+
+
+//pravelensi
+Route::get('pravelensi/{fkecamatan}', 'PravelensiController@index');
+Route::get('/getdesa', 'PravelensiController@getDesa');
+Route::get('/pravelensipertanggal///{filterkecamatan}', 'PravelensiController@pravelensipertanggalf')->name('pravelensipertanggal');
+Route::get('/pravelensipertanggal/{tglawal}/{tglakhir}/{filterkecamatan}', 'PravelensiController@pravelensipertanggal')->name('pravelensipertanggal');
+Route::get('/pravelensipertanggal/', 'PravelensiController@pravelensipertanggalall')->name('pravelensipertanggal');
+Route::get('/gpravelensi/{filterkecamatan}', 'PravelensiController@gpravelensi')->name('gpravelensi');
+
 
 
 // Route::get('/hompage/export-filter', 'UserController@filter')->name('penderitaexport');
@@ -107,9 +118,7 @@ Route::get('/titik/lokasi/{kd_kecamatan}', 'SebaranController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'SebaranController@data');
 Route::get('/sebaran-pertangal/{tglawal}/{tglakhir}/{fkecamatan}', 'SebaranController@sebaranpertanggal')->name('sebaran-pertanggal');
 
-//pravelensi
-Route::get('pravelensi/{fkecamatan}', 'PravelensiController@index');
-Route::get('/getdesa', 'PravelensiController@getDesa');
+
 // Route::post('pravelensi', 'PravelensiController@laporan');
 // Route::get('/pravelensi/{fkecamatan}', 'PravelensiController@sebaranpertanggal')->name('spravelensi');
 
@@ -145,6 +154,7 @@ Route::get('balita', 'BalitaController@index');
 Route::get('/balita/create', 'BalitaController@create');
 Route::post('/balita', 'BalitaController@store');
 Route::get('/ubahbalita/{id_balita}', 'BalitaController@edit')->name('edit-balita');
+Route::get('/balita/{id_balita}', 'BalitaController@show')->name('detail-balita');
 Route::put('/balita/update/{id_balita}', 'BalitaController@update');
 Route::get('/delete-balita/{id_balita}', 'BalitaController@destroy')->name('delete-balita');
 Route::get('/data-penderita', 'BalitaController@cetakall')->name('data-penderita');
@@ -155,10 +165,14 @@ Route::get('inputpravelensi', 'InputpravelensiController@index');
 Route::get('/inputpravelensi/create', 'InputpravelensiController@create');
 Route::post('/inputpravelensi', 'InputpravelensiController@store');
 Route::get('/ubahinputpravelensi/{id_pravelensi}', 'InputpravelensiController@edit')->name('edit-inputpravelensi');
+Route::get('/ubahinputpravelensi/{id_pravelensi}', 'InputpravelensiController@show')->name('detail-inputpravelensi');
 Route::put('/inputpravelensi/update/{id_pravelensi}', 'InputpravelensiController@update');
 Route::get('/delete-inputpravelensi/{id_pravelensi}', 'InputpravelensiController@destroy')->name('delete-inputpravelensi');
 Route::get('/filter-inputpravelensi/{tglawal}/{tglakhir}', 'InputpravelensiController@cetaklaporan')->name('filter-inputpravelensi');
 Route::get('/filter-inputpravelensi', 'InputpravelensiController@laporanall')->name('filter-inputpravelensi');
+// Route::get('/inputpravelensiexport/{filterkecamatan}', 'InputpravelensiController@inputpravelensiexport')->name('inputpravelensiexport');
+Route::get('/inputpravelensiexport/{tglawal}/{tglakhir}', 'InputpravelensiController@inputpravelensiexport')->name('inputpravelensiexport');
+
 
 //laporan
 Route::get('laporan', 'LaporanController@index');
@@ -167,6 +181,8 @@ Route::get('/penderitaexport', 'LaporanController@penderitaexport')->name('pende
 Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapdf');
 Route::get('/cetakpertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('cetakpertanggal');
 Route::get('/cetakpertangal/', 'LaporanController@cetakpertanggalall')->name('cetakpertanggal');
+Route::get('/laporanpravelensiexport/{tglawal}/{tglakhir}', 'LaporanController@laporanpravelensiexport')->name('laporanpravelensiexport');
+
 
 
 

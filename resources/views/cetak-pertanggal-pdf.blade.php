@@ -46,43 +46,66 @@
 
 <table id="customers">
   <tr>
-    <th>No</th>
+    {{-- <th>No</th>
     <th>Kecamatan</th>
     <th>Desa/Kelurahan</th>
     <th>Puskes</th>
-    {{-- <th>Tanggal</th> --}}
     <th>Total Balita</th>
     <th>Pendek</th>
     <th>Sangat Pendek</th>
     <th>Total Balita Sangat pendek+Pendek</th>
+    <th>Pravelensi</th> --}}
+    <th>No</th>
+    <th>Kecamatan</th>
+    <th>Nama Puskes</th>
+    <th>Alamat</th>
+    <th>Total Balita Diukur</th>
+    <th>Pendek</th>
+    <th>Sangat Pendek</th>
+    <th>Total Balita sangat Pendek+Pendek</th>
     <th>Pravelensi</th>
   </tr>
   @foreach ($cetakpertanggal as $item)
-  {{-- @if ($item->puskes->id_puskes == Auth::user()->id_puskesmas) --}}
   @if ($item->id_puskes == Auth::user()->id_puskesmas)
   <tr>
-    <td>{{ $loop->iteration }}</td>
+    {{-- <td>{{ $loop->iteration }}</td>
     <td>{{ $item->nama_kecamatan}}</td>
     <td>{{ $item->nama_desa}}</td>
     <td>{{ $item->nama_puskes}}</td>
-    {{-- <td>{{ $item->nama_periode}}</td> --}}
     <td>{{ $item->total}}</td>
     <td>{{ $item->total_pendek}}</td>
     <td>{{ $item->sangat_pendek}}</td>
     <td>{{ $item->pendek_sangat_pendek}}</td>
+    <td>{{ $item->pravelensi}}</td> --}}
+    <td>{{ $loop->iteration}}</td>
+    <td>{{ $item->nama_kecamatan}}</td>
+    <td>{{ $item->nama_puskes}}</td>
+    <td>{{ $item->alamat}}</td>
+    <td>{{ $item->total_balita}}</td>
+    <td>{{ $item->pendek}}</td>
+    <td>{{ $item->sangat_pendek}}</td>
+    <td>{{ $item->total_pendek_sangat}}</td>
     <td>{{ $item->pravelensi}}</td>
     </tr>
     @elseif (Auth::user()->level=='bptd')
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      {{-- <td>{{ $loop->iteration }}</td>
       <td>{{ $item->nama_kecamatan}}</td>
       <td>{{ $item->nama_desa}}</td>
       <td>{{ $item->nama_puskes}}</td>
-      {{-- <td>{{ $item->nama_periode}}</td> --}}
       <td>{{ $item->total}}</td>
       <td>{{ $item->total_pendek}}</td>
       <td>{{ $item->sangat_pendek}}</td>
       <td>{{ $item->pendek_sangat_pendek}}</td>
+      <td>{{ $item->pravelensi}}</td> --}}
+      <td>{{ $loop->iteration}}</td>
+      <td>{{ $item->nama_kecamatan}}</td>
+      <td>{{ $item->nama_puskes}}</td>
+      <td>{{ $item->alamat}}</td>
+      <td>{{ $item->total_balita}}</td>
+      <td>{{ $item->pendek}}</td>
+      <td>{{ $item->sangat_pendek}}</td>
+      <td>{{ $item->total_pendek_sangat}}</td>
       <td>{{ $item->pravelensi}}</td>
       </tr>
     @endif

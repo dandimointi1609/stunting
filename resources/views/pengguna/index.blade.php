@@ -30,14 +30,14 @@
                                         <label>Nama</label>
                                         <input type="text" class="form-control" id="name" placeholder="Masukan Nama" name="name" value="{{ old('name') }}">
                                     </div>
-                                    <div class="form-group col-md-6" {{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <div class="form-group col-md-6">
                                         <label for="password">Password</label>
                                         <input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-6" {{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <div class="form-group col-md-6">
                                         <label for="email" >Username</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Masukan Username">
                                     </div>
@@ -48,7 +48,7 @@
                                                     <option value="bptd">bptd</option>
                                                     <option value="puskes">Puskesmas</option>
                                                     <option value="dinkes">dinkes</option>
-                                                    <option value="admin">admin</option>
+                                                    {{-- <option value="admin">admin</option> --}}
                                                 </select>
                                     </div>
                                     <div class="col-12" id="show-puskes">

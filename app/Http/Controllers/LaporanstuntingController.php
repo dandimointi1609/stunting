@@ -27,13 +27,12 @@ class LaporanstuntingController extends Controller
     public function index()
     {
         $balita = Balita::all();
-        $periode = Periode::all();
+        // $periode = Periode::all();
 
         // return view('balita', [ 'balita' =>$balita]);
         
         return view('penderita')->with([
-            'penderita' => $balita,
-            'periode' => $periode
+            'penderita' => $balita
 
         ]);
     }

@@ -67,7 +67,7 @@ class BalitaController extends Controller
         
         // dd($balita);
 
-        $periode = Periode::all();
+        // $periode = Periode::all();
         // $balita = Balita::all();
 
         // $user = User::all();
@@ -77,8 +77,8 @@ class BalitaController extends Controller
         
         return view('balita')->with([
             'balita' => $balita,
-            'puskes' => $puskes,
-            'periode' => $periode
+            'puskes' => $puskes
+            // 'periode' => $periode
 
 
         ]);

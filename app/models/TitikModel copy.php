@@ -49,35 +49,28 @@ class TitikModel extends Model
 
 
        ->get();
+       
+     //   $result = DB::select("SELECT t_desa.nama_desa, t_kecamatan.nama_kecamatan, t_balita.tgl_pengukuran, t_puskes.nama_puskes,
+     //    t_puskes.id_puskes,
+     //    COUNT(t_balita.hasil) as total,
+     //    sum(t_balita.hasil = 'pendek') as pendek,
+     //    sum(t_balita.hasil = 'sangatpendek') as sangat_pendek,
+     //    sum(t_balita.hasil = 'normal') as normal,
+     //    sum(t_balita.hasil = 'sangatpendek') + sum(t_balita.hasil = 'pendek')  as pendek_sangat_pendek,
+     //    ((sum(t_balita.hasil = 'sangatpendek') + sum(t_balita.hasil = 'pendek')) / COUNT(t_balita.hasil)) * 100  as pravelensi
+        
+     //    FROM t_balita
+     //    RIGHT JOIN t_desa 
+     //    ON t_balita.kode_desa = t_desa.kd_desa
+     //    RIGHT JOIN t_puskes
+     //    ON t_balita.id_puskes = t_puskes.id_puskes
+     //    RIGHT JOIN t_kecamatan
+     //    ON t_desa.kd_kecamatan = t_kecamatan.kd_kecamatan
+     //    WHERE MONTH(t_balita.tgl_pengukuran) = MONTH(now())
+     //    GROUP BY t_balita.kode_desa")
+
          return $result;
     }
-
-    public function allGrafik(){  
-      $result = DB::table('t_pravelensi as g')     
-     ->select(DB::raw('(g.total_pendek_sangat / g.total_balita) * 100  as pravelensi'),
-    // CAST((total_pendek_sangat / total_balita ) * 100 as FLOAT)  as pravelensi
-             'p.nama_puskes',
-             'k.kd_kecamatan', 
-             'k.nama_kecamatan',
-             'd.nama_desa'
-             )
-             ->rightjoin('t_puskes as p', 'g.id_puskes', '=', 'p.id_puskes')
-             ->rightjoin('t_desa as d', 'g.kd_desa', '=', 'd.kd_desa')
-             ->rightjoin('t_kecamatan as k', 'p.kd_kecamatan', '=', 'k.kd_kecamatan')
-            //  ->join('t_balita as b', 'p.id_puskes', '=', 'b.id_puskes')
-           //   ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
-            //  ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-             ->groupBy('k.kd_kecamatan','k.nama_kecamatan','d.nama_desa')
-           //   ->where('dp.status','1')
-           //   ->whereMonth('b.tgl_pengukuran') = MONTH(now())
-                // ->whereMonth('b.tgl_pengukuran', '=', '02')
-             ->whereYear('g.tgl_input', Carbon::now()->year)
- 
- 
-        ->get();
-          return $result;
-     }
-
 
     public function allPencarian(){  
      $result = DB::table('t_kecamatan as k')     

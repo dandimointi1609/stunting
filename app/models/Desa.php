@@ -26,6 +26,11 @@ protected $fillable = ['kd_desa','nama_desa','kd_kecamatan','latitude','longitud
             return $this->hasOne('App\models\Balita', 'kd_desa');
         }
 
+        public function pravelensi()
+        {
+            return $this->hasOne('App\models\Pravelensi', 'kd_desa');
+        }
+
 }
 
 

@@ -33,7 +33,7 @@ class BalitaController extends Controller
         $balita = Balita::all();
         
         // dd($balita);
-        $periode = Periode::all();
+        // $periode = Periode::all();
         $user = User::all();
         
 
@@ -41,7 +41,7 @@ class BalitaController extends Controller
         
         return view('balita')->with([
             'balita' => $balita,
-            'periode' => $periode,
+            // 'periode' => $periode,
             'user' => $user
 
         ]);
@@ -76,12 +76,12 @@ class BalitaController extends Controller
         $balita = Balita::get();
 
         $desa = Desa::get();
-        $periode = Periode::get();
+        // $periode = Periode::get();
 
 
         // $status = Status::get();
 
-        return view('tambahbalita', compact('puskes','desa','balita','periode'));
+        return view('tambahbalita', compact('puskes','desa','balita'));
        
     }
 
@@ -107,9 +107,9 @@ class BalitaController extends Controller
             'tb' => $request->tb,
             'bb' => $request->bb,
             'lila' => $request->lila,
-            'tambah_kecamatan' => $request->tambah_kecamatan,
+            // 'tambah_kecamatan' => $request->tambah_kecamatan,
             'hasil' => $request->hasil,
-            'id_periode' => $request->id_periode,
+        // 'id_periode' => $request->id_periode,
 
         ]);
 
@@ -122,8 +122,14 @@ class BalitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_balita)
     {
+        $balita = Balita::find($id_balita);
+        $puskes = Puskes::all();
+        $desa = Desa::all();
+
+
+        return view('ubahbalita', compact('balita','puskes','desa'));
     }
 
     /**
@@ -167,7 +173,7 @@ class BalitaController extends Controller
         $balita->tb = $request->tb;
         $balita->bb = $request->bb;
         $balita->lila = $request->lila;
-        $balita->tambah_kecamatan = $request->tambah_kecamatan;
+        // $balita->tambah_kecamatan = $request->tambah_kecamatan;
         $balita->hasil = $request->hasil;
         $balita->update();
 

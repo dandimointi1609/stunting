@@ -45,8 +45,9 @@
                                         '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-primary ml-1">cetak Pdf</a>
                                     </div>
 
-                                    
-                                    <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a>
+                                    <a href="#" onclick="this.href='/laporanpravelensiexport/'+document.getElementById('tglawal').value +
+                                    '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-outline-success ml-1">Export Excel</a> 
+                                    {{-- <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a> --}}
 
                                 </form>
                             </div>
@@ -72,7 +73,7 @@
                             <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
+                                        {{-- <th>No</th>
                                         <th>Kecamatan</th>
                                         <th>Desa</th>
                                         <th>Puskesmas</th>
@@ -81,12 +82,22 @@
                                         <th>Pendek</th>
                                         <th>Sangat Pendek</th>
                                         <th>Total</th>
+                                        <th>Pravelensi</th> --}}
+                                        <th>No</th>
+                                        <th>Kecamatan</th>
+                                        <th>Nama Puskes</th>
+                                        {{-- <th>Alamat</th> --}}
+                                        <th>Total Balita Diukur</th>
+                                        <th>Pendek</th>
+                                        <th>Sangat Pendek</th>
+                                        <th>Total Balita sangat Pendek+Pendek</th>
                                         <th>Pravelensi</th>
+                                        {{-- <th>Aksi</th> --}}
                                     </tr>
 
                                 </thead>
                                 <tbody>
-                                    @foreach ($laporan as $item)
+                                    {{-- @foreach ($laporan as $item)
                                     @if ($item->id_puskes == Auth::user()->id_puskesmas)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -114,7 +125,37 @@
                                         <td>{{ $item->pravelensi}}</td>
                                     </tr>
                                     @endif
-                                    @endforeach                                   
+                                    @endforeach                                    --}}
+
+                                    @foreach ($pravelensi as $item)
+                                    @if ($item->id_puskes == Auth::user()->id_puskesmas)
+                                    <tr>
+                                        <td>{{ $loop->iteration}}</td>
+                                        <td>{{ $item->nama_kecamatan}}</td>
+                                        <td>{{ $item->nama_puskes}}</td>
+                                        {{-- <td>{{ $item->alamat}}</td> --}}
+                                        <td>{{ $item->total_balita}}</td>
+                                        <td>{{ $item->pendek}}</td>
+                                        <td>{{ $item->sangat_pendek}}</td>
+                                        <td>{{ $item->total_pendek_sangat}}</td>
+                                        {{-- <td>{{ $item->tgl_input}}</td> --}}
+                                        <td>{{ $item->pravelensi}}</td>
+                                    </tr>
+                                    @elseif (Auth::user()->level=='bptd')
+                                    <tr>
+                                        <td>{{ $loop->iteration}}</td>
+                                        <td>{{ $item->nama_kecamatan}}</td>
+                                        <td>{{ $item->nama_puskes}}</td>
+                                        {{-- <td>{{ $item->alamat}}</td> --}}
+                                        <td>{{ $item->total_balita}}</td>
+                                        <td>{{ $item->pendek}}</td>
+                                        <td>{{ $item->sangat_pendek}}</td>
+                                        <td>{{ $item->total_pendek_sangat}}</td>
+                                        {{-- <td>{{ $item->tgl_input}}</td> --}}
+                                        <td>{{ $item->pravelensi}}</td>
+                                    </tr>
+                                    @endif
+                                    @endforeach    
                                    
                             </table>
                             

@@ -93,30 +93,84 @@
     <div class="ex-basic-1" >
         <div class="container">
             <div class="row">
+                <div class="col-lg-2 col-xl-5">
+                    <label class="mr-sm-2">Download Data</label>
+                    <div class="button-icon">
+                      <button type="button" class="btn mb-1 btn-rounded btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Download Data</button>
+                   </div>  
+                </div>
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title">Download Data Sebaran</h5>
+                              <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                              </button>
+                          </div>
+                          <div class="modal-body" >
+                              <label class="mr-sm-2">Download Data</label>
+                              <div class="button-icon">
+                                  <form class="form-inline">
+  
+                                     <div class="form-group mr-sm-2 mb-3 ml-12">
+                                          <input type="date" name="tglawal" id="tglawal" class="form-control"/>
+                                      </div>
+                                      <div class="form-group mr-sm-2 mb-3 ml-12">
+                                          <input type="date" name="tglakhir" id="tglakhir" class="form-control"/>
+                                      </div>
+  
+                                      {{-- <div class="col-lg-1 col-xl-2">    
+                                              <select class="custom-select mr-sm-2 mb-3" id="fperiode">
+                                                  @foreach ($periode as $d)
+                                                      <option value="{{$d->id_periode}}">{{$d->nama_periode}}</option>
+                                                  @endforeach
+                                              </select>
+                                      </div> --}}
+                                      
+                                      <div class="col-lg-1 col-xl-2">    
+                                          <select class="custom-select mr-sm-2 mb-3 ml-12" id="filterkecamatan">
+                                              <option value="">Pilih Kecamatan..</option>
+                                              @foreach ($kecamatan as $kec)
+                                                  <option value="{{$kec->nama_kecamatan}}">{{$kec->nama_kecamatan}}</option>
+                                              @endforeach
+                                          </select>
+                                      </div>
+                                      <div class="input-group mb-3">
+                                          <input type="hidden" name="filterkecamatan" id="filterkecamatan" class="form-control" value="{{ $kec->nama_kecamatan}}">
+                                      </div>
+                                  </form>
+                                  <form class="form-inline">
+                                      <div class="col-lg-1 col-xl-2"> 
+                                          <a href="#" onclick="this.href='/pravelensipertanggal/'+document.getElementById('tglawal').value +    
+                                          '/' +document.getElementById('tglakhir').value +                 
+                                          '/' +document.getElementById('filterkecamatan').value" target="_blank" class="btn mb-1 btn-rounded btn-warning"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>           
+                                      </div>
+  
+                                      <div class="col-lg-1 col-xl-2"> 
+                                          {{-- <a href="#" onclick="this.href='/inputpravelensiexport/'+document.getElementById('filterkecamatan').value" target="_blank" class="btn mb-1 btn-rounded btn-warning"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>         --}}
+                                          {{-- <a class="btn mb-1 btn-rounded btn-success" href={{ route ('penderitaexport') }}><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Excel</a> --}}
+                                        <a href="#" onclick="this.href='/gpravelensi/'+document.getElementById('filterkecamatan').value" target="_blank" class="btn mb-1 btn-rounded btn-success"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Excel</a>  
+                                          
+                                      </div>
+                                  </form>                                 
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-                <div class="col-lg-2 col-xl-4">                            
+                {{-- <div class="col-lg-2 col-xl-4">                            
                     <select class="custom-select mr-sm-1">
                         @foreach ($periode as $d)
                             <option value="{{$d->id_periode}}">{{$d->nama_periode}}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
 
-                <div class="col-lg-2 col-xl-5">
-                    <div class="button-icon">
-                        <form class="form-inline">  
-                            <div class="input-group mb-1">
-                                <input type="hidden" name="tglawal" id="tglawal" class="form-control" value="{{ $d->tgl_awal}}">
-                            </div>
-                            <div class="input-group mb-1">
-                                <input type="hidden" name="tglakhir" id="tglakhir" class="form-control" value="{{ $d->tgl_akhir}}">
-                            </div>
-                        </form>
-                        <a href="#" onclick="this.href='/filter-pertanggal/'+document.getElementById('tglawal').value +
-                        '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-rounded btn-warning"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>
-                        <a class="btn mb-1 btn-rounded btn-success" href={{ route ('penderitaexport') }}><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Excel</a>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

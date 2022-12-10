@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Puskes;
+use App\models\Desa;
+
 use App\models\Pravelensi;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use App\Exports\InputpravelensiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -20,21 +24,48 @@ class InputpravelensiController extends Controller
      */
     public function index()
     {
-        $pravelensi = DB::select('SELECT t_kecamatan.nama_kecamatan, t_puskes.nama_puskes, t_puskes.alamat, t_pravelensi.id_puskes,t_pravelensi.id_pravelensi, t_pravelensi.total_balita, t_pravelensi.pendek, t_pravelensi.sangat_pendek, t_pravelensi.total_pendek_sangat,
+        $pravelensi = DB::select('SELECT t_kecamatan.nama_kecamatan, t_puskes.nama_puskes, t_puskes.alamat, t_pravelensi.id_puskes,t_pravelensi.id_pravelensi, t_pravelensi.total_balita, t_pravelensi.pendek, t_pravelensi.sangat_pendek, t_pravelensi.total_pendek_sangat, t_desa.nama_desa,
+        t_pravelensi.tgl_input,
         CAST((total_pendek_sangat / total_balita ) * 100 as FLOAT)  as pravelensi
         FROM t_pravelensi
         RIGHT JOIN t_puskes
         ON t_pravelensi.id_puskes = t_puskes.id_puskes
+        RIGHT JOIN t_desa
+        ON t_pravelensi.kd_desa = t_desa.kd_desa
         RIGHT JOIN t_kecamatan
         ON t_puskes.kd_kecamatan = t_kecamatan.kd_kecamatan
         WHERE id_pravelensi');
         // $pravelensi = pravelensi::all();
-        $puskes = puskes::all();
+        $puskes = Puskes::all();
+        $fpravelensi = Pravelensi::all();
+        $desa = Desa::all();
         // $pravelensi = Pravelensi::all();
         return view('inputpravelensi')->with([
             'pravelensi' => $pravelensi,
+            'fpravelensi' => $fpravelensi,
+            'desa' => $desa,
             'puskes' => $puskes
         ]);
+    }
+
+    //          /**
+    //  * Display a listing of the resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function inputpravelensiexport($filterkecamatan)
+    // {
+    //     return Excel::download(new InputpravelensiExport($filterkecamatan),'data-pravelensi.xlsx');
+    // }
+
+                 /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function inputpravelensiexport($tglawal,$tglakhir)
+    {
+        return Excel::download(new InputpravelensiExport($tglawal ,$tglakhir),'data-pravelensi.xlsx');
     }
 
     /**
@@ -44,10 +75,12 @@ class InputpravelensiController extends Controller
      */
     public function create()
     {
-        $pravelensi = pravelensi::get();
-        $puskes = puskes::get();
+        $pravelensi = Pravelensi::get();
+        $puskes = Puskes::get();
+        $desa = Desa::get();
         return view('tambahinputpravelensi')->with([
             'pravelensi' => $pravelensi,
+            'desa' => $desa,
             'puskes' => $puskes
         ]);
     }
@@ -79,6 +112,7 @@ class InputpravelensiController extends Controller
             'sangat_pendek' => $request->sangat_pendek,
             'total_pendek_sangat' => $request->total_pendek_sangat,
             'tgl_input' => $request->tgl_input,
+            'kd_desa' => $request->kd_desa,
 
         ]);
 
@@ -92,9 +126,16 @@ class InputpravelensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_pravelensi)
     {
-        //
+        $pravelensi = Pravelensi::find($id_pravelensi);
+        $puskes = Puskes::all();
+        $desa = Desa::all();
+        return view('ubahinputpravelensi')->with([
+            'pravelensi' => $pravelensi,
+            'desa' => $desa,
+            'puskes' => $puskes
+        ]);
     }
 
     /**
@@ -106,10 +147,12 @@ class InputpravelensiController extends Controller
     public function edit($id_pravelensi)
     {
 
-         $pravelensi = pravelensi::find($id_pravelensi);
-        $puskes = puskes::all();
+         $pravelensi = Pravelensi::find($id_pravelensi);
+        $puskes = Puskes::all();
+        $desa = Desa::all();
         return view('ubahinputpravelensi')->with([
             'pravelensi' => $pravelensi,
+            'desa' => $desa,
             'puskes' => $puskes
         ]);
     }
@@ -125,6 +168,7 @@ class InputpravelensiController extends Controller
     {
         $pravelensi = Pravelensi::find($id_pravelensi);
         $pravelensi->id_puskes = $request->id_puskes;
+        $pravelensi->kd_desa = $request->kd_desa;
         $pravelensi->total_balita = $request->total_balita;
         $pravelensi->pendek = $request->pendek;
         $pravelensi->sangat_pendek = $request->sangat_pendek;

@@ -195,7 +195,8 @@
                                     <div class="col-lg-1 col-xl-2"> 
                                         {{-- <a href="#" onclick="this.href='/penderitaexport/'+document.getElementById('tglawal').value +    
                                         '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-rounded btn-warning"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>         --}}
-                                        <a class="btn mb-1 btn-rounded btn-success" href={{ route ('penderitaexport') }}><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Excel</a>
+                                        {{-- <a class="btn mb-1 btn-rounded btn-success" href={{ route ('penderitaexport') }}><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Excel</a> --}}
+                                        <a href="#" onclick="this.href='/homeexport/'+document.getElementById('fkecamatan').value" target="_blank" class="btn mb-1 btn-rounded btn-success"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Excel</a>  
                                     </div>
                                 </form>                                 
                             </div>
@@ -302,18 +303,27 @@ var puskesIcon = L.icon({
   $( document ).ready(function(){
       $.getJSON('puskes/json/', function(data){
           $.each(data, function(index){                
-              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)], {icon: puskesIcon}).bindPopup("Puskesmas : " + (data[index].nama_puskes + "<br  />")).addTo(leafletMap);                                                                                                             
+              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)], {icon: puskesIcon}).bindPopup(("Puskesmas : " + data[index].nama_puskes + "<br/>"
+                                                                                                                             + "Kecamatan : " + data[index].kd_kecamatan + "<br/>"
+                                                                                                                             + "Lokasi : " +data[index].latitude+ '-' +data[index].longitude+ "<br/>"
+                                                                                                                             
+
+                )).addTo(leafletMap);                                                                                                             
 
           });
       });
   });
 
+  
 // MARKER DATABASE DESA
   var desaLayer;
   $( document ).ready(function(){
       $.getJSON('desa/json/', function(data){
           $.each(data, function(index){                
-              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)]).bindPopup("Desa : "   + (data[index].nama_desa + "<br  />" 
+              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)]).bindPopup(("Kode Desa : "   + data[index].kd_desa + "<br/>" 
+                                                                                                          + "Nama Desa : " + data[index].nama_desa + "<br/>"
+                                                                                                          + "Kecamatan : " + data[index].kd_kecamatan + "<br/>"  
+                                                                                                          + "Lokasi : " +data[index].latitude+ '-' +data[index].longitude+ "<br/>"
                                                                                                                                                                                                                       
               
               )).addTo(leafletMap);                                                                                                             
@@ -327,7 +337,7 @@ var puskesIcon = L.icon({
   $( document ).ready(function(){
       $.getJSON('kecamatan/json/', function(data){
           $.each(data, function(index){                
-              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)], {icon: puskesIcon}).bindPopup("Kecamtan : " + (data[index].nama_kecamatan + "<br  />" )).addTo(leafletMap);                                                                                                             
+              L.marker([parseFloat(data[index].latitude), parseFloat(data[index].longitude)], {icon: puskesIcon}).bindPopup("Kecamtan : " + (data[index].nama_kecamatan + "<br/>" )).addTo(leafletMap);                                                                                                             
 
           });
       });

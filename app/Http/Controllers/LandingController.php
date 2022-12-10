@@ -11,6 +11,9 @@ use App\models\TitikModel;
 use App\models\PuskesModel;
 use App\models\KecamatanModel;
 use App\models\Periode;
+// use App\Exports\HomeExport;
+use App\Exports\HomeExport;
+// use Maatwebsite\Excel\Facades\Excel;
 
 
 use App\Exports\PenderitaExport;
@@ -51,7 +54,7 @@ class LandingController extends Controller
      */
     public function index()
     {
-        $periode = Periode::all();
+        // $periode = Periode::all();
         $kecamatan = Kecamatan::all();
         $results = $this->TitikModel->allLokasi();
         $pencarian = $this->TitikModel->allPencarian();
@@ -59,10 +62,20 @@ class LandingController extends Controller
         return view('homepage')->with([
             'lokasi' => $results,
             'pencarian' => $pencarian,
-            'kecamatan' => $kecamatan,
-            'periode' => $periode
+            'kecamatan' => $kecamatan
+            // 'periode' => $periode
 
         ]);
+    }
+
+                     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function homeexport($fkecamatan)
+    {
+        return Excel::download(new HomeExport($fkecamatan),'data-sebaran.xlsx');
     }
 
     /**
@@ -160,73 +173,101 @@ class LandingController extends Controller
         //
     }
 
+    // public function sebaranpertanggal($tglawal,$tglakhir,$fkecamatan){
+
+    //     $data= DB::table('t_balita AS b')     
+    //     ->select(DB::raw('sum(b.hasil) as total'),
+    //              DB::raw('sum(b.hasil = "pendek") as total_pendek'),
+    //              DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
+    //              DB::raw('sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")  as pendek_sangat_pendek'),
+    //              DB::raw('((sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")) / COUNT(b.hasil)) * 100  as pravelensi'),   
+    //                        'd.nama_desa',
+    //                        'k.nama_kecamatan',
+    //                        'b.tgl_pengukuran',
+    //                        'p.nama_puskes',
+    //                        'b.nama_balita'
+    //                       )
+    //                       ->groupBy('b.kode_desa')
+    //                       ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+    //                       ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+    //                       ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                        //  ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
+    //                       ->where('k.nama_kecamatan',[$fkecamatan])
+    //                       ->orderBy('b.kode_desa', 'desc')
+    //     ->get();
+    //     return view('cetak-sebaranpertanggal-pdf')->with([
+    //         'data' => $data,
+    //     ]);
+    //     view()->share('data', $data);
+    // }
+
+
+    // public function sebaranpertanggalall(){
+    //     $data= DB::table('t_balita AS b')     
+    //     ->select(DB::raw('sum(b.hasil) as total'),
+    //              DB::raw('sum(b.hasil = "pendek") as total_pendek'),
+    //              DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
+    //              DB::raw('sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")  as pendek_sangat_pendek'),
+    //              DB::raw('((sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")) / COUNT(b.hasil)) * 100  as pravelensi'),   
+    //                        'd.nama_desa',
+    //                        'k.nama_kecamatan',
+    //                        'b.tgl_pengukuran',
+    //                        'p.nama_puskes',
+    //                        'b.nama_balita'
+    //                       )
+    //                       ->groupBy('b.kode_desa')
+    //                       ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+    //                       ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+    //                       ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+    //                       ->orderBy('b.kode_desa', 'desc')
+    //     ->get();
+
+    //     return view('cetak-sebaranpertanggal-pdf')->with([
+    //         'data' => $data,
+    //     ]);
+    //     view()->share('data', $data);
+    // }
+
+
+
     public function sebaranpertanggal($tglawal,$tglakhir,$fkecamatan){
 
-        // $balita = Balita::all();
-        // ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
-
-
         $data= DB::table('t_balita AS b')     
-        ->select(DB::raw('sum(b.hasil) as total'),
-                 DB::raw('sum(b.hasil = "pendek") as total_pendek'),
-                 DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
-                 DB::raw('sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")  as pendek_sangat_pendek'),
-                 DB::raw('((sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")) / COUNT(b.hasil)) * 100  as pravelensi'),   
-                           'd.nama_desa',
-                           'k.nama_kecamatan',
-                           'b.tgl_pengukuran',
-                           'b.id_periode',
-                           'p.nama_puskes',
-                           'dp.nama_periode'
-                          )
-                          ->groupBy('b.kode_desa')
-                          ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
-                          ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
-                          ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-                          ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-                        //   ->where('b.id_periode',[$fperiode])
-                         ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
-                          ->where('k.nama_kecamatan',[$fkecamatan])
-                          ->orderBy('b.kode_desa', 'desc')
-        ->get();
-        // $data = DB::select('SELECT t_desa.nama_desa, t_kecamatan.nama_kecamatan, t_balita.tgl_pengukuran, t_puskes.nama_puskes, t_puskes.id_puskes, COUNT(t_balita.hasil) as total, sum(t_balita.hasil = "pendek") as total_pendek , sum(t_balita.hasil = "sangatpendek") as sangat_pendek, sum(t_balita.hasil = "normal") as normal, sum(t_balita.hasil = "sangatpendek") + sum(t_balita.hasil = "pendek") as pendek_sangat_pendek, ((sum(t_balita.hasil = "sangatpendek") + sum(t_balita.hasil = "pendek")) / COUNT(t_balita.hasil)) * 100 as pravelensi FROM t_balita RIGHT JOIN t_desa ON t_balita.kode_desa = t_desa.kd_desa RIGHT JOIN t_puskes ON t_balita.id_puskes = t_puskes.id_puskes RIGHT JOIN t_kecamatan ON t_desa.kd_kecamatan = t_kecamatan.kd_kecamatan GROUP BY t_balita.kode_desa ORDER BY t_balita.kode_desa DESC;');
-        
-        // return view('cetak-sebaranpertanggal-pdf', compact('sebaranpertanggal','periode'));
+               ->select('b.nama_balita','j.jenis_kelamin','b.tgl_lahir',
+                           'b.bb_lahir','b.tb_lahir','b.nama_ortu',
+                           'k.nama_kecamatan','p.nama_puskes',
+                           'd.nama_desa', 'b.alamat','b.tgl_pengukuran',
+                           'b.bb','b.tb','b.hasil','b.tgl_pengukuran'
+                       )
+                // ->groupBy('k.nama_kecamatan','d.nama_desa')
+                ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+                ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
+                ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+                ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
+                ->where('k.nama_kecamatan',[$fkecamatan])
+                // ->orderBy('p.nama_puskes', 'desc')
+                ->get();
+
         return view('cetak-sebaranpertanggal-pdf')->with([
             'data' => $data,
         ]);
         view()->share('data', $data);
-
-
-
-        // view()->share('data', $data);
-        // $pdf = PDF::loadview('cetak-sebaranpertanggal-pdf');
-        // return $pdf->download('sebaranpertanggal.pdf');
     }
-
 
     public function sebaranpertanggalall(){
         $data= DB::table('t_balita AS b')     
-        ->select(DB::raw('sum(b.hasil) as total'),
-                 DB::raw('sum(b.hasil = "pendek") as total_pendek'),
-                 DB::raw('sum(b.hasil = "sangatpendek") as sangat_pendek'),
-                 DB::raw('sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")  as pendek_sangat_pendek'),
-                 DB::raw('((sum(b.hasil = "sangatpendek") + sum(b.hasil = "pendek")) / COUNT(b.hasil)) * 100  as pravelensi'),   
-                           'd.nama_desa',
-                           'k.nama_kecamatan',
-                           'b.tgl_pengukuran',
-                           'b.id_periode',
-                           'p.nama_puskes',
-                           'dp.nama_periode'
-                          )
-                          ->groupBy('b.kode_desa')
-                          ->join('t_periode as dp', 'b.id_periode', '=', 'dp.id_periode')
-                          ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
-                          ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
-                          ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-                          ->orderBy('b.kode_desa', 'desc')
-        ->get();
-
+        ->select('b.nama_balita','j.jenis_kelamin','b.tgl_lahir',
+                    'b.bb_lahir','b.tb_lahir','b.nama_ortu',
+                    'k.nama_kecamatan','p.nama_puskes',
+                    'd.nama_desa', 'b.alamat','b.tgl_pengukuran',
+                    'b.bb','b.tb','b.hasil','b.tgl_pengukuran'
+                )
+         ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+         ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
+         ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+         ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+         ->get();
         return view('cetak-sebaranpertanggal-pdf')->with([
             'data' => $data,
         ]);

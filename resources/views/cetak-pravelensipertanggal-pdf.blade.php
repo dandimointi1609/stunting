@@ -47,42 +47,30 @@
 <table id="customers">
   <tr>
     <th>No</th>
-    <th>Nama</th>
-    <th>Jk</th>
-    <th>Tgl Lahir</th>
-    <th>Bb Lahir</th>
-    <th>Tb Lahir</th>
-    <th>Nama Ortu</th>
-    <th>Kec</th>
-    <th>Puskesmas</th>
-    <th>Desa/Kel</th>
-    <th>Alamat</th>
-    <th>Tgl Pengukuran</th>
-    <th>Berat</th>
-    <th>Tinggi</th>
-    <th>TB/U</th>
-    <th>Periode</th>
+    <th>Kecamatan</th>
+    <th>Nama Desa</th>
+    <th>Nama Puskes</th>
+    <th>Total Balita Diukur</th>
+    <th>Pendek</th>
+    <th>Sangat Pendek</th>
+    <th>Total Balita sangat Pendek+Pendek</th>
+    <th>Tgl_input</th>
+    <th>Pravelensi</th>
   </tr>
   @foreach ($data as $item)
   {{-- @if ($item->puskes->id_puskes == Auth::user()->id_puskesmas) --}}
 
   <tr>
-    <td>{{ $loop->iteration }}</td>
-    <td>{{$item->nama_balita}}</td>
-    <td>{{$item->jenis_kelamin}}</td>
-    <td>{{$item->tgl_lahir}}</td>
-    <td>{{$item->bb_lahir}}</td>
-    <td>{{$item->tb_lahir}}</td>
-    <td>{{$item->nama_ortu}}</td>
-    <td>{{$item->nama_kecamatan}}</td>
-    <td>{{($item->nama_puskes)}}</td>
-    <td>{{$item->nama_desa}}</td>
-    <td>{{$item->alamat}}</td>
-    <td>{{$item->tgl_pengukuran}}</td>
-    <td>{{$item->bb}}</td>
-    <td>{{$item->tb}}</td>
-    <td>{{$item->hasil}}</td>
-    <td>{{$item->tgl_pengukuran}}</td>
+    <td>{{ $loop->iteration}}</td>
+    <td>{{ $item->nama_kecamatan}}</td>
+    <td>{{ $item->nama_desa}}</td>
+    <td>{{ $item->nama_puskes}}</td>
+    <td>{{ $item->total_balita}}</td>
+    <td>{{ $item->pendek}}</td>
+    <td>{{ $item->sangat_pendek}}</td>
+    <td>{{ $item->total_pendek_sangat}}</td>
+    <td>{{ $item->tgl_input}}</td>
+    <td>{{ $item->pravelensi}}</td>
     </tr>
     {{-- @endif --}}
     @endforeach                                    
