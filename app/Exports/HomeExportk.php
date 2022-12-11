@@ -10,20 +10,24 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class HomeExport implements FromView
+class HomeExportk implements FromView
 {
      /**
      * @return \Illuminate\Support\Collection
      */
+        
+     protected $tglawal;
+     protected $tglakhir;
+
     public function __construct(string $keyword)
     {
         // $tglawal = $keyword;
         // $tglakhir   = $keyword;
         // $this->tgl_input = $keyword;
         // $this->tgl_input = $keyword;
-        // $this->nama_kecamatan = $keyword;
-         $this->tgl_pengukuran = $keyword;
-        $this->tgl_pengukuran = $keyword;
+        $this->nama_kecamatan = $keyword;
+        // $this->tgl_pengukuran = $keyword;
+        // $this->tgl_pengukuran = $keyword;
     }
 
     public function view(): View
@@ -59,8 +63,8 @@ class HomeExport implements FromView
             ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
             ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
             ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
-            // ->where('k.nama_kecamatan', $this->nama_kecamatan)
-            ->whereBetween('b.tgl_pengukuran', [$this->tgl_pengukuran,$this->tgl_pengukuran])
+            ->where('k.nama_kecamatan', $this->nama_kecamatan)
+            // ->whereBetween('tgl_pengukuran', [$this->tgl_pengukuran,$this->tgl_pengukuran])
 
 
             ->get()

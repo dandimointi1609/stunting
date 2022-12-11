@@ -20,11 +20,6 @@
                     <div class="card-body">
                         <div class="row mt ml-1">
                             <div class="col">
-                                {{-- <form method="POST" action="/laporan" class="form-inline">
-                                    <a style="float: right;" class="btn mb-1 btn-outline-primary ml-1" href={{ route ('penderitaexport') }}>Pilih Periode</a>
-                                    <a style="float: right;" class="btn mb-1 btn-outline-success ml-1" href={{ route ('penderitaexport') }}>Export Excel</a>
-                                    <a style="float: right;" class="btn mb-1 btn-outline-danger ml-1" href={{ route ('penderitapdf') }}>Export Pdf</a>
-                                </form> --}}
                                 <div class="form-row">
                                     <div class="form-group col-md-2">
                                         <input type="date" name="tglawal" id="tglawal" class="form-control"/>
@@ -64,19 +59,10 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Jenis kelamin</th>
-                                        {{-- <th>Tgl Lahir</th>
-                                        <th>Bb Lahir</th>
-                                        <th>Tb Lahir</th> --}}
                                         <th>Nama Ortu</th>
                                         <th>Kecamatan</th>
-                                        {{-- <th>Puskesmas</th> --}}
                                         <th>desa</th>
-                                        {{-- <th>Alamat</th>
-                                        <th>Tgl Pengukuran</th>
-                                        <th>Berat</th>
-                                        <th>Tinggi</th> --}}
                                         <th>TB/U</th>
-                                        {{-- <th>Periode</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -87,23 +73,15 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{$item->nama_balita}}</td>
                                         <td>{{$item->jenis_kelamin->jenis_kelamin}}</td>
-                                        {{-- <td>{{$item->tgl_lahir}}</td>
-                                        <td>{{$item->bb_lahir}}</td>
-                                        <td>{{$item->tb_lahir}}</td> --}}
+                                        <td>{{$item->tb_lahir}}</td>
                                         <td>{{$item->nama_ortu}}</td>
                                         <td>{{$item->puskes->kecamatan->nama_kecamatan}}</td>
-                                        {{-- <td>{{$item->puskes->nama_puskes}}</td> --}}
                                         <td>{{$item->desa->nama_desa}}</td>
-                                        {{-- <td>{{$item->alamat}}</td>
-                                        <td>{{$item->tgl_pengukuran}}</td>
-                                        <td>{{$item->bb}}</td>
                                         <td>{{$item->tb}}</td> --}}
                                         <td>{{$item->hasil}}</td>
-                                        {{-- <td>{{$item->tgl_pengukuran}}</td> --}}
 
                                         <td>     
                                             <a href="{{url('ubahbalita',$item->id_balita)}}"  class="btn mb-1 btn-outline-primary"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Ubah</a>
-                                            {{-- <a href="{{url('delete-balita',$item->id_balita)}}" class="btn mb-1 btn-outline-danger">Delete </a> --}}
                                             <a href="#" class="btn mb-1 btn-outline-danger delete-desa" data-id="{{$item->id_balita}}" data-nama="{{ $item->nama_balita}}"><span class="mr-2"><i class="fa fa-trash"></i></span>Hapus</a>  
                                             <button type="button" class="btn mb-1 btn-outline-success" data-toggle="modal" data-target="#bd-example-modal-lg{{$item->id_balita}}"><span class="mr-2"><i class="fa fa-pencil-square-o"></i></span>Detail</button>
 

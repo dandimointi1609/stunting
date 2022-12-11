@@ -73,9 +73,20 @@ class LandingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function homeexport($fkecamatan)
+    // public function homeexport($fkecamatan)
+    // {
+    //     return Excel::download(new HomeExport($fkecamatan),'data-sebaran.xlsx');
+    // }
+    public function homeexport($tglawal,$tglakhir)
+    {
+        return Excel::download(new HomeExport($tglawal,$tglakhir),'data-sebaran.xlsx');
+        // dd($tglawal,$tglakhir);
+    }
+
+    public function homeexportk($fkecamatan)
     {
         return Excel::download(new HomeExport($fkecamatan),'data-sebaran.xlsx');
+        // dd($tglawal,$tglakhir);
     }
 
     /**
@@ -246,6 +257,31 @@ class LandingController extends Controller
                 ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
                 ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
                 ->where('k.nama_kecamatan',[$fkecamatan])
+                // ->orderBy('p.nama_puskes', 'desc')
+                ->get();
+
+        return view('cetak-sebaranpertanggal-pdf')->with([
+            'data' => $data,
+        ]);
+        view()->share('data', $data);
+    }
+
+    public function sebaranpertanggalrange($tglawal,$tglakhir){
+
+        $data= DB::table('t_balita AS b')     
+               ->select('b.nama_balita','j.jenis_kelamin','b.tgl_lahir',
+                           'b.bb_lahir','b.tb_lahir','b.nama_ortu',
+                           'k.nama_kecamatan','p.nama_puskes',
+                           'd.nama_desa', 'b.alamat','b.tgl_pengukuran',
+                           'b.bb','b.tb','b.hasil','b.tgl_pengukuran'
+                       )
+                // ->groupBy('k.nama_kecamatan','d.nama_desa')
+                ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
+                ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
+                ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
+                ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                ->whereBetween('b.tgl_pengukuran',[$tglawal,$tglakhir])
+                // ->where('k.nama_kecamatan',[$fkecamatan])
                 // ->orderBy('p.nama_puskes', 'desc')
                 ->get();
 

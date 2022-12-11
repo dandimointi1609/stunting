@@ -169,7 +169,7 @@
                                                 <option value="">Pilih Hasil</option>
                                                 <option value="pendek">Pendek</option>
                                                 <option value="sangatpendek">Sangat Pendek</option>
-                                                <option value="normal">normal</option>
+                                                {{-- <option value="normal">normal</option> --}}
                                             </select>
                                     </div>
         

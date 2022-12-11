@@ -169,8 +169,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode Desa</th>
-                                        <th>Kecamatan</th>
                                         <th>Desa</th>
+                                        <th>Kecamatan</th>
                                         <th>Latitude</th>
                                         <th>Longitude</th>
                                         <th>Aksi</th>
@@ -181,8 +181,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->kd_desa }}</td>
-                                        <td>{{ $item->kecamatan->nama_kecamatan}}</td>
                                         <td>{{ $item->nama_desa }}</td>
+                                        <td>{{ $item->kecamatan->nama_kecamatan}}</td>
                                         <td>{{ $item->latitude}}</td>
                                         <td>{{ $item->longitude}}</td>
 

@@ -126,28 +126,9 @@ class KecamatanController extends Controller
             $validatedData['geojson'] = $geojson->storeAS($tujuan_upload,$geojson->getClientOriginalName());
         }
  
-
-
-        // if($request->file('geojson')){
-        //     // $request->getClientOriginalName();
-        //     // $request->getClientOriginalExtension();
-            
-        //     $validatedData['geojson'] = $request->file('geojson')->store('post-images');
-        // }
-
-
-
         Kecamatan::create($validatedData);
         return redirect('/kecamatan')->with('success', 'data berhasil tertambah');
 
-        // Kecamatan::create([
-        //     'kd_kecamatan' => $request->kd_kecamatan,
-        //     'nama_kecamatan' => $request->nama_kecamatan,
-        //     'longitude' => $request->longitude,
-        //     'latitude' => $request->latitude,
-        // ]);
-
-        // return redirect('/kecamatan');
     }
 
     /**

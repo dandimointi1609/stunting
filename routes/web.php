@@ -25,8 +25,14 @@ Route::get('/titik/json', 'LandingController@titik');
 Route::get('/titik/lokasi/{kd_kecamatan}', 'LandingController@lokasi');
 Route::get('/titik/data/{kd_kecamatan}', 'LandingController@data');
 Route::get('/sebaranpertanggal/{tglawal}/{tglakhir}/{fkecamatan}', 'LandingController@sebaranpertanggal')->name('sebaranpertanggal');
+Route::get('/sebaranpertanggal/{tglawal}/{tglakhir}/', 'LandingController@sebaranpertanggalrange')->name('sebaranpertanggal');
 Route::get('/sebaranpertanggal/', 'LandingController@sebaranpertanggalall')->name('sebaranpertanggal');
-Route::get('/homeexport/{fkecamatan}', 'LandingController@homeexport')->name('homeexport');
+Route::get('/homeexport/{tglawal}/{tglakhir}', 'LandingController@homeexport')->name('homeexport');
+Route::get('/homeexport///{fkecamatan}', 'LandingController@homeexportk')->name('homeexport');
+
+// Route::get('/homeexport/{tglawal}/{tglakhir}', 'LandingController@homeexport')->name('homeexport');
+// Route::get('/homeexport/', 'LandingController@homeexport')->name('homeexport');
+
 
 
 //pravelensi

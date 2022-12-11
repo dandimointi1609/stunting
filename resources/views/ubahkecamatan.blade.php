@@ -25,13 +25,25 @@
 
                                 <div class="form-row">
                                     <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama">Kode Kecamatan <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control col-lg-6" id="kd_kecamatan" placeholder="Masukan Kode Kecamatan" name="kd_kecamatan" value="{{ $kecamatan->kd_kecamatan}}">
+                                        <label class="col-lg-4 col-form-label" for="nama">No Kecamatan <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control col-lg-6" id="kd_kecamatan" placeholder="Masukan Kode Kecamatan" name="kd_kecamatan" value="{{ $kecamatan->no_kecamatan}}">
                                     </div> 
                                     <div class="form-group row col-md-6 ">
-                                        <label class="col-lg-4 col-form-label" for="nama">Kecamatan <span class="text-danger">*</span>
+                                        <label class="col-lg-4 col-form-label" for="nama">Nama Kecamatan <span class="text-danger">*</span>
                                         </label>
                                             <input type="text" class="form-control col-lg-6" id="nama_kecamatan" placeholder="Masukan Kecamatan" name="nama_kecamatan" value="{{ $kecamatan->nama_kecamatan}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group row col-md-6 ">
+                                        <label class="col-lg-4 col-form-label" for="nama">Kode Geojson <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control col-lg-6 @error('kd_kecamatan') is-invalid @enderror" id="kd_kecamatan" placeholder="Masukan Kode Kecamatan" name="kd_kecamatan" value="{{ $kecamatan->kd_kecamatan}}">
+                                    </div> 
+                                    <div class="form-group row col-md-6 ">
+                                        <label class="col-lg-4 col-form-label" for="geojson">File Geojson <span class="text-danger">*</span>
+                                        </label>
+                                            <input type="file" class="uploads form-control col-lg-6 @error('geojson') is-invalid @enderror" id="geojson" placeholder="Pilih File Geojson" name="geojson" value="{{ $kecamatan->geojson}}">
                                     </div>
                                 </div>
 

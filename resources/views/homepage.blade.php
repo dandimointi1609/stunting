@@ -193,10 +193,14 @@
                                     </div>
 
                                     <div class="col-lg-1 col-xl-2"> 
+                                        {{-- <a class="btn mb-1 btn-rounded btn-success" href={{ route ('homeexport') }}><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Excel</a> --}}
                                         {{-- <a href="#" onclick="this.href='/penderitaexport/'+document.getElementById('tglawal').value +    
                                         '/' +document.getElementById('tglakhir').value" target="_blank" class="btn mb-1 btn-rounded btn-warning"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Pdf</a>         --}}
-                                        {{-- <a class="btn mb-1 btn-rounded btn-success" href={{ route ('penderitaexport') }}><span class="btn-icon-left"><i class="fa fa-upload color-success" ></i> </span>Excel</a> --}}
-                                        <a href="#" onclick="this.href='/homeexport/'+document.getElementById('fkecamatan').value" target="_blank" class="btn mb-1 btn-rounded btn-success"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Excel</a>  
+                                        {{-- <a href="#" onclick="this.href='/homeexport/'+document.getElementById('fkecamatan').value" target="_blank" class="btn mb-1 btn-rounded btn-success"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Excel</a>   --}}
+                                        <a href="#" onclick="this.href='/homeexport/'+document.getElementById('tglawal').value +    
+                                        '/' +document.getElementById('tglakhir').value +                 
+                                        '/' +document.getElementById('fkecamatan').value" target="_blank" class="btn mb-1 btn-rounded btn-success"><span class="btn-icon-left"><i class="fa fa-download color-warning"></i> </span>Excel</a>  
+                                        
                                     </div>
                                 </form>                                 
                             </div>
