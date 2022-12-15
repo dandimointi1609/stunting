@@ -10,6 +10,7 @@ use App\models\Pravelensi;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use App\Exports\InputpravelensiExport;
+use App\Exports\InputpravelensiExportall;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -66,6 +67,11 @@ class InputpravelensiController extends Controller
     public function inputpravelensiexport($tglawal,$tglakhir)
     {
         return Excel::download(new InputpravelensiExport($tglawal ,$tglakhir),'data-pravelensi.xlsx');
+    }
+
+    public function inputpravelensiexportall()
+    {
+        return Excel::download(new InputpravelensiExportall(),'data-pravelensi.xlsx');
     }
 
     /**

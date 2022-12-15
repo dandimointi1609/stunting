@@ -12,23 +12,23 @@ use Illuminate\Support\Facades\DB;
 // use DB;
 // use Maatwebsite\Excel\Concerns\FromCollection;
 
-class LaporanpravelensiExport implements FromView
+class LaporanpravelensiExportall implements FromView
 {
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function __construct(string $keyword)
+    public function __construct()
     {
-        $tglawal = $keyword;
-        $tglakhir   = $keyword;
+        // $tglawal = $keyword;
+        // $tglakhir   = $keyword;
+        // // $this->tgl_input = $keyword;
         // $this->tgl_input = $keyword;
-        $this->tgl_input = $keyword;
-        $this->tgl_input = $keyword;
+        // $this->tgl_input = $keyword;
     }
     public function view(): View
     {
         return view('excel.laporan-pravelensi-excel', [
-            'data' => DB::select("SELECT t_kecamatan.nama_kecamatan, t_puskes.nama_puskes, t_puskes.alamat, t_pravelensi.id_puskes,t_pravelensi.id_pravelensi, t_pravelensi.total_balita, t_pravelensi.pendek, t_pravelensi.sangat_pendek, t_pravelensi.total_pendek_sangat, t_desa.nama_desa,
+            'data' => DB::select('SELECT t_kecamatan.nama_kecamatan, t_puskes.nama_puskes, t_puskes.alamat, t_pravelensi.id_puskes,t_pravelensi.id_pravelensi, t_pravelensi.total_balita, t_pravelensi.pendek, t_pravelensi.sangat_pendek, t_pravelensi.total_pendek_sangat, t_desa.nama_desa,
             t_pravelensi.tgl_input,
             CAST((total_pendek_sangat / total_balita ) * 100 as FLOAT)  as pravelensi
             FROM t_pravelensi
@@ -38,7 +38,7 @@ class LaporanpravelensiExport implements FromView
             ON t_pravelensi.kd_desa = t_desa.kd_desa
             RIGHT JOIN t_kecamatan
             ON t_puskes.kd_kecamatan = t_kecamatan.kd_kecamatan
-            WHERE t_pravelensi.tgl_input BETWEEN '$this->tgl_input' AND '$this->tgl_input'")
+            WHERE id_pravelensi')
         ]);
     }
 }

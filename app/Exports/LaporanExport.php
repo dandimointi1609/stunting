@@ -25,11 +25,21 @@ class LaporanExport implements FromCollection, Withheadings
         return [
 
             'No',
-            'Nama Balita',
-            'Jenis Kelamin',
-            'Kecamatan',
-            'Desa',
-            'Puseksmas'
+            'Nama',
+            'Jk',
+            'Tgl Lahir',
+            'Bb Lahir',
+            'Tb Lahir',
+            'Nama Ortu',
+            'Kec',
+            'Puskesmas',
+            'Desa/Kel',
+            'Alamat',
+            'Tgl Pengukuran',
+            'Berat',
+            'Tinggi',
+            'TB/U',
+            'Periode'
         ];        
     }
 
@@ -39,12 +49,11 @@ class LaporanExport implements FromCollection, Withheadings
     public function collection()
     {
         $puskes = DB::table('t_balita AS b')     
-        ->select(          'b.nama_balita',
-                           'b.tgl_pengukuran',
-                           'k.nama_kecamatan',
-                           'd.nama_desa',
-                           'j.jenis_kelamin',
-                           'p.nama_puskes'
+        ->select('b.nama_balita','j.jenis_kelamin','b.tgl_lahir',
+                        'b.bb_lahir','b.tb_lahir','b.nama_ortu',
+                        'k.nama_kecamatan','p.nama_puskes',
+                        'd.nama_desa', 'b.alamat','b.tgl_pengukuran',
+                        'b.bb','b.tb','b.hasil','b.tgl_pengukuran'
                           )
                         //   ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita')
                         ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita','j.jenis_kelamin')
@@ -57,11 +66,21 @@ class LaporanExport implements FromCollection, Withheadings
         $xport[] = [
 
             'No',
-            'Nama Balita',
-            'Jenis Kelamin',
-            'Kecamatan',
-            'Desa',
-            'Puseksmas'
+            'Nama',
+            'Jk',
+            'Tgl Lahir',
+            'Bb Lahir',
+            'Tb Lahir',
+            'Nama Ortu',
+            'Kec',
+            'Puskesmas',
+            'Desa/Kel',
+            'Alamat',
+            'Tgl Pengukuran',
+            'Berat',
+            'Tinggi',
+            'TB/U'
+            // 'Periode'
         ];
 
         $no = 1;
@@ -71,9 +90,18 @@ class LaporanExport implements FromCollection, Withheadings
                 'No' => $no,
                 'Nama Balira' => $key->nama_balita,
                 'Jenis Kelamin'=> $key->jenis_kelamin,
+                'Tgl Lahir'=> $key->tgl_lahir,
+                'Bb Lahir'=> $key->bb_lahir,
+                'Tb Lahir'=> $key->tb_lahir,
+                'Nama Ortu'=> $key->nama_ortu,
                 'kecamatan' => $key->nama_kecamatan,
-                'Desa' => $key->nama_desa,
                 'Puskesmas'=> $key->nama_puskes,
+                'Desa' => $key->nama_desa,
+                'Alamat'=> $key->alamat,
+                'Tgl Pengukuran'=> $key->tgl_pengukuran,
+                'Berat'=> $key->bb,
+                'Tinggi'=> $key->tb,
+                'TB/U'=> $key->hasil,
             ];
             $no++;
         }

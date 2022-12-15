@@ -16,6 +16,7 @@ use PDF;
 
 use Illuminate\Support\Facades\DB;
 use App\Exports\LaporanpravelensiExport;
+use App\Exports\LaporanpravelensiExportall;
 
 
 
@@ -105,9 +106,14 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function Laporanpravelensiexport($tglawal,$tglakhir)
+    public function Laporanpravelensiexport($tglawal,$tglakhir )
     {
         return Excel::download(new LaporanpravelensiExport($tglawal ,$tglakhir),'data-Laporan-Pravelensi.xlsx');
+    }
+
+    public function Laporanpravelensiexportall()
+    {
+        return Excel::download(new LaporanpravelensiExportall(),'data-Laporan-Pravelensi.xlsx');
     }
 
          /**

@@ -900,6 +900,7 @@ s-1 .h2-heading {
 
 .cards-1 .card-body {
   padding: 0;
+  /* height: 1000rem; */
 }
 
 /************************/
@@ -1230,6 +1231,7 @@ s-1 .h2-heading {
 
 .cards-2 .card .card-body {
   padding: 2.5rem 2rem 2.75rem 2em;
+  /* height: 800; */
 }
 
 .cards-2 .card .card-title {
@@ -1513,6 +1515,8 @@ a:hover.back-to-top {
   padding-top: 0.5rem;
   padding-bottom: 1rem;
   background-color: #f3f7fd;
+  
+  /* height: 50%; */
 }
 
 .ex-basic-1 .breadcrumbs {
@@ -1813,7 +1817,7 @@ a:hover.back-to-top {
   /* Description */
   .cards-1 .card {
     display: inline-block;
-    width: 17rem;
+    width: 20rem;
     max-width: 100%;
     margin-right: 1rem;
     margin-left: 1rem;

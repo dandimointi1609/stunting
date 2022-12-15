@@ -330,7 +330,7 @@
 
 //GEOJSON DATABASE
 var geoLayer;
-$.getJSON('storage/post-images/BUNTULIA.geojson', function(json){
+$.getJSON('storage/post-images/BUNTULIA32.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -496,7 +496,7 @@ $.getJSON('storage/post-images/BUNTULIA.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/DENGILO.geojson', function(json){
+$.getJSON('storage/post-images/DENGILO51.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -662,7 +662,7 @@ $.getJSON('storage/post-images/DENGILO.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/DUHIADAA.geojson', function(json){
+$.getJSON('storage/post-images/DUHIADAA33.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -828,7 +828,7 @@ $.getJSON('storage/post-images/DUHIADAA.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/LEMITO.geojson', function(json){
+$.getJSON('storage/post-images/LEMITO20.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -994,7 +994,7 @@ $.getJSON('storage/post-images/LEMITO.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/MARISA.geojson', function(json){
+$.getJSON('storage/post-images/MARISA30.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -1160,7 +1160,7 @@ $.getJSON('storage/post-images/MARISA.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/PAGUAT.geojson', function(json){
+$.getJSON('storage/post-images/PAGUAT50.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -1326,7 +1326,7 @@ $.getJSON('storage/post-images/PAGUAT.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/PATILANGGIO.geojson', function(json){
+$.getJSON('storage/post-images/PATILANGGIO31.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {
@@ -1492,7 +1492,7 @@ $.getJSON('storage/post-images/PATILANGGIO.geojson', function(json){
   
 })
 
-$.getJSON('storage/post-images/POPAYATO.geojson', function(json){
+$.getJSON('storage/post-images/POPAYATO10.geojson', function(json){
       geoLayer =  L.geoJSON(json, {
           style: function (feature) {
               return {

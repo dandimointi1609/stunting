@@ -178,6 +178,7 @@ Route::get('/filter-inputpravelensi/{tglawal}/{tglakhir}', 'InputpravelensiContr
 Route::get('/filter-inputpravelensi', 'InputpravelensiController@laporanall')->name('filter-inputpravelensi');
 // Route::get('/inputpravelensiexport/{filterkecamatan}', 'InputpravelensiController@inputpravelensiexport')->name('inputpravelensiexport');
 Route::get('/inputpravelensiexport/{tglawal}/{tglakhir}', 'InputpravelensiController@inputpravelensiexport')->name('inputpravelensiexport');
+Route::get('/inputpravelensiexport', 'InputpravelensiController@inputpravelensiexportall')->name('inputpravelensiexport');
 
 
 //laporan
@@ -188,6 +189,7 @@ Route::get('/penderitapdf', 'LaporanController@penderitapdf')->name('penderitapd
 Route::get('/cetakpertangal/{tglawal}/{tglakhir}', 'LaporanController@cetakpertanggal')->name('cetakpertanggal');
 Route::get('/cetakpertangal/', 'LaporanController@cetakpertanggalall')->name('cetakpertanggal');
 Route::get('/laporanpravelensiexport/{tglawal}/{tglakhir}', 'LaporanController@laporanpravelensiexport')->name('laporanpravelensiexport');
+Route::get('/laporanpravelensiexport', 'LaporanController@laporanpravelensiexportall')->name('laporanpravelensiexport');
 
 
 

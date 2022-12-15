@@ -216,59 +216,59 @@
   </div>
 
   <div class="ex-basic-1">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-2 col-xl-12">
-                  <div class="card">
-                      <div class="card-body">
-                          <div class="media align-items-center mb-3">
-                              <div class="media-body">
-                                  <h5 class="mb-0">Sebaran Penderita Stunting</h5>
-                              </div>
-                          </div>
-                          <div class="row mb-12">
-                              <div class="">
-                                      <div id="map" style='width' 4500; height='90vh' > </div> 
-                              </div>
-                          </div>
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="media align-items-center mb-2">
+                                <div class="media-body">
+                                    <h5 class="mb-0">Sebaran Penderita Stunting</h5>
+                                </div>
+                            </div>
+                            <div class="row mb-12">
+                                <div class="">
+                                        <div id="map" style='width' 4500; height='90vh' > </div> 
+                                </div>
+                            </div>
 
-                          <div class="bootstrap-modal">
-                              {{-- <button type="button"  id="tombol" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Lihat Detail</button> --}}
-                              <!-- Modal -->
-                              <div class="modal fade" id="exampleModalLong">
-                                  <div class="modal-dialog modal-dialog-scrollable">
-                                      <div class="modal-content">
-                                          <div class="modal-header">
-                                              <h5 class="modal-title">Sebaran Penderita Stunting</h5>
-                                              <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                              </button>
-                                          </div>
-                                          <div class="modal-body">
-                                                  <p>
-                                                  <canvas id="pendekChart" value="{{$d->kd_kecamatan}}"></canvas>
-                                                  </p>
-                                                  <p>
-                                                  </p>
-                                                  <p>
-                                                      <canvas id="myChart"></canvas>
-                                                  </p>
-                                                  {{-- <div ><canvas id="region-stat-chart"></canvas></div> --}}
-                                                      
+                            <div class="bootstrap-modal">
+                                {{-- <button type="button"  id="tombol" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Lihat Detail</button> --}}
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Sebaran Penderita Stunting</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                    <p>
+                                                    <canvas id="pendekChart" value="{{$d->kd_kecamatan}}"></canvas>
+                                                    </p>
+                                                    <p>
+                                                    </p>
+                                                    <p>
+                                                        <canvas id="myChart"></canvas>
+                                                    </p>
+                                                    {{-- <div ><canvas id="region-stat-chart"></canvas></div> --}}
+                                                        
 
-                                          </div>
-                                          <div class="modal-footer">
-                                              <button id="selector" type="button" class="btn btn-secondary" data-dismiss="modal" onClick="refreshPage()">Close</button>
-                                              {{-- <button type="submit" onClick="refreshPage()">Refresh Button</button> --}}
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                      </div>
-                  </div>  
-              </div>
-          </div>
-      </div>
-  </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="selector" type="button" class="btn btn-secondary" data-dismiss="modal" onClick="refreshPage()">Close</button>
+                                                {{-- <button type="submit" onClick="refreshPage()">Refresh Button</button> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 
 <script>
@@ -280,7 +280,7 @@ var leafletMap = L.map('map', {
       pseudoFullscreen: false 
   },
   minZoom: 2
-}).setView([0.6665875, 121.647892], 9);
+}).setView([0.6665875, 121.647892], 10);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
       maxZoom: 19,

@@ -12,7 +12,9 @@ use App\Exports\PenderitaExport;
 use PDF;
 use App\models\Periode;
 use Illuminate\Support\Facades\DB; 
-use Maatwebsite\Excel\Excel;
+// use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\facades\Excel;
+
 
 
 
@@ -208,16 +210,19 @@ class BalitaController extends Controller
 
     public function cetakpenderita($tglawal,$tglakhir){
         $cetakpenderita= DB::table('t_balita AS b')     
-        ->select(          'b.nama_balita',
-                           'b.tgl_pengukuran',
-                           'k.nama_kecamatan',
-                           'd.nama_desa',
-                           'p.nama_puskes'
+        ->select('b.nama_balita','j.jenis_kelamin','b.tgl_lahir',
+                        'b.bb_lahir','b.tb_lahir','b.nama_ortu',
+                        'k.nama_kecamatan','p.nama_puskes',
+                        'd.nama_desa', 'b.alamat','b.tgl_pengukuran',
+                        'b.bb','b.tb','b.hasil','b.tgl_pengukuran',
+                        'p.id_puskes'
                           )
                           ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita')
                           ->rightjoin('t_puskes as p', 'b.id_puskes', '=', 'p.id_puskes')
                           ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
+                    ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
+
                           ->whereBetween('tgl_pengukuran',[$tglawal,$tglakhir])
                           ->orderBy('p.nama_puskes', 'desc')
                    ->get();
@@ -227,13 +232,12 @@ class BalitaController extends Controller
 
     public function cetakall(){
         $cetakpenderita= DB::table('t_balita AS b')     
-        ->select(          'b.nama_balita',
-                           'b.tgl_pengukuran',
-                           'k.nama_kecamatan',
-                           'd.nama_desa',
-                           'p.nama_puskes',
-                           'u.id_puskesmas',
-                           'p.id_puskes'
+        ->select('b.nama_balita','j.jenis_kelamin','b.tgl_lahir',
+                        'b.bb_lahir','b.tb_lahir','b.nama_ortu',
+                        'k.nama_kecamatan','p.nama_puskes',
+                        'd.nama_desa', 'b.alamat','b.tgl_pengukuran',
+                        'b.bb','b.tb','b.hasil','b.tgl_pengukuran',
+                        'p.id_puskes'
 
                           )
                           ->groupBy('k.nama_kecamatan','d.nama_desa','b.tgl_pengukuran','p.nama_puskes','kode_desa','b.nama_balita')
@@ -241,6 +245,8 @@ class BalitaController extends Controller
                           ->rightjoin('t_desa as d', 'b.kode_desa', '=', 'd.kd_desa')
                           ->rightjoin('t_kecamatan as k', 'd.kd_kecamatan', '=', 'k.kd_kecamatan')
                           ->rightjoin('users as u', 'u.id_puskesmas', '=', 'p.id_puskes')
+                    ->rightjoin('t_jenkel as j', 'b.id_jenis_kelamin', '=', 'j.id_jk')
+
                           ->orderBy('p.nama_puskes', 'desc')
                    ->get();
         return view('cetak-penderita-pdf', compact('cetakpenderita'));
